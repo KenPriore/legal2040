@@ -695,9 +695,9 @@ body.nomotion .ledger .now{opacity:1!important}
   <h2 class="chapter" data-year="2036"><span class="num">IV.</span>The Correction</h2>
 
   <figure id="f-screen">
-    <div class="fig-eyebrow"><span>Figure 4</span><span><b>Pasko&rsquo;s screen</b></span></div>
-    <canvas class="stage" data-fig="screen" role="img" aria-label="A contract on a screen with a price field. A clock runs from nine to noon. The field reprices itself four times, flashing red and settling longer each time, while a small bar labelled counsel, next morning, barely moves."></canvas>
-    <figcaption>In the Correction, money moved faster than anyone could ask a person about it. The human step was still there. It took until the next morning, and the number did not have until morning. <span class="src">- moneymatters2040</span></figcaption>
+    <div class="fig-eyebrow"><span>Figure 4</span><span><b>The supply chain</b></span></div>
+    <canvas class="stage" data-fig="chain" role="img" aria-label="A company at the center, drawn as a filled red square, with lines to eighteen suppliers around it. Four suppliers are filled red; the rest are open. A shock passes across the frame; the filled suppliers pulse and stay. Over the following days and weeks the open suppliers go dark one by one, while the lines to them stay drawn."></canvas>
+    <figcaption>Her contracts held. Most of her suppliers&rsquo; contracts could not run, and by the end of the month there was no one on the other end of them. <span class="src">- moneymatters2040</span></figcaption>
   </figure>
 
 
@@ -752,9 +752,9 @@ body.nomotion .ledger .now{opacity:1!important}
   <h2 class="chapter" data-year="2036"><span class="num">V.</span>Elsewhere</h2>
 
   <figure id="f-pivot">
-    <div class="fig-eyebrow"><span>Figure 5</span><span><b>Eighteen months</b></span></div>
-    <canvas class="stage" data-fig="pivot" role="img" aria-label="Two grids of small marks. The left, Europe, turns red as one block from left to right and is finished at eighteen months. The right, the United States, turns red one mark at a time in no order and is still going long after."></canvas>
-    <figcaption>A right Europe wrote as paperwork in 2018 let a continent change over at once. America had to negotiate the same right one contract at a time. <span class="src">- moneymatters2040</span></figcaption>
+    <div class="fig-eyebrow"><span>Figure 5</span><span><b>The rehearsal</b></span></div>
+    <canvas class="stage" data-fig="rehearsal" role="img" aria-label="Two grids of small open marks under a year counter running 2030 to 2037. Three times in the early thirties, part of the left grid, Europe, flashes red and recovers, and its border redraws thicker each time. The right grid, the United States, is untouched. In 2036 a large shock hits both: the left grid flashes and holds; patches of the right grid go dark and stay dark."></canvas>
+    <figcaption>Europe had already been through three small shocks and rebuilt its breakers each time. America met its first one in 2036. <span class="src">- moneymatters2040</span></figcaption>
   </figure>
 
 
@@ -1302,76 +1302,84 @@ body.nomotion .ledger .now{opacity:1!important}
     ctx.fillStyle=SOFT; ctx.font='8px Menlo,monospace'; ctx.fillText('the spreadsheet was right.', 4, h-12);
   }
 
-  /* ---------------- Figure 4 · Pasko's screen ----------------
-     One contract, one morning. A clock runs nine to noon. The price field
-     reprices itself four times, flashing red and settling longer each
-     time. Beside it, counsel's two days barely start. No digits. */
-  function screen(ctx,w,h,t){
-    var cycle=14, ph=t%cycle, hrs=Math.min(3, ph/4);
-    var sx=10, sy=22, sw=w*0.68, sh=h-56;
-    ctx.strokeStyle=INK; ctx.lineWidth=1; ctx.strokeRect(sx+.5,sy+.5,sw,sh);
-    ctx.font='7px Menlo,monospace'; ctx.fillStyle=INK; ctx.textAlign='left';
-    ctx.fillText('SUPPLY CONTRACT · STEEL FITTINGS · NINETY DAYS', sx+8, sy+14);
-    for(var i=0;i<4;i++){ ctx.fillStyle='rgba(17,17,17,.22)'; ctx.fillRect(sx+8, sy+24+i*9, (0.4+hash(i*17)*0.5)*(sw-16), 3.5); }
-    var fy=sy+72, fx=sx+8, fw=sw-16;
-    ctx.fillStyle=INK; ctx.fillText('PRICE', fx, fy-6);
-    var times=[0.66,1.42,2.08,2.83], n=0, flash=0;
-    for(var k=0;k<4;k++){ if(hrs>=times[k]){ n=k+1; var d=hrs-times[k]; if(d<0.12) flash=1-d/0.12; } }
-    var base=0.28+n*0.13, jitter = flash>0 ? (hash(Math.floor(t*30))-0.5)*0.06 : 0;
-    ctx.strokeStyle=INK; ctx.lineWidth=.8; ctx.strokeRect(fx+.5,fy+.5,fw,16);
-    ctx.fillStyle = flash>0 ? ACCENT : 'rgba(17,17,17,.55)';
-    ctx.fillRect(fx+4, fy+5, (base+jitter)*(fw-8), 7);
-    for(var k2=0;k2<n;k2++){ ctx.fillStyle=ACCENT; ctx.fillRect(fx+4+(times[k2]/3)*(fw-8)-1, fy+22, 2, 6); }
-    ctx.strokeStyle='rgba(17,17,17,.35)'; ctx.lineWidth=.5; ctx.beginPath(); ctx.moveTo(fx+4,fy+30); ctx.lineTo(fx+4+fw-8,fy+30); ctx.stroke();
-    ctx.fillStyle=SOFT; ctx.font='7px Menlo,monospace'; ctx.fillText('nine', fx+4, fy+40);
-    ctx.textAlign='right'; ctx.fillText('noon', fx+fw-4, fy+40); ctx.textAlign='left';
-    var cx=w-52, cy=sy+44, R=26;
-    ctx.strokeStyle=INK; ctx.lineWidth=1; ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.stroke();
-    for(var m=0;m<12;m++){ var a=m/12*Math.PI*2; ctx.beginPath(); ctx.moveTo(cx+Math.cos(a)*(R-3),cy+Math.sin(a)*(R-3)); ctx.lineTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R); ctx.stroke(); }
-    var hourA=((9+hrs)/12)*Math.PI*2-Math.PI/2, minA=(hrs%1)*Math.PI*2-Math.PI/2;
-    ctx.lineWidth=1.6; ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+Math.cos(hourA)*(R*0.55),cy+Math.sin(hourA)*(R*0.55)); ctx.stroke();
-    ctx.lineWidth=.9; ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+Math.cos(minA)*(R*0.85),cy+Math.sin(minA)*(R*0.85)); ctx.stroke();
-    var by=cy+R+22;
-    ctx.fillStyle=INK; ctx.font='7px Menlo,monospace'; ctx.textAlign='center'; ctx.fillText('COUNSEL: NEXT MORNING', cx, by-6);
-    ctx.strokeStyle=INK; ctx.lineWidth=.8; ctx.strokeRect(cx-R+.5, by+.5, 2*R, 6);
-    ctx.fillStyle='rgba(17,17,17,.55)'; ctx.fillRect(cx-R+2, by+2, Math.max(1,(hrs/24)*(2*R-4)), 3);
-    ctx.textAlign='left';
-    ctx.fillStyle=SOFT; ctx.font='8px Menlo,monospace'; ctx.fillText('at least somebody’s sure.', 4, h-12);
+  /* ---------------- Figure 4 · the supply chain ----------------
+     The importer at the center, automated. Eighteen suppliers around it,
+     four automated (filled), the rest not (open). The shock passes; the
+     filled ones pulse and stay. Over days, then weeks, the open ones go
+     dark one at a time. The contract lines stay drawn to all of them. */
+  function chain(ctx,w,h,t){
+    var cycle=30, ph=t%cycle;
+    var cx=w*0.5, cy=h*0.5-4, R=Math.min(w*0.34,h*0.36), N=18;
+    var shockAt=6, shockLen=1.6;
+    for(var i=0;i<N;i++){
+      var a=(i/N)*Math.PI*2-Math.PI/2, rr=R*(0.86+hash(i*7)*0.28);
+      var x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr;
+      var auto=(i%5===2);
+      var darkAt=8+hash(i*13)*18;
+      var dark=!auto && ph>=darkAt;
+      var pulse=(auto && ph>=shockAt && ph<shockAt+shockLen) ? 1+0.6*Math.sin(((ph-shockAt)/shockLen)*Math.PI) : 1;
+      ctx.strokeStyle = dark ? 'rgba(17,17,17,.22)' : 'rgba(17,17,17,.45)'; ctx.lineWidth=.6;
+      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(x,y); ctx.stroke();
+      if(auto){ ctx.fillStyle=ACCENT; ctx.fillRect(x-3.5*pulse,y-3.5*pulse,7*pulse,7*pulse); }
+      else if(dark){ ctx.strokeStyle='rgba(17,17,17,.28)'; ctx.lineWidth=.6; ctx.setLineDash([1.5,1.5]); ctx.strokeRect(x-3.5,y-3.5,7,7); ctx.setLineDash([]); }
+      else { ctx.strokeStyle=INK; ctx.lineWidth=.9; ctx.strokeRect(x-3.5,y-3.5,7,7); }
+    }
+    if(ph>=shockAt && ph<shockAt+shockLen){
+      var k=(ph-shockAt)/shockLen; ctx.fillStyle='rgba(139,0,0,'+(0.10*(1-k)).toFixed(3)+')'; ctx.fillRect(0,0,w,h);
+    }
+    ctx.fillStyle=ACCENT; ctx.fillRect(cx-8,cy-8,16,16);
+    ctx.font='7px Menlo,monospace'; ctx.fillStyle=INK; ctx.textAlign='center';
+    ctx.fillText('THE IMPORTER · automated', cx, cy+22); ctx.textAlign='left';
+    var stage = ph<shockAt ? 'before' : (ph<shockAt+shockLen ? 'the second tuesday' : (ph<14 ? 'days' : 'weeks'));
+    ctx.fillStyle=SOFT; ctx.font='8px Menlo,monospace'; ctx.fillText(stage, 4, 14);
+    if(ph>=shockAt+shockLen){ ctx.fillText('won every dispute.', 4, h-12); }
+    if(ph>=14){ ctx.textAlign='right'; ctx.fillText('no one left to buy from.', w-4, h-12); ctx.textAlign='left'; }
   }
 
-  /* ---------------- Figure 5 · eighteen months ----------------
-     Two grids. Europe turns as one block, left to right, and is done at
-     eighteen months. The United States turns one mark at a time, in no
-     order, and is still going long after. */
-  function pivot(ctx,w,h,t){
-    var cycle=24, ph=t%cycle, months=(ph/cycle)*48;
-    var cols=16, rows=6, pitch=12, gw=(cols-1)*pitch;
-    var gap=40, lx=(w-(gw*2+gap))/2, rx=lx+gw+gap, gy=h*0.5-(rows-1)*pitch/2-6;
-    ctx.font='7px Menlo,monospace'; ctx.fillStyle=INK; ctx.textAlign='left';
-    ctx.fillText('EUROPE · one clause, already law', lx, gy-16);
-    ctx.fillText('THE UNITED STATES · firm by firm, clause by clause', rx, gy-16);
+  /* ---------------- Figure 5 · the rehearsal ----------------
+     Two grids, 2030 to 2037. Europe takes three small shocks in the early
+     thirties: marks flash red, recover, and the border (the breaker)
+     redraws thicker each time. The United States takes none. Then the
+     big one: Europe flashes and holds; America goes dark in patches. */
+  function rehearsal(ctx,w,h,t){
+    var cycle=28, ph=t%cycle, yr=2030+ph/4;
+    var cols=16, rows=6, pitch=12, gw=(cols-1)*pitch, gap=40;
+    var lx=(w-(gw*2+gap))/2, rx=lx+gw+gap, gy=h*0.5-(rows-1)*pitch/2-4;
+    var small=[2031,2032.5,2034], big=2036, len=0.35;
+    function inShock(y0){ return yr>=y0 && yr<y0+len; }
+    var euShocks=0; for(var s=0;s<small.length;s++){ if(yr>=small[s]+len) euShocks++; }
+    var bigOn=inShock(big), bigDone=yr>=big+len;
     for(var c=0;c<cols;c++) for(var r=0;r<rows;r++){
-      var x=lx+c*pitch, y=gy+r*pitch;
-      var eu = months >= (c/(cols-1))*18;
+      var idx=c*rows+r, x=lx+c*pitch, y=gy+r*pitch, x2=rx+c*pitch;
+      var euFlash=false;
+      for(var s2=0;s2<small.length;s2++){ if(inShock(small[s2]) && hash(idx*31+s2)<0.35) euFlash=true; }
+      if(bigOn) euFlash=true;
       ctx.beginPath(); ctx.rect(x-3,y-3,6,6);
-      if(eu){ ctx.fillStyle=ACCENT; ctx.fill(); } else { ctx.strokeStyle=INK; ctx.lineWidth=.7; ctx.stroke(); }
-      var idx=c*rows+r, at=hash(idx*13)*46+1, x2=rx+c*pitch;
+      if(euFlash){ ctx.fillStyle=ACCENT; ctx.fill(); } else { ctx.strokeStyle=INK; ctx.lineWidth=.7; ctx.stroke(); }
+      var usDark=(bigOn||bigDone) && hash(Math.floor(c/3)*11+Math.floor(r/2)*7)<0.55;
       ctx.beginPath(); ctx.rect(x2-3,y-3,6,6);
-      if(months>=at){ ctx.fillStyle=ACCENT; ctx.fill(); } else { ctx.strokeStyle=INK; ctx.lineWidth=.7; ctx.stroke(); }
+      if(usDark){ ctx.strokeStyle='rgba(17,17,17,.28)'; ctx.lineWidth=.6; ctx.setLineDash([1.5,1.5]); ctx.stroke(); ctx.setLineDash([]); }
+      else if(bigOn){ ctx.fillStyle=ACCENT; ctx.fill(); }
+      else { ctx.strokeStyle=INK; ctx.lineWidth=.7; ctx.stroke(); }
     }
-    var ty=gy+rows*pitch+18, tx0=lx, tx1=rx+gw;
+    ctx.strokeStyle=INK; ctx.lineWidth=0.6+euShocks*0.8;
+    ctx.strokeRect(lx-9,gy-9,gw+18,(rows-1)*pitch+18);
+    ctx.lineWidth=0.6; ctx.strokeRect(rx-9,gy-9,gw+18,(rows-1)*pitch+18);
+    ctx.font='7px Menlo,monospace'; ctx.fillStyle=INK; ctx.textAlign='left';
+    ctx.fillText('EUROPE · three small shocks, three rebuilds', lx-9, gy-18);
+    ctx.fillText('THE UNITED STATES · none', rx-9, gy-18);
+    ctx.font='10px Menlo,monospace'; ctx.textAlign='center'; ctx.fillText(String(Math.floor(yr)), w/2, 14); ctx.textAlign='left';
+    var ty=gy+rows*pitch+16, tx0=lx-9, tx1=rx+gw+9;
     ctx.strokeStyle='rgba(17,17,17,.35)'; ctx.lineWidth=.5; ctx.beginPath(); ctx.moveTo(tx0,ty); ctx.lineTo(tx1,ty); ctx.stroke();
-    var px=tx0+(months/48)*(tx1-tx0);
-    ctx.fillStyle=INK; ctx.fillRect(px-1,ty-5,2,10);
-    var mx=tx0+(18/48)*(tx1-tx0);
-    ctx.strokeStyle=ACCENT; ctx.lineWidth=.75; ctx.setLineDash([2,2]);
-    ctx.beginPath(); ctx.moveTo(mx,ty-10); ctx.lineTo(mx,ty+8); ctx.stroke(); ctx.setLineDash([]);
-    ctx.fillStyle=ACCENT; ctx.font='7px Menlo,monospace'; ctx.textAlign='center'; ctx.fillText('eighteen months', mx, ty+18); ctx.textAlign='left';
+    function tx(y0){ return tx0+((y0-2030)/7)*(tx1-tx0); }
+    for(var k=0;k<small.length;k++){ ctx.fillStyle=ACCENT; ctx.fillRect(tx(small[k])-1,ty-4,2,8); }
+    ctx.fillStyle=ACCENT; ctx.fillRect(tx(big)-1.5,ty-6,3,12);
+    ctx.fillStyle=INK; ctx.fillRect(tx(Math.min(yr,2037))-1,ty-5,2,10);
     ctx.fillStyle=SOFT; ctx.font='8px Menlo,monospace'; ctx.fillText('the plumbing held.', 4, h-12);
   }
 
   /* ---------------- canvas wiring ---------------- */
-  var MAP={fourhundred:[fourhundred,9], sheet:[sheet,5], screen:[screen,11], pivot:[pivot,9.5],
+  var MAP={fourhundred:[fourhundred,9], sheet:[sheet,5], chain:[chain,22], rehearsal:[rehearsal,26],
            windows:[windows,19], saw:[saw,23.4], shutters:[shutters,26.5]};
   Array.prototype.forEach.call(document.querySelectorAll('canvas[data-fig]'), function(c){
     var m=MAP[c.getAttribute('data-fig')];
