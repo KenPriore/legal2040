@@ -695,9 +695,9 @@ body.nomotion .ledger .now{opacity:1!important}
   <h2 class="chapter" data-year="2036"><span class="num">IV.</span>The Correction</h2>
 
   <figure id="f-screen">
-    <div class="fig-eyebrow"><span>Figure 4</span><span><b>Two companies, one week</b></span></div>
-    <canvas class="stage" data-fig="twochains" role="img" aria-label="Two importers side by side, each a filled red square with lines to fourteen suppliers. On the left, Savannah, three suppliers are filled red and eleven are open; on the right, Rotterdam, twelve are filled and two are open. A shock passes across the frame. The filled suppliers on both sides pulse and stay. Over the following days and weeks the open suppliers go dark one by one, nearly all of the left web and two marks on the right, while every line stays drawn."></canvas>
-    <figcaption>Two importers, the same week. Savannah had modernized alone. Rotterdam had modernized inside a market that had already been through its small shocks. <span class="src">- moneymatters2040</span></figcaption>
+    <div class="fig-eyebrow"><span>Figure 4</span><span><b>Everything at once</b></span></div>
+    <canvas class="stage" data-fig="reprice" role="img" aria-label="A dense field of small squares, each a contract. A diagonal wave enters the top-left corner and sweeps to the lower-right. Behind the front, most squares fill solid red, having repriced and held; the rest freeze as open dashed outlines and go dark."></canvas>
+    <figcaption>The correction moved faster than anyone could read it. The contracts that could reprice on their own held their place. The ones that still needed a person to act were settled before anyone looked. <span class="src">- moneymatters2040</span></figcaption>
   </figure>
 
 
@@ -1256,45 +1256,43 @@ body.nomotion .ledger .now{opacity:1!important}
     ctx.fillStyle=SOFT; ctx.font='8px Menlo,monospace'; ctx.fillText('the spreadsheet was right.', 4, h-12);
   }
 
-  /* ---------------- Figure 4 · two companies, one week ----------------
-     Two importers, same week. Left, Savannah: automated alone; most of
-     its suppliers were not, and they go dark one by one after the shock.
-     Right, Rotterdam: automated inside a market that had automated too
-     and had rehearsed; its suppliers flash, reprice, and hold. */
-  function twochains(ctx,w,h,t){
-    var cycle=30, ph=t%cycle, shockAt=6, shockLen=1.6;
-    function web(cx,cy,R,N,autoTest,seed,label){
-      for(var i=0;i<N;i++){
-        var a=(i/N)*Math.PI*2-Math.PI/2, rr=R*(0.84+hash(seed+i*7)*0.3);
-        var x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr;
-        var auto=autoTest(i), darkAt=8+hash(seed+i*13)*18, dark=!auto && ph>=darkAt;
-        var pulse=(auto && ph>=shockAt && ph<shockAt+shockLen) ? 1+0.6*Math.sin(((ph-shockAt)/shockLen)*Math.PI) : 1;
-        ctx.strokeStyle = dark ? 'rgba(17,17,17,.22)' : 'rgba(17,17,17,.45)'; ctx.lineWidth=.6;
-        ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(x,y); ctx.stroke();
-        if(auto){ ctx.fillStyle=ACCENT; ctx.fillRect(x-3*pulse,y-3*pulse,6*pulse,6*pulse); }
-        else if(dark){ ctx.strokeStyle='rgba(17,17,17,.28)'; ctx.lineWidth=.6; ctx.setLineDash([1.5,1.5]); ctx.strokeRect(x-3,y-3,6,6); ctx.setLineDash([]); }
-        else { ctx.strokeStyle=INK; ctx.lineWidth=.9; ctx.strokeRect(x-3,y-3,6,6); }
+  /* ---------------- Figure 4 · the reprice sweep ----------------
+     A dense field of contracts. The correction enters the top-left
+     corner and a diagonal wave crosses the frame in minutes. Behind
+     the front, the contracts that could run (filled) reprice and hold
+     their place; the ones that still needed a person (open) freeze
+     mid-calc and go dark. */
+  function reprice(ctx,w,h,t){
+    var cycle=26, ph=t%cycle, cols=22, rows=12;
+    var mx=18, my=24, gw=w-mx*2, gh=h-my*2-18, sx=gw/(cols-1), sy=gh/(rows-1);
+    var waveStart=3, waveLen=13, prog=(ph-waveStart)/waveLen;   /* 0..1 across the sweep */
+    for(var r=0;r<rows;r++){
+      for(var c=0;c<cols;c++){
+        var x=mx+c*sx, y=my+r*sy;
+        var diag=(c/(cols-1)+r/(rows-1))/2;                     /* 0..1, top-left to lower-right */
+        var auto=hash(r*31+c*7)>0.32;                           /* the ones built to run */
+        if(prog<diag){ ctx.strokeStyle='rgba(17,17,17,.30)'; ctx.lineWidth=.8; ctx.strokeRect(x-2.2,y-2.2,4.4,4.4); }
+        else if(auto){ var s=(prog-diag)<0.05?3.4:2.6; ctx.fillStyle=ACCENT; ctx.fillRect(x-s,y-s,s*2,s*2); }
+        else { ctx.strokeStyle='rgba(17,17,17,.18)'; ctx.lineWidth=.7; ctx.setLineDash([1.4,1.4]); ctx.strokeRect(x-2.2,y-2.2,4.4,4.4); ctx.setLineDash([]); }
       }
-      ctx.fillStyle=ACCENT; ctx.fillRect(cx-7,cy-7,14,14);
-      ctx.font='7px Menlo,monospace'; ctx.fillStyle=INK; ctx.textAlign='center';
-      ctx.fillText(label, cx, cy+R+22); ctx.textAlign='left';
     }
-    var R=Math.min(w*0.19,h*0.33), cy=h*0.5-8;
-    web(w*0.27, cy, R, 14, function(i){ return i%5===2; }, 100, 'SAVANNAH · automated alone');
-    web(w*0.73, cy, R, 14, function(i){ return i%7!==3; }, 500, 'ROTTERDAM · automated with its market');
-    if(ph>=shockAt && ph<shockAt+shockLen){
-      var k=(ph-shockAt)/shockLen; ctx.fillStyle='rgba(139,0,0,'+(0.10*(1-k)).toFixed(3)+')'; ctx.fillRect(0,0,w,h);
+    if(prog>0 && prog<1.02){                                     /* the wave front, an anti-diagonal band */
+      var u=2*prog, ax,ay,bx,by;
+      if(u<=1){ ax=mx+u*gw; ay=my; bx=mx; by=my+u*gh; }
+      else { ax=mx+gw; ay=my+(u-1)*gh; bx=mx+(u-1)*gw; by=my+gh; }
+      ctx.strokeStyle='rgba(139,0,0,.35)'; ctx.lineWidth=1.2;
+      ctx.beginPath(); ctx.moveTo(ax,ay); ctx.lineTo(bx,by); ctx.stroke();
     }
-    var stage = ph<shockAt ? 'before' : (ph<shockAt+shockLen ? 'the second tuesday' : (ph<14 ? 'days' : 'weeks'));
+    var stage = ph<waveStart ? 'before' : (prog<1 ? 'the correction · minutes' : 'after');
     ctx.fillStyle=SOFT; ctx.font='8px Menlo,monospace'; ctx.textAlign='left'; ctx.fillText(stage, 4, 14);
-    if(ph>=14){
-      ctx.fillText('no one left to buy from.', 4, h-12);
-      ctx.textAlign='right'; ctx.fillText('the plumbing held.', w-4, h-12); ctx.textAlign='left';
+    if(prog>=1){
+      ctx.fillText('the ones that could run repriced.', 4, h-10);
+      ctx.textAlign='right'; ctx.fillText('the rest froze.', w-4, h-10); ctx.textAlign='left';
     }
   }
 
   /* ---------------- canvas wiring ---------------- */
-  var MAP={fourhundred:[fourhundred,9], sheet:[sheet,5], twochains:[twochains,22],
+  var MAP={fourhundred:[fourhundred,9], sheet:[sheet,5], reprice:[reprice,20],
            windows:[windows,19], saw:[saw,23.4], shutters:[shutters,26.5]};
   Array.prototype.forEach.call(document.querySelectorAll('canvas[data-fig]'), function(c){
     var m=MAP[c.getAttribute('data-fig')];
