@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Legal2040 · Money Matters</title>
+<meta name="description" content="A fictional retrospective from 2040 tracing the events that changed American law.">
 <meta name="robots" content="noindex"><!-- SOFT-LAUNCH ONLY: delete this line at public launch -->
 
 <!-- Favicon: an unbalanced scale, drawn in the piece's own grammar (filled
@@ -396,42 +397,124 @@ body.nomotion .ledger .now{opacity:1!important}
   .rail{border:none}
   .mark,.anim [data-fade]{opacity:1!important}
 }
+
+/* Event-led reading order; shared, accessible local motion controls. */
+html{scroll-behavior:auto}
+body{--lh-body:1.52}
+.cover .standfirst{max-width:820px}
+.byline{font-size:12px;line-height:1.6}
+.chapter,.plain,.cond,figure{scroll-margin-top:24px}
+.chapter-date{font:12px var(--font-mono);color:var(--accent);margin:-12px 0 24px}
+.chronology{margin:0 0 48px;border-top:1px solid var(--ink);border-bottom:1px solid var(--rule-faint);padding:18px 0}
+.chronology h2{font:700 12px var(--font-sans);text-transform:uppercase;letter-spacing:.13em;margin:0 0 16px}
+.chronology ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 24px}
+.chronology a{display:block;color:var(--ink);font:14px/1.4 var(--font-serif)}
+.chronology a span{display:block;font:12px var(--font-mono);color:var(--accent);margin-bottom:5px}
+.railnote{font-size:14px;line-height:1.55}.railnote h4{font-size:12px}
+.year{font-size:14px!important}
+.fig-eyebrow{font-size:12px;padding-bottom:8px}
+figcaption{text-align:left;font-size:14px;line-height:1.5}
+.motion-status{font:14px/1.5 var(--font-serif);color:var(--accent);margin:8px 0;min-height:1.5em}
+.figure-controls{display:flex;gap:6px;align-items:center;width:240px;max-width:100%;padding:0;margin:6px 0 0 auto;font:12px var(--font-mono);color:var(--ink-soft)}
+.figure-controls button{width:28px;min-width:28px;height:28px;border:0;background:transparent;padding:0;font:14px/1 var(--font-mono);color:inherit;cursor:pointer}
+.figure-controls button:hover,.figure-controls button:focus-visible{color:var(--accent)}
+.figure-controls input{appearance:none;-webkit-appearance:none;flex:1;min-width:40px;width:70px;height:28px;margin:0;background:transparent;cursor:pointer}
+.figure-controls input::-webkit-slider-runnable-track{height:1px;background:var(--rule)}
+.figure-controls input::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:5px;height:5px;margin-top:-2px;background:var(--ink-soft);border:0;border-radius:0}
+.figure-controls input::-moz-range-track{height:1px;background:var(--rule)}
+.figure-controls input::-moz-range-thumb{width:5px;height:5px;background:var(--ink-soft);border:0;border-radius:0}
+.figure-controls:hover input::-webkit-slider-thumb,.figure-controls:focus-within input::-webkit-slider-thumb{background:var(--accent)}
+.figure-controls:hover input::-moz-range-thumb,.figure-controls:focus-within input::-moz-range-thumb{background:var(--accent)}
+.figure-controls output{width:78px;white-space:nowrap;font-size:12px;font-variant-numeric:tabular-nums;opacity:0}
+.figure-controls:hover output,.figure-controls:focus-within output{opacity:1}
+.controls{gap:2px;padding:2px;background:rgba(255,255,255,.94)}
+.controls button{width:30px;min-height:30px;padding:0;border:0;border-radius:0;background:transparent;font-size:14px}
+@media(pointer:coarse){.figure-controls button{width:36px;min-width:36px;height:44px}.figure-controls input{height:44px}.figure-controls output{opacity:1}.controls button{width:44px;min-height:44px}}
+button:focus-visible,input:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+canvas.sheet-stage{height:445px}
+canvas.crisis-stage{height:400px}
+canvas.review-stage{height:440px}
+.cond h3{font:400 1.02rem var(--font-serif);margin:4px 0 12px}
+.skip-link{position:absolute;top:0;left:20px;transform:translateY(-150%);z-index:60;background:white;padding:12px}
+.skip-link:focus{transform:none}
+@media(max-width:900px){.chapter-spread .rail{padding:18px}.chronology ol{grid-template-columns:repeat(2,minmax(0,1fr))}.page{padding-bottom:100px}}
+@media(max-width:550px){canvas.sheet-stage{height:505px}.fig-eyebrow{gap:12px}.cover .byline{display:block}.cover .byline span{display:block}.controls{max-width:calc(100vw - 16px)}}
+@media print{.controls,.figure-controls,.chronology,.skip-link{display:none}figure{break-inside:avoid}.spread{display:block}.rail{display:none}.page{padding:0}.motion-status{display:none}}
+
+
+/* First-visit opening: no external assets; the article is the final frame. */
+html{scrollbar-gutter:stable}
+html.intro-pending .page{visibility:hidden}
+html.intro-active,html.intro-active body{overflow:hidden}
+html.intro-active .page{opacity:var(--intro-reveal,0)}
+html.intro-active .cover .sub,html.intro-active .cover .standfirst,html.intro-active .cover .byline,html.intro-active .intro-replay,html.intro-active .preamble{opacity:var(--intro-copy,0)}
+html.intro-active .controls,html.intro-active .skip-link{visibility:hidden}
+#opening[hidden]{display:none!important}
+#opening{position:fixed;inset:0;z-index:100;isolation:isolate}
+#opening canvas{display:block;width:100%;height:100%;image-rendering:pixelated}
+.opening-skip,.opening-pause,.intro-replay{font:12px/1.5 var(--font-mono);color:var(--ink);background:var(--paper);cursor:pointer}
+.opening-skip{position:absolute;right:20px;top:16px;width:44px;height:44px;padding:0;border:0;background:transparent;color:var(--ink-soft);font:22px/1 var(--font-serif)}
+.opening-skip:hover,.opening-skip:focus-visible{color:var(--accent)}
+.opening-controls{position:absolute;bottom:max(24px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:20px;width:250px;max-width:calc(100% - 40px);padding:5px 12px;background:rgba(255,255,255,.95)}
+.opening-pause{border:0;min-height:44px;padding:8px 0;min-width:55px;text-align:left}
+.opening-controls input{width:150px;min-width:60px;flex:1;accent-color:var(--accent);cursor:pointer;height:30px;background:transparent}
+.opening-controls input::-webkit-slider-runnable-track{height:2px;background:var(--rule-faint)}
+.opening-controls input::-webkit-slider-thumb{-webkit-appearance:none;height:8px;width:8px;background:var(--accent);border:0;border-radius:0;margin-top:-3px}
+.opening-controls input{-webkit-appearance:none;appearance:none}
+.opening-controls input::-moz-range-track{height:2px;background:var(--rule-faint)}
+.opening-controls input::-moz-range-thumb{height:8px;width:8px;background:var(--accent);border:0;border-radius:0}
+.intro-replay{border:0;border-bottom:1px solid var(--rule);padding:9px 0;min-height:44px;margin-top:12px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:550px){.opening-skip{top:14px;right:16px}}
+@media print{#opening,.intro-replay{display:none!important}html.intro-pending .page{visibility:visible!important}html.intro-active .page{opacity:1!important}}
+
 </style>
 
-<!-- GoatCounter · one code across all properties; hostname folded into the path so they roll up in one dashboard -->
-<script>window.goatcounter={path:function(){return location.hostname+location.pathname}}</script>
-<script data-goatcounter="https://kenpriore.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+<script>
+/* Fail open: content is never dependent on a successful animation. */
+(function(){
+ var key='legal2040:money-matters:opening-v1',seen=false,available=false;
+ ['localStorage','sessionStorage'].forEach(function(name){try{var s=window[name];seen=seen||s.getItem(key)==='seen';available=true;}catch(e){}});
+ var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var eligible=available&&!seen&&!reduce&&!location.hash;
+ window.__moneyOpening={key:key,eligible:eligible};
+ if(eligible){
+  document.documentElement.classList.add('intro-pending');
+  window.__moneyOpening.guard=setTimeout(function(){document.documentElement.classList.remove('intro-pending');},3500);
+ }
+})();
+</script>
+
 </head>
 <body>
 
-<div class="controls">
-  <button id="btn-motion" type="button">◼ motion: on</button>
-  <button id="btn-replay" type="button">▸ replay</button>
+<div id="opening" role="dialog" aria-modal="true" aria-label="Money Matters opening animation" aria-describedby="opening-description" hidden>
+ <span id="opening-description" class="sr-only">A detailed agreement is amended and signed, connects to a network, and triggers further transactions. One matter branches toward human review. The network simplifies into the article. You can skip, pause, or seek through this twelve-second opening.</span>
+ <canvas id="opening-canvas" aria-hidden="true"></canvas>
+ <button class="opening-skip" id="opening-skip" type="button" aria-label="Skip intro" title="Skip intro">↗</button>
+ <div class="opening-controls">
+  <button class="opening-pause" id="opening-pause" type="button">Ⅱ Pause</button>
+  <input id="opening-seek" type="range" min="0" max="12" step=".01" value="0" aria-label="Opening animation position">
+ </div>
 </div>
 
-<div class="page">
-
-<!-- ================= SERIES MASTHEAD ================= -->
-<div class="masthead">
-  <span class="series">Legal<b>2040</b></span>
-  <span class="issue">Fiction</span>
-</div>
-
-<!-- ================= COVER ================= -->
+<a class="skip-link" href="#article">Skip to article</a>
+<div class="controls" aria-label="Page motion controls"><button id="btn-motion" type="button" aria-pressed="true" aria-label="Animation enabled" title="Pause all illustrations">Ⅱ</button><button id="btn-replay" type="button" aria-label="Replay visible illustrations" title="Replay visible illustrations">↺</button></div>
+<main class="page">
+<div class="masthead"><span class="series">Legal<b>2040</b></span><span class="issue">Fiction</span></div>
 <header class="cover" data-year="2040">
   <div class="kicker">2026 → 2040</div>
   <h1>Money Matters</h1>
   <div class="sub">A story from 2040 about what happened to American law</div>
-  <p class="standfirst">In 2040, nearly every commercial dispute in America is resolved by machine, in minutes, for pennies, with a reasoned and unsigned opinion. The matters that turn on a human life, guilt, liberty, ruin, mercy, are still heard by people, slowly, in rooms. A reporter follows a retired chief legal officer through the rise of the money machines and into the blurred country where money, humanity, and justice refuse to come apart, and asks who decides which line you stand in.</p>
+  <p class="standfirst">The transformation of American law began with cheaper drafting and a fight over who held the files. Fourteen years later, it had changed how companies traded, how claims were heard, and where a person could turn when a correct decision produced an intolerable result.</p>
   <div class="byline">
     <span>Ken Priore</span>
     <span>Legal2040</span>
-    <span><b>Fiction.</b> Every figure after 2026 is invented and illustrative.</span>
+    <span><b>Fiction.</b> September 11, 2026. People, interviews, future events, and visual sequences are fictional.</span>
   </div>
+<button type="button" class="intro-replay" id="opening-replay">↺ Replay opening</button>
 </header>
-
-<!-- Preamble: built from Ken's dictated note, 2026-08-28. Stitching is
-     drafted voice — Ken approves, rewrites or cuts before publication. -->
 <aside class="preamble">
   <div class="pa-k">A note before you start</div>
   <p>Most of what I write is about law and governance. This one is fiction.</p>
@@ -439,615 +522,481 @@ body.nomotion .ledger .now{opacity:1!important}
   <p>So this is a thought experiment. It&rsquo;s written as if it ran in The New Yorker in 2040 (if it&rsquo;ll still exist), reporting on one possible world for the law. The eight conditions at the end are what would all have to come true for that world to arrive.</p>
   <p>This is the first <b>Legal2040</b> story. I may release others, for some of the other futures we imagined.</p>
 </aside>
-
-<div class="trail" aria-hidden="true">
-  <div class="trail-track"><i></i></div>
-  <span class="trail-year">2040</span>
-</div>
-
-<!-- ================= OPENING ================= -->
-<div class="spread">
-<div class="main">
-
-  <section class="keymetrics">
-    <div class="km-head">Key Metrics 2040</div>
-    <div class="km-grid">
-      <div class="km"><div class="lab">Commercial dispute</div><div class="val">4 min</div><div class="sub">median, machine-resolved</div></div>
-      <div class="km"><div class="lab">Cost to the parties</div><div class="val">pennies</div><div class="sub">Delgado paid nothing</div></div>
-      <div class="km"><div class="lab">Signature on the opinion</div><div class="val">none</div><div class="sub">reasoned, unsigned</div></div>
-      <div class="km fill"><div class="lab">Large companies</div><div class="val">99%</div><div class="sub">have cut the C.L.O. role</div></div>
-      <div class="km fill"><div class="lab">U.S. law firms</div><div class="val">½ gone</div><div class="sub">by the end of the Correction</div></div>
-      <div class="km fill"><div class="lab">Human commercial courts</div><div class="val">dozens</div><div class="sub">the holdouts</div></div>
-    </div>
-  </section>
-
-  <figure class="anim" id="f-rooms">
-    <div class="fig-eyebrow"><span>Figure 1</span><span><b>Two windows, one Tuesday</b></span></div>
-    <svg viewBox="0 0 648 250" role="img" aria-label="Two rooms. On the left, a phone on which a decision writes itself out in reasons and closes. On the right, a courtroom: a bench, empty gallery rows, a flag, and a shaft of light crawling slowly across the floor.">
-      <defs><clipPath id="roomClip"><rect x="300" y="22" width="348" height="188"/></clipPath></defs>
-
-      <!-- ROOM ONE -->
-      <text class="t-lab-ink" x="0" y="12">ROOM ONE · A PHONE, OUTSIDE PHOENIX</text>
-      <line x1="0" y1="19" x2="270" y2="19" stroke="var(--rule-faint)" stroke-width=".5"/>
-      <g transform="translate(96,40)">
-        <rect x="0" y="0" width="80" height="150" rx="10" fill="none" stroke="var(--ink)" stroke-width="1"/>
-        <rect x="7" y="11" width="66" height="128" rx="3" fill="var(--paper-tint)" stroke="var(--rule-faint)" stroke-width=".5"/>
-        <g stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round">
-          <line class="reason" style="animation-delay:0s"    x1="14" y1="24" x2="60" y2="24"/>
-          <line class="reason" style="animation-delay:.10s"  x1="14" y1="33" x2="66" y2="33"/>
-          <line class="reason" style="animation-delay:.20s"  x1="14" y1="42" x2="52" y2="42"/>
-          <line class="reason" style="animation-delay:.30s"  x1="14" y1="51" x2="64" y2="51"/>
-          <line class="reason" style="animation-delay:.40s"  x1="14" y1="60" x2="44" y2="60"/>
-          <line class="reason" style="animation-delay:.50s"  x1="14" y1="73" x2="62" y2="73"/>
-          <line class="reason" style="animation-delay:.60s"  x1="14" y1="82" x2="56" y2="82"/>
-          <line class="reason" style="animation-delay:.70s"  x1="14" y1="91" x2="66" y2="91"/>
-          <line class="reason" style="animation-delay:.80s"  x1="14" y1="100" x2="38" y2="100"/>
-        </g>
-        <g class="verdict">
-          <line x1="14" y1="114" x2="66" y2="114" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round"/>
-          <line x1="14" y1="123" x2="46" y2="123" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round"/>
-        </g>
-      </g>
-      <text class="t-lab" x="136" y="212" text-anchor="middle">a decision, with reasons</text>
-      <text class="t-lab-ink" x="136" y="228" text-anchor="middle">four minutes</text>
-
-      <line x1="285" y1="0" x2="285" y2="250" stroke="var(--rule-faint)" stroke-width=".5"/>
-
-      <!-- ROOM TWO -->
-      <text class="t-lab-ink" x="300" y="12">ROOM TWO · OAK PANELS AND A FLAG</text>
-      <line x1="300" y1="19" x2="648" y2="19" stroke="var(--rule-faint)" stroke-width=".5"/>
-      <g clip-path="url(#roomClip)">
-        <!-- the shaft of light, on the floor, under everything else -->
-        <g class="daylight">
-          <path d="M352 152 L384 152 L430 206 L382 206 Z" fill="var(--paper-tint)" stroke="var(--rule-faint)" stroke-width=".5"/>
-        </g>
-        <!-- window -->
-        <rect x="316" y="42" width="50" height="74" fill="var(--paper)" stroke="var(--ink)" stroke-width="1"/>
-        <line x1="341" y1="42" x2="341" y2="116" stroke="var(--ink)" stroke-width=".5"/>
-        <line x1="316" y1="79" x2="366" y2="79" stroke="var(--ink)" stroke-width=".5"/>
-        <!-- the bench -->
-        <rect x="470" y="88" width="92" height="26" fill="var(--paper)" stroke="var(--ink)" stroke-width="1"/>
-        <rect x="452" y="114" width="128" height="30" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.25"/>
-        <!-- the flag -->
-        <line x1="596" y1="76" x2="596" y2="144" stroke="var(--ink)" stroke-width="1"/>
-        <rect x="596" y="76" width="30" height="20" fill="var(--paper)" stroke="var(--ink)" stroke-width=".75"/>
-        <rect x="596" y="76" width="12" height="9" fill="var(--accent)" opacity=".5"/>
-        <!-- the gallery, empty -->
-        <g fill="var(--paper)" stroke="var(--ink)" stroke-width="1">
-          <rect x="404" y="158" width="180" height="6"/>
-          <rect x="386" y="174" width="216" height="6"/>
-          <rect x="364" y="190" width="260" height="7"/>
-        </g>
-      </g>
-      <line x1="300" y1="152" x2="648" y2="152" stroke="var(--ink)" stroke-width="1"/>
-      <text class="t-lab" x="474" y="228" text-anchor="middle">a dozen people on the benches</text>
-      <text class="t-lab-ink" x="474" y="212" text-anchor="middle">the better part of a day</text>
-    </svg>
-    <figcaption>The same kind of argument, in two lines. One was only money. The other had a person in it. <span class="src">- moneymatters2040</span></figcaption>
-  </figure>
-
-  <p>On a Tuesday in October, in two rooms 1,100 miles apart, there were two disputes that were decided. One took four minutes, and the other took most of the day.</p>
-
-  <p>In the first room, which is not a room at all, but a phone in the hand of a florist named Rosa Delgado, in a strip mall outside Phoenix. The dispute was a four-year supply contract that went sideways. Her wholesaler had changed a delivery term and billed her for the difference. Delgado tapped a button. The system pulled the contract, which had been enforcing its own terms the entire time; read the messages between the parties; applied the governing standard; and rendered a decision, with reasons, that she could read, understand, and appeal if she wished. The reasons ran to a page. The part she showed me said: &ldquo;The delivery term was changed on March 3 by the seller without the buyer&rsquo;s written agreement. Under section 4 of the contract, a change to a delivery term requires written agreement. The charge for the difference is not owed. The buyer may appeal this decision.&rdquo; The argument was over in four minutes. It cost her nothing. &ldquo;My father lost a restaurant to a lawsuit he won. He won,&rdquo; she told me, stripping thorns while she talked, because the interview was costing her an afternoon and the roses did not care. &ldquo;Being right cost more than being wrong would have. I still can&rsquo;t believe that&rsquo;s not the world anymore.&rdquo;</p>
-
-  <p>In the second room, an actual room, with oak panels and a flag and a dozen people on the benches, a judge took most of a day over an eviction. The arrears came to four thousand one hundred and eighty dollars, and nobody disputed the figure. The question was whether the amount should be allowed to put a family on the street in November. No machine was allowed near this action.</p>
-
-  <p>Every dispute in America now goes through one of two windows. The first free window takes four minutes to render an opinion. The second window has fees, attorneys, a wait, and people behind it. And society is okay with that, for now.</p>
-
-  <p>The usual account of what has happened to American law in the last fifteen years is that the country split it in two: it handed money to the machines, contracts, commerce, the vast arithmetic of who-owes-whom, and kept the questions of guilt and liberty and justice for human beings in rooms. Both rooms were about money. One was only money, and a machine closed it in four minutes. The other had a family inside the number, and so it went to a human being and took a day. The sorting does not run cleanly between money and justice. It runs through the middle of money itself: at some point a sum stops being a sum and becomes a life, and a decision has to be made about which window it goes to. No statute says where that point is.</p>
-
-  <p>I spent the better part of a year reporting on which side of that line things fell, and why, and I did most of it in the company of a woman who signed the order closing her company&rsquo;s transactional group in 2033. Her name is Margaret Halloran, and for the back half of her career she was the chief legal officer of one of the largest corporations on earth.</p>
-
-</div>
-
-<aside class="rail">
-  <div class="rail-sticky">
-    <div class="dash">
-      <div class="year">HOW TO READ THIS <small>legend</small></div>
-      <div class="legend">
-        <div><s class="on"></s><b>machine side</b><i class="lead"></i><span class="sp">a sum</span></div>
-        <div><s></s><b>human side</b><i class="lead"></i><span class="sp">a life</span></div>
-      </div>
-      <div class="railnote">
-        <h4>The margin</h4>
-        This rail carries no metrics. The figures in this piece are pictures rather than
-        measurements, and each one is built from a sentence in the article beside it, so the page
-        never asserts a number the story does not already state.
-      </div>
-      <div class="railnote">
-        <h4>Provenance</h4>
-        The narrative is fiction from 2027 onward. Where a figure appears, the line it was drawn
-        from is quoted in the caption or in this margin.
-      </div>
-    </div>
-  </div>
-</aside>
-</div>
-
-<!-- ================= I. THE SEAT ================= -->
-<div class="spread chapter-spread">
-<div class="main">
-  <h2 class="chapter" data-year="2026"><span class="num">I.</span>The Seat</h2>
-
-
-  <p>&ldquo;You have to understand the seat I was sitting in,&rdquo; Halloran told me, the first time we met, at her house outside Cincinnati. She served coffee in mugs from a law firm that no longer exists. Neither of us commented on them. She is tall, deliberate, with the courtroom habit of pausing exactly one beat longer than feels comfortable. &ldquo;I didn&rsquo;t make laws. I was general counsel at a corporation. I made peace between the company and the world, between what the business wants to do and what it&rsquo;s allowed to do, and often just peace between the people inside the company. For two hundred years that peace was made out of paper and people, and my whole job was paper and people, and so quickly it dissolved.&rdquo;</p>
-
-  <p>The story she tells starts, ironically for someone who talks about paper and people, with an email. It was from the firm of Ashland &amp; Pike, announcing that it would spend half a billion dollars building proprietary technology, and Halloran forwarded it to her team with a joke. Even then she was seen as something of a laggard for still using email. Everyone else had moved on to the messaging systems, and a lot of people were already talking to their computers instead of writing to anyone. Maybe, she says now, she should have paid more attention to that. She found the email eventually, in an archive she is not supposed to still have access to. The subject line was &ldquo;half a billion dollars for autocorrect.&rdquo; Fourteen people replied. Two of them now work for the company that built the system her old department runs on.</p>
-
-  <p>But the seat she sat in gave her a particular angle on the change, because she watched it arrive in order. First the machines drafted. Then they connected the documents to one another, the contract to the amendment to the message that had changed a term. Then they reasoned, and the memos coming back were better than the ones her lawyers were writing, and her lawyers were doing less of the work and more of the reading. &ldquo;By the second or third year the best memo in the building was coming out of the system and a lawyer was reading it out,&rdquo; she said. &ldquo;A year or two after that I noticed its judgment was better than ours, and it was cheaper. Once both of those were true there wasn&rsquo;t a conversation left to have. A contract is a promise with a number attached, and the thing about a number is that a machine can hold it accurately, forever, without getting bored or getting greedy or going home at five. I think that&rsquo;s the whole story. We automated the part of the law that was already math. It just took us a while to admit how much of it was.&rdquo;</p>
-
-  <p>The machines learned to read agreements and to pull the numbers out of them correctly, then to connect what one system knew to what another did, the contract to the invoice to the shipping record, and to put the result in front of a lawyer in better shape than any associate had ever managed. The lawyer decided. The machine watched the decision. After enough decisions it began to recommend one, and the recommendations were right often enough, and fast enough, that people stopped checking them. Their judgment had become another set of data.</p>
-
-  <p>There is a detail Halloran returns to whenever I press her on the true origin of all this, and it is dull. Data portability. The procurement-desk right to take your own information and walk out the door with it. &ldquo;Nothing happens without it,&rdquo; she said. &ldquo;None of it. You can build the smartest system on earth, and if it can&rsquo;t get at the data, clean, portable, yours, it&rsquo;s a very expensive paperweight. The whole revolution rode in on a contract clause that put people to sleep in 2024.&rdquo; I heard a version of that sentence from Stein, from Venkatesan, and from a regulator in Brussels.</p>
-
-  <p class="pointer"><span class="tri">➤</span><em>See</em> <a href="#c1" class="tgt">Condition 1 · Data has to move</a> <em>for the version of this that is not fiction.</em></p>
-
-  <p>&ldquo;Everybody thinks the trick was getting the machine to read the documents,&rdquo; Halloran said. &ldquo;Reading was never the hard part. The hard part was the relationships, taking a pile of fragmented, inconsistent, half-scanned public records and turning them into something true. A clean family tree. A timeline that actually holds. A claim chart that survives a fight. The exact shape the work needs, not a summary of it.&rdquo; For years, she said, the models could find almost anything and structure almost nothing, they would happily summarize a record and just as happily get the relationships wrong. The turn came when they got good enough to do the structuring: to convert the mess into reliable infrastructure. &ldquo;The day the machine stopped describing the data and started organizing it correctly,&rdquo; she said, &ldquo;was the day my profession ended and didn&rsquo;t notice.&rdquo;</p>
-
-  <p class="pointer"><span class="tri">➤</span><em>See</em> <a href="#c2" class="tgt">Condition 2 · Models have to get good at structure</a> <em>for the unsolved half.</em></p>
-</div>
-<aside class="rail"><div class="rail-sticky"><div class="dash">
-  <div class="year">2024 · 2031 <small>the seat</small></div>
-  <div class="railnote" style="margin-top:0">
-    <h4>The keystone</h4>
-    Data portability is the origin Halloran keeps returning to, and the least cinematic detail in
-    the story. Everything downstream of it rode in on a contract clause that put people to sleep.
-  </div>
-  <div class="railnote">
-    <h4>The second problem</h4>
-    Reading the documents was never the hard part. Structuring them was, and the day the machine
-    started organizing the record correctly is the day she dates the end of her profession.
-  </div>
-</div></div></aside>
-</div>
-
-<!-- ================= II. THE NUDGE ================= -->
-<div class="spread chapter-spread">
-<div class="main">
-  <h2 class="chapter" data-year="2027–28"><span class="num">II.</span>The Nudge</h2>
-
-
-  <figure id="f-backlog">
-    <div class="fig-eyebrow"><span>Figure 2</span><span><b>Four hundred</b></span></div>
-    <canvas class="stage" data-fig="fourhundred" role="img" aria-label="A block of four hundred small open circles on the left. From the right, a dense stream of tiny marks flows toward the block far faster than it can take them; a handful reach a circle, which fills for a moment, and the rest fade out before they arrive."></canvas>
-    <figcaption>Before 2027, seeking justice was slow, cumbersome, and expensive, and most people gave up. Then the machines made it easy to file, four hundred arbitrators could not keep up with what came in, and for an institution whose purpose was access, the machines became the answer. <span class="src">- moneymatters2040</span></figcaption>
-  </figure>
-
-  <p>The commercial side began in 2027 at the National Arbitration Association, an institution most people had never heard of, which that year began automating the resolution of small commercial disputes: the kind that pile up by the millions in online commerce, where a consumer and a seller disagree about a charge, a return, a term of service, and where the dollar amounts are too small to justify a lawyer and too numerous to ignore. The N.A.A. built systems that could read the transaction record, apply the governing rules, and issue a binding award, at the scale and speed that e-commerce actually moved.</p>
-
-  <p>It came in sideways. The push was from the e-commerce companies, and the one that moved first was Stripe, which in 2027 took the idea of machine-settled disputes to the N.A.A. as a product feature: a merchant on its rails could offer a customer a binding decision in minutes, with reasons, and a competitor could not. For the National Arbitration Association, it was also a way to feel relevant again.</p>
-
-  <p>Hannah Stein ran the initiative. She had spent a decade in a state court administrator&rsquo;s office before the N.A.A., and she said she took the job because the courts could not keep up and nobody was going to fix that with more judges. &ldquo;I wanted to see whether the technology could get people a decision at all,&rdquo; she said. &ldquo;I didn&rsquo;t expect this.&rdquo; She now sits on three boards; we met in a hotel bar in Philadelphia between two of them.</p>
-
-  <p>&ldquo;Everybody fixated on the courts later,&rdquo; she said. &ldquo;But the courts were never going to go first. They&rsquo;re too slow and too proud. We went first because we had to. We had four hundred arbitrators. There were a hundred million disputes a year. Do the math. They were just evaporating. People eating losses because justice cost more than the loss. We didn&rsquo;t set out to remake the law. We set out to clear a backlog the size of the ocean.&rdquo;</p>
-
-  <p>What Stein&rsquo;s team proved, for a whole class of disputes, the money kind, the kind where the question is simply who owes what, was that an automated process was better: faster, cheaper, more consistent, and, because it could explain itself, often fairer than the human version it replaced, which had run on exhaustion, caseload, and whoever could afford the better lawyer. &ldquo;We expected people to hate it,&rdquo; Stein said. &ldquo;Some did. But most people, when their forty-dollar dispute got resolved in an afternoon with an explanation they could read, did not write us angry letters about the sanctity of the common law. They wrote thank-you notes. Actual thank-you notes. I kept a folder.&rdquo; She smiled. &ldquo;Someone on my team charted it, complaints against thank-yous, one line crossing the other. The week they crossed, I stopped taking calls from the bar associations.&rdquo; She kept the reversals too. In the first eighteen months the N.A.A. vacated eleven hundred of its own awards, most of them because the system had read a shipping timestamp in the wrong time zone. &ldquo;We fixed it in a weekend,&rdquo; she said. &ldquo;A weekend. Eleven hundred people got a letter. Well. It might have been an email. I think we&rsquo;d already required everyone to sign up for electronic communications by then.&rdquo;</p>
-
-  <p class="pointer"><span class="tri">➤</span><em>See</em> <a href="#c3" class="tgt">Condition 3 · Outputs have to be verifiable</a>. <em>Because it could explain itself is doing all the work in that paragraph.</em></p>
-
-  <p>Hundreds of millions of people had spent two decades settling small grievances inside platforms, refunds, disputes, chargebacks, long before they would have called it arbitration. The N.A.A. added notice, a record, and an appeal window. By 2031 a generation of consumers had been trained to accept that a money disagreement could be resolved by a system, in private, in minutes.</p>
-</div>
-<aside class="rail"><div class="rail-sticky"><div class="dash">
-  <div class="year">2027 · 2028 <small>the nudge</small></div>
-  <div class="railnote" style="margin-top:0">
-    <h4>Why arbitration went first</h4>
-    The courts were too slow and too proud to lead. Arbitration led because it had a backlog it
-    could not clear any other way, and because a generation had already been trained by refunds and
-    chargebacks to accept a system settling a money disagreement in minutes.
-  </div>
-  <div class="railnote">
-    <h4>The tell</h4>
-    Stein kept a folder of the thank-you notes, and a chart.
-  </div>
-</div></div></aside>
-</div>
-
-<!-- ================= III. THE TIPPING ================= -->
-<div class="spread chapter-spread">
-<div class="main">
-  <h2 class="chapter" data-year="2032"><span class="num">III.</span>The Tipping</h2>
-
-  <figure id="f-sheet">
-    <div class="fig-eyebrow"><span>Figure 3</span><span><b>The spreadsheet</b></span></div>
-    <canvas class="stage" data-fig="sheet" role="img" aria-label="A spreadsheet of law firms, drawn as bars rather than numbers, recalculating row by row. When the recalculation reaches the bottom, the total in the last column turns red."></canvas>
-    <figcaption>Nobody argued Halloran out of the firms she loved. A column did the arithmetic, and the arithmetic was right. <span class="src">- moneymatters2040</span></figcaption>
-  </figure>
-
-
-  <p>By 2032 the legal-technology providers could do the work. They could redline an agreement against a company&rsquo;s own positions and explain every change. They could connect the context, the contract to the deal history to the counterparty&rsquo;s last three negotiations. They had the knowledge, they had the insight that comes from running more matters than any firm had ever seen, and they had been aligned, clause by clause, to the policies of the company they served, so that what came out already sounded like the company. And they had judgment. They sold all of it by consumption, and nothing in the price looked at a clock. The law firms had wanted to reinvent themselves for years, and some had tried, but the billable hour was too strong and the bar associations too entrenched, and even the firm that had spent half a billion dollars to become a technology company still billed by the hour.</p>
-
-  <p>In the spring of 2032, in a conference room in Cincinnati, Margaret Halloran&rsquo;s finance team put a spreadsheet in front of her showing that the law firms she had spent thirty years cultivating were a breach of her duty to the company. The spreadsheet compared the firms to the providers on the same work, and it had the difference worked out to the dollar. &ldquo;And the spreadsheet was right,&rdquo; she said. &ldquo;That&rsquo;s the part nobody warns you about. The machine doesn&rsquo;t beat you in an argument. It just makes the argument disappear.&rdquo;</p>
-
-  <p class="pointer"><span class="tri">➤</span><em>See</em> <a href="#c6" class="tgt">Condition 6 · The economics have to flip</a>.</p>
-
-  <p>Her company became one of the first of its size to retain no outside human counsel for transactional matters, to route the entire commercial life of a global corporation through a system. The clause that made it possible was one she had insisted on in the 2029 renewals, as leverage: data portability, the right to take the company&rsquo;s own legal history and feed it to whatever engine she chose. &ldquo;I built the road they drove over me with,&rdquo; she said, without bitterness. &ldquo;And I&rsquo;d do it again. It was the right call. It&rsquo;s just a strange thing to be proud of.&rdquo; As she said it she ran her thumb over the name of the law firm on the mug she was holding.</p>
-
-  <p>The transactional group closed on a Thursday in March of 2033, and she remembers it by the catering. &ldquo;We had the good sandwiches,&rdquo; she said. There were sixty-two lawyers on the floor that morning and a memo she had written, and rewritten, and then let the system rewrite, because its version was kinder and she could not stand that it was kinder. She showed me both versions on a tablet. Hers used the word transition four times. The system&rsquo;s used it once, and opened with a sentence hers did not have: &ldquo;This decision is not a judgment about your work.&rdquo; She said she still cannot tell whether that sentence was true. She read her own aloud anyway. &ldquo;I got through the first paragraph. Then a woman named Teresa, contracts, twenty-two years, stood up and said, &lsquo;Margaret, we&rsquo;ve all read it.&rsquo; That was the speech.&rdquo; Forty-four of the sixty-two were placed inside the company within the year, as contract operations analysts and systems reviewers. Nine went to firms that were themselves gone by 2037. &ldquo;People think the decision was the hard part. The decision was a spreadsheet. The room was the hard part.&rdquo; &ldquo;I miss the binders. The closing binders. One of the firms did them in blue leather with the deal name in gold, and I put them on a shelf, and I have not missed one thing about that job except the shelf.&rdquo;</p>
-
-  <p>Marcus Bell had been a commercial litigator, the kind whose docket was money: supply disputes, licensing fights, the collection of what was owed. The trials that turned on a person were still being tried by people. His had turned on numbers, and that docket went to the first window in about two years. Nobody reassigned him. He followed the work. He could see that what was left of litigation, once the machines were deciding who owed whom, was the part that came before a dispute, deciding what was worth fighting about, and he moved into strategy to do that. &ldquo;I wanted to be where the judgment was,&rdquo; he said. &ldquo;That was the whole idea. What I didn&rsquo;t see was that the space for judgment was getting smaller every year, because the machines were getting better at that too.&rdquo; It took him a year to stop grieving the trial work and another to admit that the machines had taken the part of the job he&rsquo;d thought was the job, the drafting, the filing, the arguing, and left him the part he hadn&rsquo;t known was there. &ldquo;Turns out that part was always the job,&rdquo; he said. &ldquo;The rest was just expensive typing.&rdquo;</p>
-
-  <p class="pointer"><span class="tri">➤</span><em>See</em> <a href="#c7" class="tgt">Condition 7 · The workforce has to move with it</a>.</p>
-
-  <p>Agreements were not the only place it happened. In parallel, the Patent Office automated its examinations in 2029, out of desperation. Filings had spiked past anything the human examiner corps could absorb, and the new ones were different: written with machine help, all of them recent, most of them good. It made sense to use a machine to respond to a machine that was writing patents about machines. And patent data is the canonical mess, a century of continuations and counterparts and scanned PDFs that only make sense when you connect them across systems never built to talk to one another. The agents could hold all of it, and they could structure it, and once the structuring was built into the review itself the backlog simply ceased to exist, and approvals started arriving with reasons a person could follow.</p>
-
-  <p>In Maryland, a state forever overshadowed by Delaware&rsquo;s corporate franchise, a judge named Antoine Reyes built a system in 2030, clumsily branded Mary-Tech, that let parties run a commercial dispute through an agentic process end to end, transparent and appealable. He is aware the name is terrible. &ldquo;My clerk had a list of better ones. I don&rsquo;t remember them now. I wanted people to underestimate the thing for as long as possible.&rdquo; Reyes is emphatic about the word commercial. &ldquo;I never touched the criminal docket,&rdquo; he told me. &ldquo;I never wanted to. I built a machine to decide who owed whom for a shipment of steel. That is a question with an answer. &lsquo;Did this man intend to kill that one.&rsquo; That is not,&rdquo; and he stopped for a moment. &ldquo;It is not that kind of question. Anyone who tells you it is has never sat through a sentencing.&rdquo; Within two years, so many corporations had relocated their commercial disputes to Maryland that in 2035 Delaware amended its Chancery rules to match.</p>
-
-  <p class="pointer"><span class="tri">➤</span><em>See</em> <a href="#c4" class="tgt">Condition 4 · Institutions have to say yes</a>.</p>
-</div>
-<aside class="rail"><div class="rail-sticky"><div class="dash">
-  <div class="year">2029 · 2035 <small>the tipping</small></div>
-  <div class="railnote" style="margin-top:0">
-    <h4>The fiduciary fact</h4>
-    The economics stopped being a preference and became a duty. Keeping the firms she had spent
-    thirty years cultivating was, on the spreadsheet, a breach of her duty to the company.
-  </div>
-  <div class="railnote">
-    <h4>The clause that did it</h4>
-    The portability right she had negotiated as leverage became the fuel that made her own
-    department obsolete. She would do it again.
-  </div>
-</div></div></aside>
-</div>
-
-<!-- ================= IV. THE CORRECTION ================= -->
-<div class="spread chapter-spread">
-<div class="main">
-  <h2 class="chapter" data-year="2036"><span class="num">IV.</span>The Correction</h2>
-
-  <figure id="f-screen">
-    <div class="fig-eyebrow"><span>Figure 4</span><span><b>Everything at once</b></span></div>
-    <canvas class="stage" data-fig="reprice" role="img" aria-label="A dense field of small squares, each a contract. A diagonal wave enters the top-left corner and sweeps to the lower-right. Behind the front, most squares fill solid red, having repriced and held; the rest freeze as open dashed outlines and go dark."></canvas>
-    <figcaption>The correction moved faster than anyone could read it. The contracts that could reprice on their own held their place. The ones that still needed a person to act were settled before anyone looked. <span class="src">- moneymatters2040</span></figcaption>
-  </figure>
-
-
-  <p>The Correction was the currency seizure of 2036, and it had been building since the late twenties on two tracks that nobody thought of together. One was the machines. Through the late 2020s everyone in the field was worried about alignment, about agentic systems, about whether software that acted on its own would stay inside the boundaries it was given, and the early answer was that it mostly did, and sometimes did not, and that this was going to be a constant problem rather than a solved one. The other track was the dollar. In the same years its place as the reserve currency began to fracture: experiments in other currencies, settlement rails that never touched it, a stablecoin here and a commodity-backed unit there, each of them small, all of them making the system more porous than it had been.</p>
-
-  <p>What set it off is still argued. The commonest account starts with a stablecoin that had become a settlement layer for commodity contracts and one morning stopped holding its peg, a slide in a market most people had never heard of, and from there the interconnection did the rest. Automated systems on both sides of a hundred million contracts repriced, hedged, and unwound in minutes, faster than the exchanges&rsquo; circuit breakers had been built to catch, because the breakers had been designed on the assumption that somebody somewhere would be slow. None of it was a rogue agent. Every system involved did what it had been built to do. The dollar stopped holding its value from one hour to the next, and the country had to rebuild the financial machinery it had assumed was eternal.</p>
-
-  <p>Lorraine Pasko ran payables for a mid-sized importer in Savannah, and by 2036 the company had done what everyone said to do. Its contracts were automated: the clauses, the kill switches, the currency terms, all of it settling at the first window. What she remembers of the second Tuesday of the crisis is a screen. She watched a routine supplier contract, ninety days, steel fittings, reprice itself four times before lunch. &ldquo;The contract was doing what it was built to do,&rdquo; she said. &ldquo;It had a clause for currency moves. Nobody had ever seen the clause run. It ran, and it ran, and by the fourth time the number didn&rsquo;t mean anything to me anymore, it was just a number changing, and I remember thinking, well, at least somebody&rsquo;s sure.&rdquo; She did what payables had always done with a contract behaving strangely: at twenty to ten she sent it to outside counsel with three questions, whether they could hold payment, whether they could get out of the contract, and whether the clause was even enforceable. The answer came back the next morning, and it was a good answer, and by then it was about nothing. In the day between, the dollar had fallen further than it had in the whole of her working life, and the kill switches written into contracts across the country, in case of a day nobody planned for, had all tripped at once, while the circuit breakers on the exchanges, built for a slower kind of day, had not held. The third reprice had already been disputed, by the contract itself, with the supplier&rsquo;s system, and settled at the first window in four minutes, and paid. &ldquo;The memo said we could contest the third one,&rdquo; she said. &ldquo;We had. The contract had. It was done before the lawyers finished reading it.&rdquo; That week her company stopped sending anything to outside counsel, not as a decision but as a reflex. &ldquo;We never went back. Nobody said we weren&rsquo;t going back. We just, didn&rsquo;t.&rdquo; She thought they had come through it.</p>
-
-  <p>It took days to see the rest, and weeks to believe it. The steel-fittings supplier had been automated. Most of her suppliers had not. Their contracts could not reprice, could not be exited, could not be read by anyone in the time there was, and they were waiting on lawyers in a week that did not have mornings to spare. Some of them stopped shipping. Some of them stopped answering. By the end of the month she had won every dispute her contracts had raised and had almost no one left to buy from. &ldquo;We did everything right,&rdquo; she said. &ldquo;We modernized. We had the clauses. The problem was that we were about the only ones in our part of the world who had, and a contract that protects you from a supplier who isn&rsquo;t there anymore doesn&rsquo;t get you any steel.&rdquo; The company closed in 2037. When we spoke she was holding a coffee cup with the name of a legal-technology provider on it, one of the ones whose contracts had held.</p>
-
-  <p>It was the same across the country. The companies that came through the week were the ones whose contracts could run, and the companies that came through the year were the ones whose suppliers&rsquo; and customers&rsquo; contracts could run too. The Correction sorted companies by whether their contracts could run, and then sorted them again by whether their suppliers&rsquo; could. The rebuilding that followed was on machine terms, because the crisis had shown which kind of system survived a bad week.</p>
-
-  <p>A system that could read a record, apply a rule, and issue a decision with reasons, at the speed the world moved, was what the N.A.A. had built in 2027 for a florist&rsquo;s forty-dollar dispute. Reyes had built the same thing for a commercial docket in Maryland. The Patent Office had put it inside examination. The corporations had moved their contracts onto it. When the crisis came, those were the parts of the country that kept deciding, and the rebuilding copied them because there was nothing else to copy. The new I.R.S. is the N.A.A.&rsquo;s design applied to taxes: a record, a rule, a decision, reasons. The S.E.C.&rsquo;s disclosures became documents a machine could read the way the N.A.A. read a transaction record. Something built to get small people a decision at all became, within a year, the way the country decided everything that could be counted.</p>
-
-  <p class="pointer"><span class="tri">➤</span><em>See</em> <a href="#c8" class="tgt">Condition 8 · It probably takes a shock</a>. <em>This chapter is that assumption, wearing a costume.</em></p>
-
-  <p>The Internal Revenue Service was abolished in its old form and reborn as a system that rewrote its own code each year, learning, closing its own loopholes, growing measurably fairer per cycle. Priya Venkatesan led the rebuild. She dislikes being called the woman who turned off the I.R.S., and when I used the phrase she corrected me. &ldquo;Forty-one thousand people worked there. Nine thousand work for the new system, and I hired, personally, I sat in the interviews, every one of them back. Nobody calls me the woman who did that.&rdquo; The rest she put plainly: &ldquo;We rebuilt the engine in flight because the alternative was the crash. Everybody agrees what taxes are for. Nobody had ever made the math match it. We did.&rdquo; By its third year an internal review called it &ldquo;better than Congress,&rdquo; meaning only that it played no favorites. It appeared in two Senate hearings that year. Her team publishes one number each January, the gap between what the top and bottom deciles pay and what the code says they owe. In 2037 it was nine points. It is now two.</p>
-
-  <p>The Securities and Exchange Commission&rsquo;s disclosure regime became something people finally used, because the systems that produced it could also read it and surface, in plain words, the risks a company had buried in three hundred pages of hedging, and because the Correction had shown what it cost when nobody could read a risk in time. Ashland &amp; Pike, the firm whose half-billion-dollar bet had opened the whole story, the firm that had reinvented itself as a technology company, folded. The firm&rsquo;s last chairman declined, through a lawyer, to be interviewed.</p>
-
-  <div class="ledger" id="ledger">
-    <div class="lr"><span class="was">Internal Revenue Service</span><span class="arw">→</span><span class="now">a code that rewrites itself each year</span></div>
-    <div class="lr"><span class="was">S.E.C. disclosure, unread</span><span class="arw">→</span><span class="now">disclosure that discloses</span></div>
-    <div class="lr"><span class="was">Ashland &amp; Pike</span><span class="arw">→</span><span class="now">the thing it built</span></div>
-    <div class="lr"><span class="was">Half the country&rsquo;s law firms</span><span class="arw">→</span><span class="now">systems</span></div>
-  </div>
-
-  <p>By the end of the Correction, half the country&rsquo;s law firms were gone, the commercial law of the United States ran on systems, and Halloran&rsquo;s profession, the making of corporate peace out of paper and people, had become the orchestration of machines. &ldquo;The Correction is when I understood the shape of it,&rdquo; she said. &ldquo;Money goes first when something is on fire. I kept waiting for the same thing to happen to the rest of the law. The courts. The real courts. It didn&rsquo;t. The other window stayed open. I spent years trying to understand who was paying for it.&rdquo;</p>
-
-
-  <p>The European Union wrote a right to data portability into law in 2018, as one clause in a privacy regulation, and nobody who voted for it was thinking about commercial arbitration.</p>
-
-  <p>The right said that a person, or a company, could take their data and move it, in a usable form, out of one system and into another. At the time it was treated, even in Europe, as a compliance headache, a box to tick, a reason to hire another officer with another certification.</p>
-
-  <p>By the time the dollar broke, Europe had spent most of a decade turning away from it. The same drift from the reserve currency that had made the American system porous had, in Europe, been policy: a digital marketplace inside the Union, settled in its own currency, on its own rails, with the automation that went with it. European companies were further along, and they had already met their circuit breakers, in the smaller shocks of the early thirties, and rebuilt them. When the Correction came, their contracts repriced, disputed, and settled the way Pasko&rsquo;s did, and far fewer of them were still on paper and people. The question every economy faced that year, how fast commercial trust could be rebuilt on something other than the old plumbing, had an answer in Europe before it was asked, because the records of who-owed-whom could already be moved, cleanly and lawfully, from the institutions that were seizing up into new ones. In the United States that had to be improvised, firm by firm, clause by clause, in the middle of the emergency.</p>
-
-  <p>&ldquo;The Americans think they led,&rdquo; Anneke Roos, who spent twenty years in the European Commission&rsquo;s data directorate, told me in a caf&eacute; near the Berlaymont. She had brought the regulation with her, printed, and did not open it. &ldquo;They led on the spectacle. We led on the plumbing.&rdquo; European commercial transactions moved into automated resolution with a speed that startled the Americans who had assumed they owned the future, precisely because the portability rules meant the data was already free to move. The patient, mocked-for-decades bureaucratic instinct to standardize and make things interoperable turned out to be the thing that let an entire continent pivot in eighteen months.</p>
-
-  <p>Halloran comes back to it. &ldquo;Everybody wants to build the cathedral,&rdquo; she said. &ldquo;Nobody wants to lay the drains. But there is no cathedral without the drains. The whole transformation, ours and theirs, sat on top of a right most people couldn&rsquo;t be bothered to read. The right to take your data and leave.&rdquo;</p>
-
-  <p>The bar associations had sued in 2033, three years before the crisis, in four states at once. The theory was the unauthorized practice of law: a system that read a contract, applied a rule, and issued a decision with reasons was practicing law without a license, and the licenses belonged to the bar. It was not a frivolous case. The bar had a century of precedent, the statutes on its side, and the sympathy of every judge who had once been an associate. The surviving large firms, reborn as technology companies, filed alongside them, arguing that if the systems were going to exist they should at least be proprietary and closed rather than open and portable, which would have meant the firms owned them. For a few years they held. Then the Correction arrived, and the argument that machines should not be allowed to decide who owed whom was being made in the middle of a week in which the machines were the only thing that had decided anything in time. The last of the suits was dismissed in 2037. &ldquo;They didn&rsquo;t lose the argument,&rdquo; Halloran said. &ldquo;The ground went out from under it. Nobody out-argued anybody.&rdquo;</p>
-</div>
-<aside class="rail"><div class="rail-sticky"><div class="dash">
-  <div class="year">2028 · 2038 <small>the correction</small></div>
-  <div class="railnote" style="margin-top:0">
-    <h4>What the crisis did</h4>
-    A crisis of money accelerates the automation of money. The companies whose contracts could run
-    got through the week. The ones still on paper and people did not.
-  </div>
-  <div class="railnote">
-    <h4>The plumbing</h4>
-    Portability had been the law in Europe for the better part of two decades, and Europe had already
-    met its circuit breakers in the smaller shocks of the early thirties. America improvised both,
-    clause by clause, in the middle of the emergency. When the crisis came, the plumbing held.
-  </div>
-  <div class="railnote">
-    <h4>How the resistance ended</h4>
-    The bar sued in 2033 on unauthorized practice and held for a few years. The Correction ended
-    the case: the claim that machines should not decide who owed whom was being argued in a week
-    when only the machines had decided anything in time. The last suit was dismissed in 2037.
-  </div>
-</div></div></aside>
-</div>
-
-<!-- ================= V. THE SECOND WINDOW ================= -->
-<div class="spread chapter-spread">
-<div class="main">
-  <h2 class="chapter" data-year="2040"><span class="num">V.</span>The Second Window</h2>
-
-
-  <figure id="f-flood">
-    <div class="fig-eyebrow"><span>Figure 5</span><span><b>The second window</b></span></div>
-    <canvas class="stage tall" data-fig="windows" role="img" aria-label="Two service windows side by side. Into the first, a fast queue of marks streams without stopping, each turning red at the sill. In front of the second, a short queue of open marks advances one place at a time. Above the second window a posted fee bar grows year by year, and the queue beneath it gets shorter."></canvas>
-    <figcaption>The window with a person behind it stayed open the whole time. The fee did the closing, a little every year. <span class="src">- moneymatters2040</span></figcaption>
-  </figure>
-
-  <p>Judge Naomi Frears hears human-harm cases, the criminal docket and the catastrophic personal-injury trials, in a mid-sized city I agreed not to name, in chambers she asked me not to describe, so I will say only that the chair I sat in was older than I am. She has watched the commercial docket automate around her courtroom and stop at her door. There was a pilot. It ran for nineteen months in two counties in Oregon and produced sentences inside the guideline range ninety-four per cent of the time, against seventy-one for the judges. Frears has read the report. &ldquo;It&rsquo;s a good report,&rdquo; she said. &ldquo;They offered us the tools, you understand. Early on. There were very smart people who said the same systems that resolve a contract could resolve a sentencing, and they had the data to suggest the machine would be more consistent than I am. And they were probably right. I am not consistent. I have bad mornings.&rdquo; She folded her hands. &ldquo;And we said no. Not because the machine would be worse. Because we decided that some judgments require a human being to make them, and to be blamed for them, that a person facing the loss of their liberty, or a family facing the loss of a child, is owed the dignity of another person looking at them and taking responsibility for the decision. You can net out a debt. The other thing, I have never found a way to say it, and I have been asked in three depositions.&rdquo;</p>
-
-  <p>The easy cases sort themselves, a breach of contract to a machine, a homicide to a person. The arguing is in the middle. Employment was the first great battleground. When a person is fired, is that a money matter or a human matter? The corporations had an answer: the compliance systems that replaced human resources could detect a pattern of biased conduct, confirm it against the federal standard, and suspend the offender&rsquo;s access without a meeting or a severance negotiation, a screen simply going dark. It was efficient, and by the numbers it was fairer. And it produced a steady stream of people who insisted that being cast out of your livelihood by a machine that would not look at you was precisely the kind of wound the courts were for. One of them, a regional sales manager I&rsquo;ll call Dennis, described the morning his badge stopped working. &ldquo;I thought it was the badge,&rdquo; he said. &ldquo;I went to the desk. The guard already knew. He was nicer about it than the email was, and the email was very nice.&rdquo; The Wellness Office that rose in H.R.&rsquo;s place was an attempt to split the difference: machines made the judgments, humans absorbed the people the judgments fell on.</p>
-
-  <p>&ldquo;Everyone wants to know where the line is,&rdquo; Frears said. &ldquo;It is wherever we are still willing to pay for a human being, and every year someone makes the case that this category, too, is really just math. I&rsquo;m going to be replaced eventually. Fine. The thing I lie awake about is that the case for it will be correct, and we&rsquo;ll do it for the savings, and twenty years later we&rsquo;ll find out what we gave up.&rdquo;</p>
-</div>
-<aside class="rail"><div class="rail-sticky"><div class="dash">
-  <div class="year">2040 <small>the second window</small></div>
-  <div class="railnote" style="margin-top:0">
-    <h4>Why the courts held</h4>
-    Frears was offered the tools and said no, on the ground that some judgments require a person to
-    make them and to be blamed for them. The pilots suggested the machine would be the more
-    consistent of the two. She grants the point.
-  </div>
-  <div class="railnote">
-    <h4>What she lies awake about</h4>
-    That the case for replacing her will one day be correct, and that it will be done for the
-    savings.
-  </div>
-</div></div></aside>
-</div>
-
-<!-- ================= VI. WHICH LINE YOU GET IN ================= -->
-<div class="spread chapter-spread">
-<div class="main">
-  <h2 class="chapter" data-year="2040"><span class="num">VI.</span>Which Line You Get In</h2>
-
-
-  <p>The human courts, having lost the commercial docket, filled with the cases the machines created. Judge Carol Lindqvist runs a hardship docket, and what comes before her is a debt, computed by a system that is never wrong about numbers. &ldquo;That&rsquo;s the whole trouble,&rdquo; she told me. &ldquo;In eleven years on this docket I have never once corrected an amount. What I correct is what the amount is about to do.&rdquo; A man I&rsquo;ll call Earl came before her with a medical debt that an automated system had calculated to the penny and an automated process had begun, lawfully and inexorably, to collect, against a retirement that would not survive the collecting. There was nothing to dispute about the money; the money was correct. Earl is seventy-three and had brought a manila envelope that nobody asked to see. &ldquo;I&rsquo;m not saying I don&rsquo;t owe it,&rdquo; he told me in the hallway, before he was called. &ldquo;I&rsquo;m saying I&rsquo;m seventy-three. I don&rsquo;t know how you put that in the computer.&rdquo; What Lindqvist was there to decide was the thing no system could: whether a correct debt ought to be allowed to end a man. The eviction from the second room, in October, had been hers too; the family kept the apartment through the winter. &ldquo;Collections is math,&rdquo; she said. &ldquo;Everything the math can&rsquo;t finish comes to my courtroom. I&rsquo;m the human you get to appeal to when the math is right and the result is monstrous.&rdquo;</p>
-
-  <p>She let Earl&rsquo;s collection run at eleven dollars a month against a debt of sixty-one thousand, which at that rate will never be paid. The envelope, when he opened it in the hallway afterward, held his wife&rsquo;s death certificate, a photograph of a boat, and a pharmacy receipt.</p>
-
-  <p>Halloran was there that morning. I had asked her to come and she had said no, and then she was in the back row in a coat, and she stayed through Earl. In the hallway afterward she said the collection system had been one of hers, an early one, licensed from her company to the hospital chain, and that it had worked exactly as designed. Then she said she had to make a call.</p>
-
-  <p>The other half of her docket is newer, and stranger. A contractor I&rsquo;ll call Pia watched an automated commercial dispute, decided against her in four minutes over a data error she had never known existed, cascade through nine self-executing agreements in ninety seconds, until contracts she had honored for years declared themselves in default, and no person to appeal to in any of them. The decision against her, which she showed me on her phone, was four sentences long and correct in every one of them. &ldquo;I kept asking who decided,&rdquo; she said. &ldquo;Nobody had. There was nobody to be angry at, and it turned out I needed somebody to be angry at.&rdquo; The only door left open to her was the oldest one: a human court, a human judge, a person with the standing to look at a flawless outcome and call it wrong. &ldquo;You can&rsquo;t apologize to a model,&rdquo; Lindqvist said. &ldquo;You can&rsquo;t ask it for mercy. Somebody has to be able to do those things, or it&rsquo;s a collections agency with a flag out front.&rdquo;</p>
-
-  <p>In the bloc that had decoupled from the Western system, the same machines arrived pointed the other way: automated, total, and opaque, a system that resolved your dispute in minutes and never once showed you why. A shipping agent I met in Istanbul had run the same invoice dispute through both systems, six weeks apart. The Western award ran to a page and a half. The other came back in nine seconds as a single line: RESOLVED, SELLER. He showed me the screenshot. By 2040 there are several of these systems in the world, each with its own answer to what &ldquo;fair&rdquo; is allowed to mean and who gets to see the reasons, and a person who moves between two of them can find that the same facts produce two verdicts, and that no human anywhere is obliged to reconcile them.</p>
-
-  <p>I told Rosa Delgado about Pia, later, on the phone. She was quiet long enough that I thought the call had dropped. &ldquo;Four minutes,&rdquo; she said finally. &ldquo;Same as mine.&rdquo; Then: &ldquo;I don&rsquo;t know what I&rsquo;d want instead. I know what it was like before. I&rsquo;m not going back to before.&rdquo; She asked me for Pia&rsquo;s name, and I did not give it to her, and she said she understood, and I don&rsquo;t think she did.</p>
-
-  <figure id="f-layer">
-    <div class="fig-eyebrow"><span>Figure 6</span><span><b>It means I saw it</b></span></div>
-    <canvas class="stage tall" data-fig="saw" role="img" aria-label="A screen of decisions scrolling upward, each with a red mark at its left. Every few seconds one line stops, four small characters are typed at its end, a line is added to a log on the right, and the scrolling resumes."></canvas>
-    <figcaption>What remains of the general counsel&rsquo;s authority is four characters, logged. That is what a subpoena will find. <span class="src">- moneymatters2040</span></figcaption>
-  </figure>
-
-  <p>Ninety-nine per cent of large companies, Law.com reported, have eliminated the chief legal officer&rsquo;s role. At Halloran&rsquo;s old company the title in its place is Chief Intelligence Officer, and it belongs to a thirty-four-year-old named Devin Cho, who inherited her authority, distributed now across every commercial system in the building. We met in what used to be the general counsel&rsquo;s conference room, which no longer has a table in it; her office is a wellness room. He is slight, in a navy suit with the store crease still in the sleeve. &ldquo;I don&rsquo;t fill her shoes,&rdquo; Cho said. &ldquo;There are no shoes. There&rsquo;s a layer that runs the company&rsquo;s whole commercial life, and I keep my hands on it.&rdquo; He has never met Halloran. He learned her name from an org chart. &ldquo;It pays better than the law was ever going to,&rdquo; he said. Bell&rsquo;s title now is rule-of-law strategist; the job is deciding where the human hand rests on the machine. &ldquo;I tell the young ones the machines took the filing and left us the fights,&rdquo; Bell said. &ldquo;Some of them even believe me.&rdquo;</p>
-
-  <p>Twice while we spoke, something chimed at Cho&rsquo;s wrist, and twice he silenced it without looking. The third time he looked, read it, and said a supplier in Manila had repriced itself and that it was fine. He answered it by typing four characters. When I asked what they meant he said, &ldquo;It means I saw it,&rdquo; and that this was logged, and that this was most of the job. I asked him the question I&rsquo;d been carrying since Frears&rsquo;s chambers: what kept his role human, when the chief legal officer&rsquo;s had dissolved? &ldquo;On the commercial side? Nothing structural,&rdquo; he said. &ldquo;The deals could orchestrate themselves tomorrow. Mostly. What keeps a human here is, it&rsquo;s the same thing that keeps Judge Frears on her bench. Somebody has to be accountable. Nobody is going to subpoena the stack. They&rsquo;ll subpoena me. The day that stops mattering to people, I&rsquo;m gone too. I try not to think about the words &lsquo;for now.&rsquo;&rdquo;</p>
-
-  <p class="pointer"><span class="tri">➤</span><em>See</em> <a href="#c5" class="tgt">Condition 5 · Accountability has to be settled</a>. <em>Cho&rsquo;s answer and the condition are the same sentence.</em></p>
-
-  <p>The hardship docket is the fastest-growing docket in America. Filings have tripled since 2031, by the court administrator&rsquo;s own count.</p>
-</div>
-<aside class="rail">
-  <div class="rail-sticky">
-    <div class="dash">
-      <div class="year">2040 <small>which line</small></div>
-      <p class="capt">Where each category went</p>
-      <div class="strip" id="tide-strip"></div>
-      <div class="railnote">
-        <h4>The middle is staffed on purpose</h4>
-        The hardship docket is the caseload the machines produce by being right, and it is worked
-        entirely by people, because there is nothing in it a system is allowed to close. It is also,
-        by every account in this piece, the fastest-growing docket in the country.
-      </div>
-      <div class="railnote">
-        <h4>The order above</h4>
-        Drawn from the piece itself: employment has already been breached, collections were
-        automated and the mercy kept, and small fraud is the category currently being argued over.
-      </div>
-      <div class="railnote">
-        <h4>What did not transfer</h4>
-        Cho inherited the authority and not the job. The one thing the layer cannot hold is the part
-        that has to sit in front of a committee and answer for what the layer did.
-      </div>
-    </div>
-  </div>
-</aside>
-</div>
-
-<!-- ================= VII. THE HOLDOUTS ================= -->
-<div class="spread chapter-spread">
-<div class="main">
-  <h2 class="chapter" data-year="2040"><span class="num">VII.</span>The Holdouts</h2>
-
-
-  <figure id="f-glacier">
-    <div class="fig-eyebrow"><span>Figure 7</span><span><b>The open window</b></span></div>
-    <canvas class="stage" data-fig="shutters" role="img" aria-label="A row of nine service windows. Shutters come down over them one at a time, each marked with a year. One window never closes; it has three open marks waiting in front of it and a small sign."></canvas>
-    <figcaption>Every one of these closed because someone decided it should. The one still open is a decision too, made every third Tuesday. <span class="src">- moneymatters2040</span></figcaption>
-  </figure>
-
-  <p>Pondera County District Court, in Conrad, Montana, sits every third Tuesday.</p>
-
-  <p>It is not the last human courtroom in America, the criminal and injury courts are human in every state, and it is not even the last to hear business the old way. The National Center for State Courts counts forty-one of them: rural circuits, stubborn jurisdictions, a handful of specialty dockets that, by local statute or orneriness, still let a commercial dispute go before a person, free, if the parties want it. Lawyers call them the holdouts. Reyes, in Maryland, calls them a hedge, a capacity to do it the human way, kept on the shelf in case the country ever wants it back.</p>
-
-  <p>Conrad is the most famous of them, because it leaned into the role. Montana wrote its holdout status into statute and onto its tourism site, somewhere between Glacier and the Testicle Festival, and people fly in from across the country to watch a contract dispute heard by a person.</p>
-
-  <p>Judge Eleanor Brandt presides, climbing two flights of stairs to do it. It was the last interview of the year, and I had run out of questions that were not the same question. She is seventy-one, with reading glasses on a beaded chain, and the day I visited she heard a dispute between a rancher and a contractor over a barn, exactly the sort of who-owes-whom that Rosa Delgado settled in four minutes on her phone, and that Antoine Reyes built a machine in Maryland to resolve at scale. It took Brandt most of a day. The men testified and contradicted themselves; one of them wept about something that had nothing to do with the barn. At the end she ruled, mostly for the contractor, with one concession to the rancher: the cupola on the barn. His father had built it. It was worth maybe nine hundred dollars, and neither man had mentioned it; she had noticed it in a photograph the contractor entered to prove something else.</p>
-
-  <p>&ldquo;I know what I am,&rdquo; Brandt told me afterward, rewrapping half a sandwich. &ldquo;I&rsquo;m a reenactor. The machines do the money better than I do, faster, cheaper, fairer on average, and I&rsquo;ve made my peace with that on the good days. I keep this window open for one reason. To remind people that we chose. Somebody decided what goes to a machine and what goes to a person. On purpose. People are starting to forget that. I&rsquo;m the reminder, and that&rsquo;s worth a Tuesday, I think.&rdquo;</p>
-
-  <p class="rule-end">◆</p>
-</div>
-<aside class="rail">
-  <div class="rail-sticky">
-    <div class="dash">
-      <div class="year">2040 <small>the holdouts</small></div>
-      <div class="railnote" style="margin-top:0">
-        <h4>The hedge</h4>
-        Forty-one benches, kept open by local statute or orneriness. Whether that is a remnant
-        or a reserve is the only question in the chapter, and nobody in it can answer it.
-      </div>
-    </div>
-  </div>
-</aside>
-</div>
-
-<!-- ================= AFTERWORD (was "Prologue" in the source doc; renamed 2026-09-02 on the board's read) ================= -->
-<div class="spread chapter-spread">
-<div class="main">
-  <h2 class="plain" data-year="2026 → 2040">Afterword</h2>
-
-
-  <p>I have been sharing a scenario about the future of law. A fully automated commercial legal system by 2040, with human courts kept for the matters that turn on justice and humanity. The most common response is that it is unrealistic.</p>
-
-  <p>It is. As a prediction, it is almost certainly wrong.</p>
-
-  <p>A scenario works as a stress test. You build the vivid version of a future so you can argue with it, and the argument shows you which assumptions are load bearing. So here is the working version. For the world in that story to arrive, every one of these has to come true. Treat each one as a signal to watch.</p>
-
-  <div class="conds">
-    <div class="cond" id="c1">
-      <div class="cn">CONDITION 1</div>
-      <h4>Data has to move</h4>
-      <p>Portable, interoperable, structured data is the foundation. Without it, nothing else on this list matters. Europe wrote portability into law years ago. The US still has not.</p>
-    </div>
-    <div class="cond" id="c2">
-      <div class="cn">CONDITION 2</div>
-      <h4>Models have to get good at structure</h4>
-      <p>Summarizing a record is solved. Turning messy public records into representations that survive real use, clean family trees, defensible timelines, source-linked exports, is the unsolved part.</p>
-    </div>
-    <div class="cond" id="c3">
-      <div class="cn">CONDITION 3</div>
-      <h4>Outputs have to be verifiable</h4>
-      <p>Nobody defers to a system they cannot audit. Adoption depends on proof: the ability to show why a decision was reached and to prove the record behind it was not altered. The scenario assumes this, and I think it is the hardest piece. Capability is the easy half. Trust is the binding constraint.</p>
-    </div>
-    <div class="cond" id="c4">
-      <div class="cn">CONDITION 4</div>
-      <h4>Institutions have to say yes</h4>
-      <p>Agencies, courts, bar rules, ethics opinions. This is slow and political by design, and it should be.</p>
-    </div>
-    <div class="cond" id="c5">
-      <div class="cn">CONDITION 5</div>
-      <h4>Accountability has to be settled</h4>
-      <p>When the system is wrong, a human has to answer for it. You cannot put a model in front of a regulator. Until that is resolved, a person stays in the loop, which is exactly why the scenario keeps one there.</p>
-    </div>
-    <div class="cond" id="c6">
-      <div class="cn">CONDITION 6</div>
-      <h4>The economics have to flip</h4>
-      <p>Outcome-based value over the billable hour, against incumbents who profit from today&rsquo;s friction.</p>
-    </div>
-    <div class="cond" id="c7">
-      <div class="cn">CONDITION 7</div>
-      <h4>The workforce has to move with it</h4>
-      <p>New roles, real reskilling, and law schools that teach people to build.</p>
-    </div>
-    <div class="cond" id="c8">
-      <div class="cn">CONDITION 8</div>
-      <h4>It probably takes a shock</h4>
-      <p>The compressed timeline runs on a crisis. Absent one, this is a diffusion measured in decades, not in fifteen years.</p>
-    </div>
-  </div>
-
-  <p>Read that list and the skeptics look right. None of it is close to finished. Read it as a checklist and several items have already started to move, which is the point of the exercise: the order of the dominoes, and which ones are already tipping.</p>
-
-  <p>For product and legal teams, the takeaway is the same either way: build for the work to be trusted, proven, and accounted for, and you are building for the realistic version of this future, whenever it arrives.</p>
-
-  <div class="foot">
-    <p><b>Fiction.</b> Every person, institution and figure dated after 2026 in the narrative is invented, as are the firm of Ashland &amp; Pike and its half-billion-dollar bet. Margaret Halloran, Hannah Stein, Marcus Bell, Antoine Reyes, Priya Venkatesan, Naomi Frears, Carol Lindqvist, Devin Cho, Eleanor Brandt, Rosa Delgado, the National Arbitration Association, Mary-Tech and the Correction of 2036 are all constructions. Real institutions are named where the story needs a real anchor, and nothing attributed to them after 2026 happened.</p>
-    <p><b>The figures.</b> Each one is a picture rather than a measurement, built from a sentence in the article beside it, which is quoted in the caption or in the margin. No figure encodes a quantity the story does not state, and none introduces a number. The margin carries no metric series. Red means the machine side and open marks mean the human side, at every layer.</p>
-    <p><b>Motion.</b> All animation is decorative and reversible. It respects <code>prefers-reduced-motion</code>, and the toggle at lower right turns it off for the whole page. Every animated figure has a composed still frame it falls back to.</p>
-    <p><b>Form.</b> Typography, the two-column rail and the appendix pointers follow the AI Futures Project house style used in <i>AI 2027</i> and <i>AI 2040: Plan A</i>, designed by Lightcone Infrastructure. That house style is deliberately instrument rather than illustration; this edition departs from it in the figures, and keeps it everywhere else. This page is not an AI Futures Project publication and carries none of their branding.</p>
-    <p>Ken Priore · <span style="color:var(--accent)">Money Matters</span> · Legal2040 · Views are the author&rsquo;s alone.</p>
-  </div>
-</div>
-<aside class="rail">
-  <div class="rail-sticky">
-    <div class="dash">
-      <div class="year">THE CHECKLIST</div>
-      <div class="railnote" style="margin-top:0">
-        <h4>How to use the eight</h4>
-        The scenario is the entertaining half. The eight conditions are the part you can actually
-        watch. Each one is a signal with a real-world state today, and the order they move in decides
-        whether the story compresses into fifteen years or spreads across forty.
-      </div>
-      <div class="railnote">
-        <h4>The one that binds</h4>
-        <span class="n">3.</span>Outputs have to be verifiable. Capability is the easy half.
-      </div>
-    </div>
-  </div>
-</aside>
-</div>
-
-</div><!-- /page -->
+<nav class="chronology" aria-label="Article chronology"><h2>The events, 2026–2040</h2><ol><li><a href="#chapter-1"><span>2026–2029</span>The Files Begin to Move</a></li><li><a href="#chapter-2"><span>2027–2030</span>The First Decisions</a></li><li><a href="#chapter-3"><span>2032–2033</span>The Department Closes</a></li><li><a href="#chapter-4"><span>2036–2037</span>The Correction</a></li><li><a href="#chapter-5"><span>2037–2039</span>The Rebuilding</a></li><li><a href="#chapter-6"><span>2039–2040</span>The Cases That Came Back</a></li><li><a href="#chapter-7"><span>2040</span>Every Third Tuesday</a></li><li><a href="#afterword"><span>Back in 2026</span>The eight conditions</a></li></ol></nav>
+<div class="trail" aria-hidden="true"><div class="trail-track"><i></i></div><span class="trail-year">2040</span></div>
+<article id="article">
+<div class="spread"><div class="main"><p>On a Tuesday in October, Rosa Delgado settled a dispute with her flower wholesaler in four minutes. A delivery term had been changed without her agreement, and she had been charged for the difference. She disputed the charge on her phone. The system retrieved the contract, checked the messages, applied the governing rule, and returned the money. Delgado was stripping thorns for a funeral order when the decision arrived. She finished the stem before reading it.</p>
+<p>The opinion ran to a page. It contained reasons and instructions for an appeal, but no signature. Delgado paid nothing. Her father, who had owned a restaurant, once spent enough winning a lawsuit to lose the business. She remembered the lawyer congratulating him. “Being right cost more than being wrong would have,” she told me.</p>
+<p>By 2040, an ordinary commercial claim no longer needs to become a lawsuit to obtain a remedy. A system can establish the agreement, inspect the record, apply an authorized rule, and arrange payment before the person who complained has finished something else. The lawyers who once handled the transaction may be gone. The institutions that gave the decision its authority are harder to see from Delgado's phone.</p>
+<p>Fourteen years earlier, the profession had been arguing about whether artificial intelligence could write a dependable brief. The change that followed reached far beyond writing. Companies acquired usable control of their legal records. Arbitration services began issuing automated decisions. Courts recognized defined categories of them, and finance departments started asking what they were still buying from lawyers. The currency crisis of 2036 compressed the remaining timetable. By the time the economy recovered, law had become part of the machinery through which much of commerce operated.</p></div><aside class="rail"><div class="rail-sticky"><div class="dash"><div class="year">2040 · Looking back</div><div class="railnote"><h4>The illustrations</h4>Filled dark-red marks show automated processing. Ink outlines distinguish records, review stages, and human institutions. These are narrative diagrams; their spacing, timing, and proportions are illustrative.</div><div class="railnote"><h4>Reading with motion</h4>Each sequence starts when it comes into view, plays once, and holds. You can pause, replay, or scrub it below the illustration. Reduced-motion settings are respected.</div></div></div></aside></div>
+<section class="spread chapter-spread" aria-labelledby="chapter-1">
+ <div class="main"><h2 class="chapter" id="chapter-1" data-year="2026–2029"><span class="num">I.</span>The Files Begin to Move</h2><div class="chapter-date">2026–2029</div>
+ <p>In 2026, Ashland &amp; Pike announced that it would spend half a billion dollars building proprietary technology. Margaret Halloran, then chief legal officer of a corporation outside Cincinnati, forwarded the announcement to her team with the subject line “half a billion dollars for autocorrect.” It expressed a common view among the people being asked to pay for the first generation of tools. Producing text more quickly was useful. It was less clear why that required a new account of what a law firm was.</p>
+<p>Halloran's company bought legal advice, negotiated commercial agreements, and kept an expanding collection of systems for both. Its legal memory was scattered among them. A contract was in one system, an amendment in another, and the explanation for accepting an unusual term might be in a message sent by someone who had since left. Outside firms held parts of the record. So did business teams that did not think of their correspondence as legal information. A lawyer's value included knowing which document mattered and whom to call when it did not explain what had happened.</p>
+<p>The first systems could summarize the documents they were given. They were less reliable at establishing which agreement controlled, whether a party had changed its name, or whether two records described the same obligation. Those failures mattered more in practice than a well-written paragraph. A mistaken relationship could turn a good account of the wrong contract into advice that looked dependable. Human reviewers spent much of their time checking the structure beneath the answer.</p>
+<p>The work that changed the market began with this less glamorous problem. Companies wanted records they could connect and check. They also wanted to change firms without reconstructing their legal history each time. In its 2029 renewals, Halloran's company insisted on usable exports, stable identifiers, and records that could be connected to its own financial systems. She expected the clauses to strengthen her position in the next fee negotiation. Holding the files would give a firm less control over whether the client could leave.</p>
+<p>Once the record could move, a different supplier could learn from it. The contract could be connected to the invoice, the shipment, the amendment, and the decision made when a similar transaction had gone wrong. The accumulated choices of lawyers became a record that could be inspected and reused. Some of what had appeared to be individual judgment proved to be a reasonably consistent set of company preferences, applied repeatedly by people who had learned them through experience.</p><figure id="f-records">
+ <div class="fig-eyebrow"><span>Figure 1</span><b>The files move</b></div>
+ <canvas class="stage  " data-fig="records" role="img" aria-label="Nine schematic records begin in separate files, connect, converge into a linked record, and travel as dark-red data blocks to another service."></canvas>
+ <div class="motion-status" aria-hidden="true"></div>
+ <figcaption>The history leaves its separate files, becomes a connected record, and can be reused by another service.</figcaption>
+ <div class="figure-controls" aria-label="The files move playback">
+  <button type="button" data-action="toggle" aria-label="Play or pause The files move" title="Play or pause">Ⅱ</button>
+  <button type="button" data-action="replay" aria-label="Replay The files move" title="Replay">↺</button>
+  <input type="range" min="0" max="14" step=".05" value="0" aria-label="The files move animation position">
+  <output aria-label="Elapsed animation time">0.0 / 14s</output>
+ </div>
+ </figure>
+<p>The systems began carrying more than a history of transactions. They carried the company's settled positions: which risks it would accept, which departures required permission, which counterparty had already been granted an exception. Human reviewers checked recommendations against that history. As the checks became dependable, they concentrated on the cases where the recommendation failed or the circumstances had changed.</p>
+<p>Judgment increasingly happened earlier in the process. A lawyer who once negotiated an exception on Tuesday might now spend Tuesday changing the policy under which a thousand exceptions would be handled. The company's commercial choices still had to be made and someone still had to answer for them. Fewer transactions required those choices to be made afresh.</p>
+<p>No department had to close for these changes to take hold. Procurement wanted records that could move. Finance wanted them reconciled with payments. The legal team wanted fewer hours spent reconstructing an agreement. Each request was defensible on its own. Together they gave a new supplier enough of the company's history to begin competing for the work.</p>
+ </div><aside class="rail"><div class="rail-sticky"><div class="dash"><div class="year">2026–2029</div><div class="railnote"><h4>The record before the answer</h4>Usable exports let a client move its history. Connected records let another provider act on it.</div><div class="railnote"><h4>Related conditions</h4><a href="#c1">1 · Records can move</a><br><a href="#c2">2 · Reliable structure</a></div></div></div></aside></section>
+<section class="spread chapter-spread" aria-labelledby="chapter-2">
+ <div class="main"><h2 class="chapter" id="chapter-2" data-year="2027–2030"><span class="num">II.</span>The First Decisions</h2><div class="chapter-date">2027–2030</div>
+ <p>While companies were connecting their records, a separate experiment was establishing whether a machine's answer could carry institutional authority. The National Arbitration Association began automating small commercial disputes in 2027. A customer had been charged twice, a delivery had failed, or a seller and buyer disagreed about a return. The amounts were often too small to justify professional help. Many claims had never become cases at all.</p>
+<p>Hannah Stein, who ran the initiative, had spent a decade in a state court administrator's office. When she moved to the association, she brought less reverence for existing procedure than familiarity with what happened to the people it could not accommodate. The association had four hundred arbitrators. The surrounding commercial platforms generated claims on a scale that made hiring a few more beside the point.</p><figure id="f-backlog">
+ <div class="fig-eyebrow"><span>Figure 2</span><b>Four hundred</b></div>
+ <canvas class="stage  " data-fig="fourhundred" role="img" aria-label="Four hundred open circles representing arbitrators receive a moving stream of claims; only some reach an available arbitrator."></canvas>
+ <div class="motion-status" aria-hidden="true"></div>
+ <figcaption>The association’s four hundred arbitrators face a flow of claims the existing process cannot accommodate. The stream is illustrative, not a measured volume.</figcaption>
+ <div class="figure-controls" aria-label="Four hundred playback">
+  <button type="button" data-action="toggle" aria-label="Play or pause Four hundred" title="Play or pause">Ⅱ</button>
+  <button type="button" data-action="replay" aria-label="Replay Four hundred" title="Replay">↺</button>
+  <input type="range" min="0" max="12" step=".05" value="0" aria-label="Four hundred animation position">
+  <output aria-label="Elapsed animation time">0.0 / 12s</output>
+ </div>
+ </figure>
+<p>The platforms had their own reasons to help. A customer who trusted the remedy was more likely to complete the purchase. A merchant who could offer a reliable dispute process had an advantage over one who could not. Automated arbitration could be paid for as part of a commercial service, rather than financed entirely by the unfortunate person who needed to use it. Delgado's free decision was possible because resolving her claim had become a small cost inside a much larger business.</p>
+<p>That arrangement brought a conflict with it. The institution paying for a dispute system might care greatly about keeping transactions moving and less about questions that threatened the terms on which those transactions occurred. The early safeguards mattered: notice, an accessible record, a reasoned award, and a route to challenge it. They helped distinguish the new service from a customer-support decision that acquired authority simply because no one answered the next message.</p>
+<p>Stein kept a folder of thank-you notes. She also kept the reversals. In its first eighteen months, the association vacated eleven hundred awards, most because a shipping timestamp had been interpreted in the wrong time zone. The technical defect was repaired in a weekend. Recovering payments and correcting what had already happened took longer. The distinction would become familiar: software could be fixed much faster than the consequences of using it.</p>
+<p>It was nevertheless an improvement for people who previously had no economical way to obtain a decision. A professional comparing the new process with a carefully argued case could find deficiencies. A buyer comparing it with abandoning the claim often found a reason to use it again. Stein objected when I dwelt on the reversals without asking about the claims that had once gone unheard. “You can't leave them out because there's no letter in a file,” she said.</p>
+<p>Making claims cheap also created work. People brought grievances they would previously have swallowed. Companies could pursue small debts that once cost more to collect than they were worth. The machinery expanded both access to a remedy and exposure to enforcement. Whether someone experienced it as liberation depended in part on which side of the unpaid balance they occupied.</p>
+<p>In Maryland, Judge Antoine Reyes built on the arbitration example. Mary-Tech, introduced in 2030, allowed parties to submit defined categories of commercial disputes to an automated process with reasons and an appeal route. The initial boundaries were narrower than the builders thought technically necessary. They were what legislators, insurers, clerks, and contracting parties could agree to accept.</p>
+<p>Success enlarged the constituency for expansion. Companies routed disputes to Maryland, creating pressure on competing jurisdictions. Delaware eventually changed its rules. Legal recognition, commercial adoption, and technical improvement reinforced one another. A provider could invest more once its decisions were enforceable; a jurisdiction could authorize more once it had a record of decisions to inspect.</p>
+<p>The bar associations challenged the arrangements in court. Their economic interest was evident, but their objection could not be disposed of by pointing to it. A license attached obligations to an identifiable professional. If a system took over the work, someone still had to determine who carried those obligations, who could be sanctioned, and who would pay when things went wrong. The providers were often more precise about the work they could perform than the responsibility they would accept.</p>
+<p>By the early thirties, the systems had customers who wanted them kept, institutions that would recognize their decisions, and records against which their performance could be checked. The litigation continued. Inside companies, a different process was getting underway: the next annual budget.</p>
+ </div><aside class="rail"><div class="rail-sticky"><div class="dash"><div class="year">2027–2030</div><div class="railnote"><h4>Authority follows adoption</h4>Arbitration, commercial demand, and court recognition develop together. Technical capability alone does not make a decision enforceable.</div><div class="railnote"><h4>Related conditions</h4><a href="#c3">3 · Verification and correction</a><br><a href="#c4">4 · Institutional authority</a></div></div></div></aside></section>
+<section class="spread chapter-spread" aria-labelledby="chapter-3">
+ <div class="main"><h2 class="chapter" id="chapter-3" data-year="2032–2033"><span class="num">III.</span>The Department Closes</h2><div class="chapter-date">2032–2033</div>
+ <p>The firms' business problem became visible before their professional one had been resolved. A team assembled for a matter could be sold again only by doing more work. A provider could apply a common system across many matters and charge for its use. As customers connected procurement, finance, and compliance, the same account of their obligations served all three. The legal product became part of a larger service that the client used every day.</p>
+<p>Some firms built capable products. Reorganizing the partnership around them was harder. A tool that saved an associate a day could improve the margin on a fixed-fee matter. On an hourly matter, it could eliminate revenue. Sustained investment had to be funded by partners whose clients, earnings, and remaining careers were distributed unevenly across practices. Partners who agreed on the technology could disagree about whether their own share of the cost would ever return to them.</p>
+<p>By 2032, Halloran's finance team could compare the alternatives on actual company work. The providers were cheaper and, on the measures the company used, made fewer errors. The spreadsheet she remembers was persuasive partly because it arrived after years of changing what could be measured. The record was more complete, the policies more explicit, and the company's expectations more standardized. The experiment no longer asked whether a machine could be a good lawyer in the abstract. It asked whether retaining a particular group of lawyers improved this company's outcomes enough to justify the cost.</p><figure id="f-sheet">
+ <div class="fig-eyebrow"><span>Figure 3</span><b>The spreadsheet</b></div>
+ <canvas class="stage  sheet-stage" data-fig="sheet" role="img" aria-label="The same agreement travels among reviewers, returns for revision, and accumulates billing marks. A platform processes it as moving dark-red blocks. A comparison selects the platform for the next agreement."></canvas>
+ <div class="motion-status" aria-hidden="true"></div>
+ <figcaption>The same scope of work takes two routes. The comparison informs the next purchase. Timing and cost are schematic, with no numerical ratio implied.</figcaption>
+ <div class="figure-controls" aria-label="The spreadsheet playback">
+  <button type="button" data-action="toggle" aria-label="Play or pause The spreadsheet" title="Play or pause">Ⅱ</button>
+  <button type="button" data-action="replay" aria-label="Replay The spreadsheet" title="Replay">↺</button>
+  <input type="range" min="0" max="16" step=".05" value="0" aria-label="The spreadsheet animation position">
+  <output aria-label="Elapsed animation time">0.0 / 16s</output>
+ </div>
+ </figure>
+<p>The presentation included an option to keep a smaller team during a longer transition. Halloran recommended moving faster. She believed additional supervision would buy little. That was a decision, although she sometimes described the spreadsheet as having left her without one.</p>
+<p>The transactional group closed on a Thursday in March of 2033. There were sixty-two lawyers on the floor. Halloran remembered ordering the good sandwiches and revising a memo that the system eventually rewrote more kindly than she had. She chose to read her own version aloud. A contracts lawyer named Teresa interrupted during the first paragraph: “Margaret, we've all read it.”</p>
+<p>Forty-four of the sixty-two found other positions inside the company within a year. The placement figure appeared in later accounts of the transition. It did not capture changes in grade, compensation, or discretion. Teresa stayed to review exceptions. She had once known the history of particular negotiations well enough that colleagues called her before deciding how to proceed. They now contacted her when a system could not finish something. She remained useful, but the institution had changed its account of what she was useful for.</p>
+<p>The closure was reported as an employment event. It was also a change in where the company made decisions. Some former lawyers acquired authority over policies affecting whole classes of transactions. Others inherited narrower jobs reviewing what those policies could not resolve. Teresa's placement counted as a retained employee in either account.</p>
+<p>Halloran remained after the transactional group closed. The general counsel's office still dealt with investigations, board obligations, contested judgments, and questions for which the company needed an identifiable person to answer. But procurement and finance increasingly worked from the same records as legal. More of the routine coordination once supplied by her department happened inside those systems.</p>
+<p>The transition remained uneven. A company with incomplete records, unusual work, or counterparties unable to use its systems had reasons to keep the old arrangements. A firm could survive by specializing, changing its prices, or building a product clients would buy. In the middle of the decade, the profession was contracting through thousands of decisions of this kind. The crisis turned that gradual process into a condition of doing business.</p>
+ </div><aside class="rail"><div class="rail-sticky"><div class="dash"><div class="year">2032–2033</div><div class="railnote"><h4>What the comparison measures</h4>The spreadsheet tests standardized work on the company’s own records. Its result supports a change in staffing; the timetable remains a choice.</div><div class="railnote"><h4>Related condition</h4><a href="#c6">6 · The economics</a></div></div></div></aside></section>
+<section class="spread chapter-spread" aria-labelledby="chapter-4">
+ <div class="main"><h2 class="chapter" id="chapter-4" data-year="2036–2037"><span class="num">IV.</span>The Correction</h2><div class="chapter-date">2036–2037</div>
+ <p>The currency crisis of 2036 began in a financial system that had become faster, more interconnected, and less dependent on a single settlement arrangement. The dollar's position had been weakening for years. Commodity-backed units, stablecoins, and regional payment networks had each acquired a share of transactions. Businesses used automated agreements to manage obligations across them. This reduced some familiar risks while connecting decisions that had previously taken place at different speeds.</p>
+<p>The commonest account of the Correction starts with a stablecoin used to settle commodity contracts losing its peg. Contracts repriced. Systems hedged the new exposures, sought additional security, and exercised exit rights. Those actions changed the conditions faced by other systems, which responded under their own instructions. A protection in one agreement became a trigger in another. The aggregate movement exceeded the safeguards that exchanges and lenders had built around individual transactions.</p>
+<p>The machines did not have to depart from their instructions to make the emergency worse. Many of the contracts had been designed to protect a company precisely by moving before someone else did. Once enough parties could move at once, prudent behavior at the level of the agreement became destabilizing behavior at the level of the market. The distinction had occupied economists and regulators long before the systems arrived. Automation compressed the time available to respond to it.</p><figure id="f-screen">
+ <div class="fig-eyebrow"><span>Figure 4</span><b>Everything at once</b></div>
+ <canvas class="stage crisis-stage" data-fig="reprice" role="img" aria-label="A connected network of agreements carries payments. The central contract reprices, sending dark-red blocks along its links. Other agreements respond. Counterparties fail, connections break into bits, and the settled central contract is left in a damaged network."></canvas>
+ <div class="motion-status" aria-hidden="true"></div>
+ <figcaption>One agreement’s protection becomes another’s trigger. The contract at the center can settle correctly while the network it depends on breaks. A schematic sequence, with no measured timing or proportions.</figcaption>
+ <div class="figure-controls" aria-label="Everything at once playback">
+  <button type="button" data-action="toggle" aria-label="Play or pause Everything at once" title="Play or pause">Ⅱ</button>
+  <button type="button" data-action="replay" aria-label="Replay Everything at once" title="Replay">↺</button>
+  <input type="range" min="0" max="22" step=".05" value="0" aria-label="Everything at once animation position">
+  <output aria-label="Elapsed animation time">0.0 / 22s</output>
+ </div>
+ </figure>
+<p>Lorraine Pasko, who ran payables for an importer in Savannah, watched a steel-fittings contract reprice itself four times before lunch on the crisis's second Tuesday. Her company had automated its agreements. The relevant clause covered currency movements; until that week, she had never seen it invoked. At twenty to ten, she sent outside counsel three questions about holding payment, exiting the contract, and challenging the latest increase. The answer arrived the next morning, after the system had disputed the increase, obtained a reduction, and paid the corrected amount.</p>
+<p>The company stopped sending that work to the lawyers. It still needed legal judgment, but needed it available inside the transaction before the transaction completed. Waiting for a memorandum had ceased to be a practical form of supervision.</p>
+<p>For a few days, Pasko thought the company had come through. Then a supplier in Ohio failed to deliver. The goods were ready, but the carrier would not move them on the old terms. The supplier was trying to arrange a payment while its lawyers worked through the agreements. Pasko's system advised against paying a second time for a delivery already owed. The advice was defensible. It did not get the truck out of Ohio.</p>
+<p>More suppliers stopped answering. By the end of the month, Pasko's company had prevailed in the disputes its automated contracts had raised and had almost no one left to buy from. It closed the following year. Pasko eventually took a job helping customers implement one of the systems. She understood better than many of the people selling it how a company could protect its contractual position while losing the business that position was supposed to protect.</p>
+<p>The survivors were disproportionately embedded in networks that could adjust together. An automated agreement was of limited use if the counterparty could neither respond nor keep operating after it did. Large businesses pushed compatible systems onto suppliers, lenders insisted on records they could inspect, and emergency financing favored companies whose exposures could be established quickly. A technical advantage became a condition of access to the network.</p>
+<p>The rebuilding accelerated adoption of the systems that had intensified the crisis. Individual firms had to decide how to trade the following morning. They bought machinery that had allowed competitors to respond in time, even while regulators were examining what happened when everyone responded at once. Reducing the shared risk fell to market operators and public institutions that were themselves struggling to supervise the new volume and speed of decisions.</p>
+<p>Ashland &amp; Pike folded during the Correction. Its technology did not save the surrounding partnership quickly enough. Other firms survived by changing their ownership, pricing, or scope. The survivors entered a market in which advice arriving after a transaction had completed was useful mainly for disputing the consequences.</p>
+ </div><aside class="rail"><div class="rail-sticky"><div class="dash"><div class="year">2036–2037</div><div class="railnote"><h4>Protection becomes a trigger</h4>A contract can protect one company while its execution changes the risks faced by everyone around it.</div><div class="railnote"><h4>Related condition</h4><a href="#c8">8 · The shock</a></div></div></div></aside></section>
+<section class="spread chapter-spread" aria-labelledby="chapter-5">
+ <div class="main"><h2 class="chapter" id="chapter-5" data-year="2037–2039"><span class="num">V.</span>The Rebuilding</h2><div class="chapter-date">2037–2039</div>
+ <p>Between 2037 and 2039, emergency arrangements became the basis of ordinary administration. Lenders continued to demand inspectable records after the immediate need for rescue financing had passed. Large companies retained the compatible systems they had required suppliers to adopt. Public agencies, faced with the same interconnected records, rebuilt around them.</p>
+<p>The I.R.S. was dismantled in its old administrative form and rebuilt around continuous reconciliation of income, payments, and obligations. Priya Venkatesan, who led the reconstruction, became famous as the woman who had automated taxes. Congress still set the rates and the broad entitlements. The administrative system had acquired much more of the consequential work between the statute and the amount a taxpayer actually paid: identifying discrepancies, interpreting recurring fact patterns within delegated rules, and determining which claims needed investigation.</p>
+<p>Its advocates emphasized the narrowing gap between what the law required and what different groups paid. Critics asked whose interpretations had been made routine and how a taxpayer could challenge a classification used across millions of accounts. Both were describing real features of the same arrangement. Greater consistency could reduce favoritism and make an administrative choice harder to escape. The Senate hearings over the new agency were arguments about the location of discretion after the people who had exercised it case by case were gone.</p>
+<p>Securities disclosure changed for related reasons. Records written in a common, inspectable form could be connected to transactions while those transactions were still underway. Regulators gained a view of exposures that had previously been buried in documents. The firms operating the infrastructure gained it too. The practical importance of access rights increased as a commercial record became something on which other systems could act.</p>
+<p>Europe entered the crisis with more of the necessary arrangements in place. Years of standardization, portability requirements, and common commercial infrastructure had made it easier to move records and change providers. Smaller shocks had prompted revisions to its safeguards. The advantage was uneven across countries and sectors, but substantial enough that American accounts of the crisis tended to understate it. The different outcomes suggested that the model itself had been only one component of preparedness. Legal permissions, shared formats, and the ability to coordinate a response mattered when the model was available to everyone.</p>
+<p>The reconstruction also increased concentration. A customer might possess the right to export its data and still struggle to leave a provider whose system coordinated its suppliers, payments, and dispute process. Portability had weakened one form of dependence without guaranteeing an easy exit from the next. Halloran's clauses remained valuable. They could not, by themselves, reproduce the network around the files.</p>
+<p>Inside companies, authority was redistributed along with the work. At Halloran's former employer, Devin Cho now holds the title Chief Intelligence Officer. He is thirty-four and works in a part of the building that once housed the general counsel. His responsibilities include setting limits, assigning authority, and identifying decisions that require someone outside the ordinary process to become involved.</p>
+<p>During our conversation, a notification arrived about a supplier changing a settlement arrangement. Cho inspected it and typed four characters. “It means I saw it,” he said. The change was already effective. He could revise the limit governing the next transaction or refer the relationship for review. His acknowledgment established who had received notice.</p><figure id="f-layer">
+ <div class="fig-eyebrow"><span>Figure 5</span><b>The acknowledgment</b></div>
+ <canvas class="stage tall " data-fig="saw" role="img" aria-label="Decision records move up a screen. One pauses for a typed acknowledgment and a corresponding log entry, then the records resume moving."></canvas>
+ <div class="motion-status" aria-hidden="true"></div>
+ <figcaption>A notice is acknowledged and logged. Meaningful supervision also depends on the recipient’s information, time, and power to intervene.</figcaption>
+ <div class="figure-controls" aria-label="The acknowledgment playback">
+  <button type="button" data-action="toggle" aria-label="Play or pause The acknowledgment" title="Play or pause">Ⅱ</button>
+  <button type="button" data-action="replay" aria-label="Replay The acknowledgment" title="Replay">↺</button>
+  <input type="range" min="0" max="24" step=".05" value="0" aria-label="The acknowledgment animation position">
+  <output aria-label="Elapsed animation time">0.0 / 24s</output>
+ </div>
+ </figure>
+<p>The notice belonged to a larger system of supervision. Cho could change a limit or refer a relationship for review; his acknowledgment established who had been informed. Whether that amounted to control depended on his access to the underlying record, the time he had to examine it, and the authority available before the next transaction completed. A company could satisfy the requirement for a named supervisor while withholding one or more of those things.</p>
+<p>The remaining legal work often sat at these points. Companies needed people who could set defensible limits and inspect failures. Courts needed people who could reconstruct a chain of automated decisions. Regulators needed to distinguish an explanation generated after the event from a record establishing what had governed it. These occupations employed fewer people than the work they displaced and asked for different combinations of experience.</p>
+<p>The new training arrangements lagged behind. Firms had paid junior lawyers to do repetitive work through which they learned to recognize what could go wrong. Much of it had disappeared. Simulations could expose a trainee to more examples, but institutions still had to decide what experience justified giving someone authority over a live process and who would pay for that preparation. The profession had been better at pricing work out of existence than financing the expertise needed to check what replaced it.</p>
+<p>By the end of the reconstruction, moving a legal record was easier and leaving the surrounding service could be harder. The systems had acquired suppliers, payment relationships, and recognized procedures for resolving disputes. Their influence extended to the terms on which someone could challenge a result. That was where the next institutional dispute developed.</p>
+ </div><aside class="rail"><div class="rail-sticky"><div class="dash"><div class="year">2037–2039</div><div class="railnote"><h4>A new dependence</h4>An export right does not recreate the suppliers, payment relationships, and accepted procedures around a service.</div><div class="railnote"><h4>Related conditions</h4><a href="#c5">5 · Authority to intervene</a><br><a href="#c7">7 · Remaining expertise</a></div></div></div></aside></section>
+<section class="spread chapter-spread" aria-labelledby="chapter-6">
+ <div class="main"><h2 class="chapter" id="chapter-6" data-year="2039–2040"><span class="num">VI.</span>The Cases That Came Back</h2><div class="chapter-date">2039–2040</div>
+ <p>As ordinary commercial claims moved out of court, a different caseload grew. Cheap enforcement made small debts worth pursuing. Connected agreements allowed one adverse decision to affect several relationships. People who had received an answer began seeking something the ordinary process was not authorized to give: time, an exception, or relief from the consequences of an otherwise valid claim.</p>
+<p>The courts hearing criminal cases and catastrophic injuries had retained human judges throughout the transition. Their authority rested on a public decision about who could exercise those powers. Better performance on a sentencing benchmark did not itself authorize a model to imprison someone. A model could recommend leniency, and a human judge could apply a rule mechanically. Neither observation settled who should have the power to decide.</p>
+<p>Employment brought the dispute into ordinary commercial life. Automated systems could identify patterns of discriminatory conduct and terminate access without a manager deciding that a successful salesman deserved another chance. That could be an improvement for the people whose complaints a human institution had ignored. It could also leave a dismissed employee struggling to contest the record on which the system acted. An account that described only the employee's humiliation missed the people the automation might have protected. An account that described only the reduction in bias missed the possibility of a consequential error.</p>
+<p>As the systems expanded, the country needed procedures for deciding which of these disputes could remain at the first window and which demanded a hearing. The route itself became a source of power. A default classification could determine whether a person received an immediate decision or entered a queue, whether collection continued while an application was considered, and whether assistance was available. Decisions once negotiated between professionals were embedded in the rules governing admission to the process.</p>
+<p>Lawyers came to call the resulting arrangement the two windows. The first applied rules to a record at a price low enough to make a decision almost universal. The second could hear an argument about what should follow, including whether an established entitlement should be enforced in full. Both concerned money and justice. Reaching the second required admission to another procedure.</p><figure id="f-flood">
+ <div class="fig-eyebrow"><span>Figure 6</span><b>Reaching the second window</b></div>
+ <canvas class="stage review-stage" data-fig="windows" role="img" aria-label="An applicant branches from an automated collection process into a human-review route. A filing-fee gate and waiting queue delay the applicant while dark-red payment blocks continue moving above. After a hearing, an order returns to the system and changes future collections."></canvas>
+ <div class="motion-status" aria-hidden="true"></div>
+ <figcaption>Collection and the request for relief run on separate tracks. Filing does not change the payment schedule; a court order must reach the system. Packet counts and timing are illustrative.</figcaption>
+ <div class="figure-controls" aria-label="Reaching the second window playback">
+  <button type="button" data-action="toggle" aria-label="Play or pause Reaching the second window" title="Play or pause">Ⅱ</button>
+  <button type="button" data-action="replay" aria-label="Replay Reaching the second window" title="Replay">↺</button>
+  <input type="range" min="0" max="24" step=".05" value="0" aria-label="Reaching the second window animation position">
+  <output aria-label="Elapsed animation time">0.0 / 24s</output>
+ </div>
+ </figure>
+<p>Judge Carol Lindqvist's hardship docket was one of the places those rules became visible. A man I will call Earl came before her with a medical debt of sixty-one thousand dollars. The system had already removed two duplicate charges. He did not dispute the remainder. He wanted the court to change how it could be collected.</p>
+<p>Earl was seventy-three and had brought a manila envelope containing a pharmacy receipt and a photograph of a boat. The photograph was relevant because the hospital thought the boat could be sold. He still used it with his grandson. The hearing concerned the boat's value, his expenses, and the difference between the monthly payment on his application and what he could afford after buying his prescriptions. Lindqvist set collection at eleven dollars a month, subject to review if his circumstances changed. The debt remained owed. At that rate it would never be paid.</p>
+<p>The order redistributed a loss. The hospital would receive less, and the effects would fall somewhere in its budget, its financing, or its prices. A system could calculate several possible arrangements. The judge had authority to choose one and make the parties accept it. The claim that mercy could not be computed was an inadequate explanation of her role. The harder question was who could impose the cost of granting it.</p>
+<p>Getting to that point had already cost Earl money. His daughter helped with the filing fee. The hearing was postponed once. Collection continued during the wait because an application for hardship did not itself produce a stay. People who failed to reach a judge could appear in the platform's records as ordinary completed collections. Their absence from the docket was easy to mistake for the absence of a problem.</p>
+<p>Halloran's former company supplied the collection platform. She had helped approve the option under which payments continued while a hardship application was pending. The concern had been that filing would become an inexpensive way to delay collection. Hospitals could buy additional review; many did not. Changing the default required revised terms, staff, and an agreement about who would pay. The software could already pause the withdrawals.</p>
+<p>Other cases reached Lindqvist through a different route. A contractor I will call Pia lost work after an incorrect delivery record triggered defaults across nine connected agreements. Each system had followed its instructions. Correcting the first record did not restore every commercial relationship the subsequent decisions had ended. Some customers had already hired someone else.</p>
+<p>Each process in Pia's case offered an appeal. None could, by itself, repair the sequence. Correcting the delivery record did not compel a former customer to cancel its replacement contract and hire her again. A successful challenge needed to reach every system that had relied on the error, and even then some of the commercial damage would remain.</p>
+<p>The expanding human docket became a problem for the budgets that were supposed to support it. Routine cases had become cheaper while the remaining ones required hearings, assistance, and reconstruction of events across several services. The savings and the costs appeared in different institutions. A hospital could reduce its collection expenses while a county needed more clerks. No automatic transfer moved the first institution's savings into the second one's budget.</p>
+ </div><aside class="rail"><div class="rail-sticky"><div class="dash"><div class="year">2039–2040</div><div class="railnote"><h4>The cost moves</h4>Cheaper collection can create more work for a hardship court. The savings and the costs belong to different budgets.</div><div class="railnote"><h4>Related conditions</h4><a href="#c3">3 · Effective correction</a><br><a href="#c6">6 · Funding safeguards</a></div></div></div></aside></section>
+<section class="spread chapter-spread" aria-labelledby="chapter-7">
+ <div class="main"><h2 class="chapter" id="chapter-7" data-year="2040"><span class="num">VII.</span>Every Third Tuesday</h2><div class="chapter-date">2040</div>
+ <p>Pondera County District Court, in Conrad, Montana, still hears ordinary commercial disputes in person every third Tuesday. It is one of a small number of courts where parties can choose that route without first establishing that they qualify for an exception. Montana advertises the arrangement. Some visitors attend for the spectacle of watching people do work that, elsewhere, happens before anyone has time to observe it.</p><figure id="f-glacier">
+ <div class="fig-eyebrow"><span>Figure 7</span><b>The open window</b></div>
+ <canvas class="stage  " data-fig="shutters" role="img" aria-label="Shutters close over a row of hearing windows. One stays open with a short queue waiting beneath it."></canvas>
+ <div class="motion-status" aria-hidden="true"></div>
+ <figcaption>Commercial hearing routes close while one remains available. The sequence shows institutional withdrawal, not a count or dated survey of courts.</figcaption>
+ <div class="figure-controls" aria-label="The open window playback">
+  <button type="button" data-action="toggle" aria-label="Play or pause The open window" title="Play or pause">Ⅱ</button>
+  <button type="button" data-action="replay" aria-label="Replay The open window" title="Replay">↺</button>
+  <input type="range" min="0" max="30" step=".05" value="0" aria-label="The open window animation position">
+  <output aria-label="Elapsed animation time">0.0 / 30s</output>
+ </div>
+ </figure>
+<p>Judge Eleanor Brandt is seventy-one. On the day I visited, she heard a disagreement between a rancher and a contractor about a barn. The outstanding invoice was not seriously disputed. The rancher objected to the removal of an old cupola his father had built. He had agreed to a replacement roof without understanding that the cupola would come off with it.</p>
+<p>The eventual arrangement required the rancher to pay the invoice and the additional materials needed to restore the cupola. The contractor agreed to supply the extra labor. They had spent much of the day arriving at it. In the hallway, the contractor told me he would rather have used the machine. He had another job to finish and would now have to arrange a return visit. The rancher had proposed the court, and he had agreed, partly because the man was a neighbor of a customer.</p>
+<p>The result was an accommodation neither had written into the original agreement. It had a cost, some of which the contractor would bear. Brandt thought the arrangement might leave them better able to live with each other. She did not pretend to know yet. When I asked whether it had justified the day, she suggested asking both men after the work was finished.</p>
+<p>The court's significance was broader than the quality of that particular compromise. It maintained a way to have one. The county paid a judge, employed a clerk, and kept a procedure available to parties who wanted someone to consider more than the terms they had agreed to. That capacity could be lost through a budget decision as readily as through a declaration that human judgment had become obsolete.</p>
+<p>Rosa Delgado had no interest in giving up the service on her phone. When I described Pia's case, she wanted a correction process that could repair the damage. She asked what sort of contracting work Pia did and whether she needed customers. The possibility of failure did not make Delgado want the old courts back. It made her want the new remedy to work when the consequences were larger than a disputed delivery charge.</p>
+<p>The legal services people had acquired were useful enough that most would be reluctant to surrender them. The remaining disputes concerned their terms: which decisions could be delegated, who carried responsibility, and what would be available when someone needed a process to stop. Preserving a human hearing meant paying for the people who made it possible to reach one.</p>
+<p>By the end of my visit, Brandt had turned the conversation from the future of law to the clerk's position. The county was considering leaving it vacant after a retirement. The court would remain open, but people would have to complete the forms themselves or find help elsewhere. Brandt wanted that distinction understood. The hearing I had watched would still have been possible. She was less sure the two men would have found their way into it.</p>
+ </div><aside class="rail"><div class="rail-sticky"><div class="dash"><div class="year">2040</div><div class="railnote"><h4>Keeping the route open</h4>A hearing requires a judge, a clerk, a procedure, and practical help reaching it. A court can remain legally open while access contracts.</div><div class="railnote"><h4>From 2040 to 2026</h4><a href="#afterword">Read the eight conditions</a></div></div></div></aside></section>
+<div class="rule-end" aria-hidden="true">■</div>
+<section class="spread chapter-spread" aria-labelledby="afterword"><div class="main"><h2 class="plain" id="afterword" data-year="2026">Afterword: Eight Conditions</h2><p>This imagined account looks backward from 2040. From 2026, the arrangements it describes remain contingent. Better models alone would not produce them. The story depends on changes in business incentives, institutional authority, infrastructure, and public expectations, as well as on an unusually compressed period of crisis and adoption.</p>
+<p>The eight conditions below are the assumptions I would watch. They are questions about whether this future could emerge and about the form it would take if it did.</p>
+<div class="conds"><div class="cond" id="c1"><div class="cn">CONDITION 1</div><h3>Records must be usable and able to move</h3><p>Organizations need practical access to their information, meaningful exit rights, and formats that preserve the relationships among records. The story also assumes that enough surrounding institutions can use the same information. An export right does not reproduce a commercial network.</p></div>
+<div class="cond" id="c2"><div class="cn">CONDITION 2</div><h3>Systems must establish reliable structure</h3><p>Applying a rule to the wrong contract, party, or event can produce a persuasive answer with a faulty foundation. Reliable representations, provenance, and methods for resolving conflicting records are necessary for the proposed transition.</p></div>
+<div class="cond" id="c3"><div class="cn">CONDITION 3</div><h3>Decisions must be verifiable and corrections effective</h3><p>A reasoned opinion needs an inspectable basis. A successful challenge must reach the systems that acted on the disputed result. Accuracy at one point in a chain is not a sufficient measure of the chain's reliability.</p></div>
+<div class="cond" id="c4"><div class="cn">CONDITION 4</div><h3>Institutions must authorize consequential use</h3><p>Courts, agencies, contracting parties, professional bodies, and insurers would each have decisions to make. Adoption may proceed unevenly through particular categories of work and competing jurisdictions. Technical capability does not confer authority by itself.</p></div>
+<div class="cond" id="c5"><div class="cn">CONDITION 5</div><h3>Accountability must reach someone able to act</h3><p>A named person, a review committee, or a log of acknowledgments provides limited protection without adequate information, resources, and powers of intervention. Responsibility must also be allocated across the institutions that choose the defaults and fund the remedies.</p></div>
+<div class="cond" id="c6"><div class="cn">CONDITION 6</div><h3>The economics must support both the service and its safeguards</h3><p>The automated alternative must offer enough value to displace existing arrangements. Its pricing and market structure will influence which claims are heard, which risks are tolerated, and who pays for correction. Low prices to the person filing a claim may depend on incentives elsewhere in the system.</p></div>
+<div class="cond" id="c7"><div class="cn">CONDITION 7</div><h3>Institutions must develop and sustain the remaining expertise</h3><p>New occupations require training, experience, and career paths. Preserving human review also requires judges, clerks, advisers, and people who can reconstruct automated events. Their work must be funded even as ordinary transactions become cheaper.</p></div>
+<div class="cond" id="c8"><div class="cn">CONDITION 8</div><h3>The timetable probably requires a shock</h3><p>The Correction supplies pressure that might otherwise take decades to accumulate. A crisis could also discredit automation, strengthen incumbents, or produce a different allocation of authority. The story assumes one response among several possible ones.</p></div></div>
+<p>These conditions make the account contestable. They also locate the practical decisions within it. The future of commercial law would depend on what systems can do, what institutions allow them to do, and what remains available to a person who needs the process to stop.</p>
+<div class="foot"><p>Fiction. The people, interviews, cases, institutions invented for the narrative, and events after 2026 are constructions. References to real institutions describe an imagined future, not actual reporting or attributed conduct.</p><p>Ken Priore · Legal2040 · Views are the author’s alone.</p></div></div><aside class="rail"><div class="rail-sticky"><div class="dash"><div class="year">2026 · The assumptions</div><div class="railnote"><h4>A contingent future</h4>These conditions identify the decisions this imagined history depends on. They are assumptions to examine, not a forecast.</div></div></div></aside></section>
+</article></main>
 
 <script>
 (function(){
-  'use strict';
-
-  /* ---------------------------------------------------------
-     The figures are pictures, not instruments. Nothing here
-     encodes a quantity the article does not state, and no metric
-     series runs in the margin. Red = the machine side, open = the
-     human side, at every layer.
-     --------------------------------------------------------- */
-  var SVGNS='http://www.w3.org/2000/svg';
-  function el(n,a){var e=document.createElementNS(SVGNS,n);for(var k in a){e.setAttribute(k,a[k]);}return e;}
-  function hash(i){ var x=Math.sin(i*127.1+311.7)*43758.5453; return x-Math.floor(x); }
-
-  var PAPER='#ffffff', TINT='#fffff8', INK='#111111', SOFT='#5a5a5a', ACCENT='#8b0000';
-
-  /* ---------------- the layer band (figure 4) ----------------
-     Pattern period is exactly 72px so the -72px flow loops seamlessly. */
-  /* ---------------- the category strip, in the VII rail ----------------
-     Ordered money to blood. Which side each category sits on is taken from
-     the prose: employment already breached, collections automated and the
-     mercy kept, small fraud the one currently argued over. No quantities. */
-  (function(){
-    var host=document.getElementById('tide-strip'); if(!host) return;
-    var CATS=['Chargeback','Supply contract','Licensing','Patent review','Collections',
-              'Employment','Small fraud','Civil wrong','Liberty'];
-    var covered=6, contested=6, h='';
-    for(var c=0;c<CATS.length;c++){
-      var cls = c<covered ? 'on' : (c===contested ? 'edge' : '');
-      h += '<div><s class="'+cls+'"></s><span>'+CATS[c]+'</span></div>';
+'use strict';
+var root=document.documentElement,opening=document.getElementById('opening'),canvas=document.getElementById('opening-canvas');
+var page=document.querySelector('main.page'),controls=document.querySelector('.controls'),skipLink=document.querySelector('.skip-link');
+try{
+ var ctx=canvas.getContext('2d'),scene=document.createElement('canvas'),g=scene.getContext('2d');
+ if(!ctx||!g)throw new Error('Canvas unavailable');
+ var bootstrap=window.__moneyOpening||{},D=12,RED='#8b0000',INK='#111111',PAPER='#ffffff';
+ var skip=document.getElementById('opening-skip'),pause=document.getElementById('opening-pause'),seek=document.getElementById('opening-seek'),replay=document.getElementById('opening-replay');
+ var reduce=matchMedia('(prefers-reduced-motion: reduce)');
+ var active=false,playing=false,t=0,last=0,raf=0,w=0,h=0,dpr=1,lineTarget=null,manual=false,rasterStep=1;
+ var coords=[[0,0],[-.58,-.30],[.60,.34],[-.91,-.78],[-.30,-.81],[.34,-.75],[.93,-.73],[-1,.08],[-.35,.08],[.36,.08],[1,.10],[-.80,.78],[-.24,.78],[.40,.80],[.96,.76]];
+ var edges=[[0,1],[0,2],[1,3],[1,4],[0,5],[5,6],[1,7],[0,8],[0,9],[9,10],[8,11],[8,12],[2,13],[13,14],[4,5],[10,14]];
+ function clamp(x){return Math.min(1,Math.max(0,x));}
+ function smooth(x){x=clamp(x);return x*x*(3-2*x);}
+ function between(a,b){return smooth((t-a)/(b-a));}
+ function mix(a,b,p){return a+(b-a)*p;}
+ function hash(i){var n=Math.sin(i*127.1+311.7)*43758.5453;return n-Math.floor(n);}
+ function line(c,x1,y1,x2,y2,color,width){c.strokeStyle=color;c.lineWidth=width||1;c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.stroke();}
+ function square(c,x,y,size,color,alpha){var unit=c===g?rasterStep:1,s=Math.max(unit,Math.round(size/unit)*unit);c.globalAlpha=alpha===undefined?1:alpha;c.fillStyle=color;c.fillRect(Math.round((x-size/2)/unit)*unit,Math.round((y-size/2)/unit)*unit,s,s);c.globalAlpha=1;}
+ // Stable, layered graphite strokes: texture belongs to the drawing, not frame noise.
+ function pencil(x1,y1,x2,y2,seed,color,weight,progress){
+  var p=progress===undefined?1:clamp(progress),dx=(x2-x1)*p,dy=(y2-y1)*p;
+  for(var pass=0;pass<3;pass++){
+   g.strokeStyle=color||'#65615e';g.lineWidth=(weight||.5)*(pass===0?1:.45);
+   g.globalAlpha=pass===0?.72:.2;g.beginPath();
+   for(var j=0;j<=14;j++){
+    var q=j/14,grain=(hash(seed+j*3+pass*117)-.5)*(pass===0?.48:1.1);
+    var xx=x1+dx*q+grain*.25,yy=y1+dy*q+grain;
+    if(j===0)g.moveTo(xx,yy);else g.lineTo(xx,yy);
+   }
+   g.stroke();
+  }
+  g.globalAlpha=1;
+ }
+ function graphiteAgreement(ww,hh){
+  g.scale(ww/220,hh/290);
+  // Paper-edge hatching and faint fibers keep the close-up tactile on white.
+  for(var k=0;k<40;k++)pencil(221,8+k*7,224+hash(k)*2,5+k*7,k,'#b5b2ae',.25);
+  g.fillStyle=PAPER;g.fillRect(0,0,220,290);
+  for(var f=0;f<600;f++){
+   var fx=hash(f*3)*218,fy=hash(f*3+1)*288;
+   g.fillStyle='rgba(55,48,43,'+(.025+hash(f)*.04)+')';g.fillRect(fx,fy,.25+hash(f+9)*.6,.22);
+  }
+  pencil(0,0,220,0,1,'#787470',.6);pencil(220,0,220,290,2,'#787470',.6);
+  pencil(220,290,0,290,3,'#787470',.6);pencil(0,290,0,0,4,'#787470',.6);
+  g.font='15px Georgia, serif';g.textAlign='center';g.strokeStyle='#605c58';g.lineWidth=.35;
+  g.strokeText('AGREEMENT',110,29);g.textAlign='left';
+  pencil(19,39,201,39,6,'#8a8580',.4);
+  // Clause numbers and short irregular word strokes suggest drafted text.
+  for(var row=0;row<25;row++){
+   var yy=53+row*6.25,section=row%7===0;
+   if(section){g.font='4px Georgia, serif';g.fillStyle='#77716d';g.fillText('0'+(1+Math.floor(row/7)),10,yy);}
+   var cursor=section?22:19,limit=row%7===6?148:201;
+   for(var word=0;word<12&&cursor<limit;word++){
+    var len=Math.min(7+hash(row*23+word)*17,limit-cursor);
+    var write=clamp((t+.45-row*.015-word*.006)/.65);
+    pencil(cursor,yy,cursor+len*write,yy,200+row*17+word,section?'#514d49':'#807a74',section?.6:.45);
+    for(var glyph=0;glyph<len*write;glyph+=2.4){
+     var lift=hash(row*71+word*13+glyph)*1.8;
+     pencil(cursor+glyph,yy,cursor+glyph+.65,yy-lift,400+glyph+row,'#89827c',.3);
     }
-    host.innerHTML=h;
-  })();
+    cursor+=len+3;
+   }
+  }
+  // A red-pencil deletion, margin bracket, and replacement develop in sequence.
+  if(t>.8){
+   pencil(17,104,201,102,801,RED,.9,between(.8,1.2));
+   pencil(17,106,195,104,802,RED,.45,between(.9,1.3));
+   pencil(205,98,209,98,803,RED,.7,between(1.05,1.25));
+   pencil(209,98,209,121,804,RED,.7,between(1.2,1.5));
+   pencil(209,121,205,121,805,RED,.7,between(1.45,1.6));
+   for(var edit=0;edit<8;edit++)pencil(21+edit*22,113,36+edit*22,112.5,900+edit,RED,.65,clamp((t-1.25-edit*.04)/.25));
+  }
+  pencil(19,246,97,246,10,'#77716d',.45);pencil(123,246,200,246,11,'#77716d',.45);
+  var sign=between(1.75,2.7),lastP=null;
+  for(var i=0;i<Math.floor(sign*110);i++){
+   var xx=24+i*.64,yy=234+Math.sin(i*.3)*4+Math.sin(i*.08)*6;
+   if(lastP)pencil(lastP.x,lastP.y,xx,yy,1100+i,RED,.85);
+   lastP={x:xx,y:yy};
+  }
+  pencil(25,242,99,237,1200,RED,.5,between(2.45,2.8));
+  for(var n=0;n<9;n++)pencil(124+n*8,237,129+n*8,237,1300+n,'#77716d',.4);
+  pencil(19,269,103,269,12,'#aaa39d',.35);
+  g.font='4px Georgia, serif';g.fillStyle='#8a8580';g.fillText('01 / 03',185,272);
+ }
+ function documentMark(x,y,ww,hh,seed,primary){
+  if(primary){
+   var settle=1-between(0,3.1);
+   g.save();g.translate(x+8*settle,y+12*settle);g.rotate(-.065*settle);
+   g.translate(-ww/2,-hh/2);graphiteAgreement(ww,hh);g.restore();return;
+  }
+  g.save();g.translate(x-ww/2,y-hh/2);g.fillStyle=PAPER;g.fillRect(0,0,ww,hh);
+  g.strokeStyle=primary?RED:INK;g.lineWidth=primary?1.3:.9;g.strokeRect(0,0,ww,hh);
+  var sx=ww/220,sy=hh/290;g.scale(sx,sy);
+  // Small word-like marks preserve detail without asking the reader to read.
+  var appear=primary?clamp(t/.6):1;
+  for(var b=0;b<3;b++){g.fillStyle=RED;g.fillRect(19+b*43,18,34,5*appear);}
+  line(g,19,37,199,37,INK,.65);
+  for(var row=0;row<26;row++){
+   var y0=49+row*6.3,fill=primary?clamp((t-.05-row*.012)/.4):1;
+   var amended=primary&&row>=8&&row<=10;
+   for(var col=0;col<7;col++){
+    var xx=19+col*25,len=12+hash(row*11+col+seed)*10;
+    g.fillStyle=amended&&t>1.35?RED:(row%7===0?INK:'#777');
+    g.globalAlpha=amended&&t>.9&&t<1.35?.42:1;
+    g.fillRect(xx,y0,len*fill,hash(row+col)> .5?1.5:1);
+   }
+  }
+  g.globalAlpha=1;
+  if(primary&&t>.8&&t<1.8){
+   line(g,16,49+8*6.3+1,16+between(.8,1.15)*185,49+8*6.3+1,RED,1.5);
+   var insert=between(1.1,1.6);g.fillStyle=PAPER;g.fillRect(15,112,190,9);
+   for(var j=0;j<12*insert;j++)square(g,20+j*15,116,3,RED);
+  }
+  line(g,19,244,97,244,INK,.6);line(g,121,244,199,244,INK,.6);
+  var sign=primary?between(1.75,2.65):1;
+  var lastP=null;
+  for(var i=0;i<Math.floor(sign*88);i++){
+   var xx=22+i*.87,yy=232+Math.sin(i*.35)*5+Math.sin(i*.1)*7;
+   if(lastP)line(g,lastP.x,lastP.y,xx,yy,RED,1.2);lastP={x:xx,y:yy};
+  }
+  for(var i2=0;i2<12;i2++)square(g,125+i2*5.7,232,1.5,INK);
+  for(var col2=0;col2<4;col2++)for(var row2=0;row2<4;row2++)if(hash(seed+col2*11+row2)>.3)square(g,181+col2*4,263+row2*4,2,RED);
+  line(g,19,260,109,260,'#999',.6);
+  g.restore();
+ }
+ function position(i,pull){
+  var cx=w*.5,cy=h*.43,sx=Math.min(w*.40,410),sy=Math.min(h*.27,210),q=coords[i];
+  return {x:cx+q[0]*sx*pull,y:cy+q[1]*sy*pull};
+ }
+ function route(a,b,q){var mid={x:b.x,y:a.y},d1=Math.abs(b.x-a.x),d2=Math.abs(b.y-a.y),d=q*(d1+d2);return d<=d1?{x:mix(a.x,b.x,d1?d/d1:0),y:a.y}:{x:b.x,y:mix(a.y,b.y,d2?(d-d1)/d2:0)};}
+ function network(){
+  var pull=between(2.8,5.5),mainW=Math.min(255,w*.50,h*.38),cx=w*.5,cy=h*.43;
+  var positions=coords.map(function(_,i){return position(i,pull);});
+  var show=between(3.0,4.6);
+  edges.forEach(function(e,k){
+   var a=positions[e[0]],b=positions[e[1]],spread=clamp((t-3.25-k*.07)/1.3);
+   var end=route(a,b,spread),hot=t>5.8+k*.09,broken=e[1]===6&&t>7.8;
+   g.globalAlpha=show*(broken?.2:.7);g.strokeStyle=hot?RED:'#9c9c9c';g.lineWidth=hot?1.5:1;
+   if(broken)g.setLineDash([3,7]);g.beginPath();g.moveTo(a.x,a.y);g.lineTo(end.x,a.y);g.lineTo(end.x,end.y);g.stroke();g.setLineDash([]);g.globalAlpha=1;
+   if(show>.3&&!broken){
+    var count=hot?6:2;
+    for(var j=0;j<count;j++){
+     var speed=hot?.95:.35,q=(t*speed+j/count+k*.113)%1;
+     if(q>spread)continue;
+     var p=route(a,b,q);square(g,p.x,p.y,hot?4:2,hot?RED:INK,show);
+    }
+   }
+  });
+  // The original close-up remains the same object as the camera pulls out.
+  var size=mainW*mix(1,.15,pull)*mix(1.52,1,between(0,3.0));
+  if(t<6.2)documentMark(cx,cy,size,size*1.32,2,true);
+  // Attachments physically arrive before they become neighbouring records.
+  for(var n=1;n<coords.length;n++){
+   var p=positions[n],alpha=show;
+   if(n<=2){
+    var attach=between(n===1?1.05:2.05,n===1?2.0:2.85);
+    var closeX=cx+(n===1?-1:1)*mainW*.71,closeY=cy+(n===1?-.16:.22)*mainW;
+    p={x:mix(closeX,p.x,pull),y:mix(closeY+45*(1-attach),p.y,pull)};
+    alpha=attach;
+   }
+   if(alpha<=0)continue;
+   var sz=mix(n<=2?mainW*.39:48,32,pull),fade=1-between(5.6+n*.014,6.3+n*.014);
+   if(fade>0){g.save();g.globalAlpha=alpha*fade;documentMark(p.x,p.y,sz,sz*1.28,n*7,false);g.restore();}
+  }
+  // Fine document marks resolve into a small vocabulary of red data blocks.
+  positions.forEach(function(p,i){
+   var fill=smooth((t-5.7-i*.026)/.55),broken=i===6&&t>7.8;
+   if(fill<=0)return;
+   for(var row=0;row<4;row++)for(var col=0;col<4;col++){
+    var xx=p.x+(col-1.5)*7,yy=p.y+(row-1.5)*7;
+    if(broken){
+     var drop=between(7.8,8.65);xx+=Math.sin(row+col)*drop*28;yy+=drop*(25+hash(row+col*4)*45);
+     square(g,xx,yy,4,RED,1-drop);
+    }else square(g,xx,yy,4,RED,fill);
+   }
+   if(broken){g.strokeStyle=INK;g.lineWidth=1;g.strokeRect(p.x-13,p.y-13,26,26);}
+  });
+  // One stalled matter leaves the fast network for a slower human route.
+  if(t>7.5){
+   var source=positions[10],outer=Math.min(w-18,source.x+22),dest={x:source.x-12,y:positions[14].y+Math.min(50,h*.07)};
+   var q=between(7.5,9.2),px=q<.15?mix(source.x,outer,q/.15):q<.85?outer:mix(outer,dest.x,(q-.85)/.15),py=q<.15?source.y:q<.85?mix(source.y,dest.y,(q-.15)/.7):dest.y;
+   line(g,source.x,source.y,outer,source.y,INK,1);line(g,outer,source.y,outer,dest.y,INK,1);line(g,outer,dest.y,dest.x,dest.y,INK,1);
+   g.fillStyle=PAPER;g.strokeStyle=INK;g.lineWidth=1.5;g.beginPath();g.arc(px,py,7,0,Math.PI*2);g.fill();g.stroke();
+   line(g,dest.x-12,dest.y+14,dest.x+12,dest.y+14,INK,1);
+  }
+ }
+ function draw(){
+  var reveal=between(10.25,11.8);root.style.setProperty('--intro-reveal',String(reveal));root.style.setProperty('--intro-copy',String(between(10.75,11.9)));
+  ctx.clearRect(0,0,w,h);ctx.fillStyle=PAPER;ctx.globalAlpha=1-reveal;ctx.fillRect(0,0,w,h);ctx.globalAlpha=1;
+  var pixel=t<3?1/dpr:Math.max(1,Math.round(mix(1,5,between(3,8.8))));
+  rasterStep=pixel;
+  var bw=Math.ceil(w/pixel),bh=Math.ceil(h/pixel);
+  if(scene.width!==bw||scene.height!==bh){scene.width=bw;scene.height=bh;}
+  g.setTransform(1/pixel,0,0,1/pixel,0,0);g.clearRect(0,0,w,h);
+  if(t<9.65){
+   network();ctx.globalAlpha=1-between(9.0,9.65);ctx.imageSmoothingEnabled=false;ctx.drawImage(scene,0,0,bw,bh,0,0,w,h);ctx.globalAlpha=1;
+  }
+  // Surviving bits become the real masthead divider, measured after layout.
+  if(t>=9){
+   var count=coords.length*9,opacity=between(9,9.25)*(1-reveal);
+   for(var i=0;i<count;i++){
+    var p=position(Math.floor(i/9),1),col=i%3,row=Math.floor(i%9/3);
+    var travel=smooth((t-9-(i%9)*.025)/1.6),targetX=lineTarget.left+(i/(count-1))*lineTarget.width;
+    var x=mix(p.x+(col-1)*7,targetX,travel),y=mix(p.y+(row-1)*7,lineTarget.y,travel);
+    square(ctx,x,y,mix(4,2,travel),travel>.92?INK:RED,opacity);
+   }
+   var lineProgress=between(10.3,10.85);
+   ctx.globalAlpha=lineProgress*(1-reveal);line(ctx,lineTarget.left,lineTarget.y,lineTarget.left+lineTarget.width,lineTarget.y,INK,2);ctx.globalAlpha=1;
+  }
+  seek.value=t.toFixed(2);opening.dataset.time=t.toFixed(2);
+  opening.dataset.phase=t<3?'agreement':t<6?'connections':t<9?'consequence':'page';
+ }
+ function fit(){
+  w=innerWidth;h=innerHeight;dpr=Math.min(devicePixelRatio||1,2);
+  canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
+  var r=document.querySelector('.masthead').getBoundingClientRect();lineTarget={left:r.left,width:r.width,y:r.bottom-1};
+  if(active)draw();
+ }
+ function markSeen(){['localStorage','sessionStorage'].forEach(function(name){try{window[name].setItem(bootstrap.key||'legal2040:money-matters:opening-v1','seen');}catch(e){}});}
+ function finish(reason){
+  if(!active){root.classList.remove('intro-pending');return;}
+  active=false;playing=false;cancelAnimationFrame(raf);raf=0;last=0;clearTimeout(bootstrap.guard);
+  opening.hidden=true;opening.dataset.state='complete';opening.dataset.completion=reason||'finished';
+  root.classList.remove('intro-active','intro-pending');root.style.removeProperty('--intro-reveal');root.style.removeProperty('--intro-copy');
+  page.inert=false;if(controls)controls.inert=false;if(skipLink)skipLink.inert=false;
+  document.dispatchEvent(new Event('legalintro:end'));
+  var target=manual?replay:document.querySelector('.cover h1');if(!manual)target.setAttribute('tabindex','-1');target.focus({preventScroll:true});
+ }
+ function frame(now){
+  raf=0;if(!active||!playing||document.hidden)return;
+  if(last)t=Math.min(D,t+(now-last)/1000);last=now;
+  try{draw();}catch(e){finish('fallback');return;}
+  if(t>=D){finish('finished');return;}raf=requestAnimationFrame(frame);
+ }
+ function start(isManual){
+  if(active)return;
+  manual=!!isManual;active=true;playing=true;t=0;last=0;opening.hidden=false;
+  opening.dataset.state='playing';pause.textContent='Ⅱ Pause';root.classList.add('intro-active');root.classList.remove('intro-pending');
+  root.style.setProperty('--intro-reveal','0');page.inert=true;if(controls)controls.inert=true;if(skipLink)skipLink.inert=true;
+  window.scrollTo(0,0);document.dispatchEvent(new Event('legalintro:start'));
+  try{fit();markSeen();skip.focus({preventScroll:true});clearTimeout(bootstrap.guard);raf=requestAnimationFrame(frame);}catch(e){finish('fallback');}
+ }
+ skip.addEventListener('click',function(){finish('skipped');});
+ pause.addEventListener('click',function(){
+  playing=!playing;last=0;pause.textContent=playing?'Ⅱ Pause':'▶ Play';opening.dataset.state=playing?'playing':'paused';
+  if(playing&&!document.hidden&&!raf)raf=requestAnimationFrame(frame);else if(!playing){cancelAnimationFrame(raf);raf=0;}
+ });
+ seek.addEventListener('input',function(){
+  playing=false;cancelAnimationFrame(raf);raf=0;last=0;t=Number(seek.value);pause.textContent='▶ Play';opening.dataset.state='paused';
+  if(t>=D)finish('seek-end');else try{draw();}catch(e){finish('fallback');}
+ });
+ opening.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){e.preventDefault();finish('skipped');}
+  if(e.key==='Tab'){
+   var items=[skip,pause,seek],at=items.indexOf(document.activeElement);
+   if(e.shiftKey&&at<=0){e.preventDefault();seek.focus();}
+   else if(!e.shiftKey&&at===items.length-1){e.preventDefault();skip.focus();}
+  }
+ });
+ replay.addEventListener('click',function(){start(true);});
+ document.addEventListener('visibilitychange',function(){
+  if(document.hidden){cancelAnimationFrame(raf);raf=0;last=0;}
+  else if(active&&playing&&!raf)raf=requestAnimationFrame(frame);
+ });
+ reduce.addEventListener('change',function(e){if(e.matches)finish('reduced-motion');});
+ addEventListener('resize',function(){if(active)try{fit();}catch(e){finish('fallback');}});
+ addEventListener('beforeprint',function(){finish('print');});
+ if(bootstrap.eligible)start(false);else{root.classList.remove('intro-pending');clearTimeout(bootstrap.guard);}
+}catch(error){
+ clearTimeout((window.__moneyOpening||{}).guard);root.classList.remove('intro-pending','intro-active');root.style.removeProperty('--intro-reveal');
+ if(opening)opening.hidden=true;if(page)page.inert=false;if(controls)controls.inert=false;if(skipLink)skipLink.inert=false;
+}
+})();
+</script>
 
-  /* ---------------- canvas framework ----------------
-     Geometry is cached on the figure. fit() runs on load and on resize
-     only, never inside the frame loop. */
-  var figs=[];
-  function reg(canvas, draw, heroT){
-    var f={c:canvas, draw:draw, heroT:heroT, vis:false, ctx:null, w:0, h:0};
-    figs.push(f); return f;
-  }
-  function fit(f){
-    var r=f.c.getBoundingClientRect();
-    var dpr=Math.min(window.devicePixelRatio||1,2);
-    f.c.width=Math.max(1,Math.round(r.width*dpr));
-    f.c.height=Math.max(1,Math.round(r.height*dpr));
-    f.ctx=f.c.getContext('2d');
-    f.ctx.setTransform(dpr,0,0,dpr,0,0);
-    f.w=r.width; f.h=r.height;
-  }
-  function still(){
-    return document.body.classList.contains('nomotion') ||
-           window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  }
-  function paint(f,t){
-    if(!f.ctx) fit(f);
-    f.ctx.clearRect(0,0,f.w,f.h);
-    f.draw(f.ctx,f.w,f.h,t);
-  }
+<script>
 
-  /* ---------------- Figure 2 · four hundred ----------------
-     Four hundred open circles, the arbitrators, in a block. A stream of
-     disputes comes in from the right faster than any block that size could
-     touch. A handful reach a circle, which fills for a moment. The rest
-     fade out before they arrive. Do the math. */
+(function(){
+'use strict';
+var PAPER='#fff',TINT='#fffff8',INK='#111111',SOFT='#5a5a5a',ACCENT='#8b0000';
+function hash(i){var x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x);}
   function fourhundred(ctx,w,h,t){
     var cols=20, rows=20, pitch=6, r=2.1;
     var bw=(cols-1)*pitch, bh=(rows-1)*pitch, bx=26, by=h*0.5-bh/2;
@@ -1077,8 +1026,8 @@ body.nomotion .ledger .now{opacity:1!important}
     ctx.beginPath(); ctx.moveTo(0,by+bh+22); ctx.lineTo(w,by+bh+22); ctx.stroke();
     ctx.font='8px Menlo,monospace'; ctx.fillStyle=INK; ctx.textAlign='left';
     ctx.fillText('FOUR HUNDRED ARBITRATORS', bx, by-12);
-    ctx.textAlign='right'; ctx.fillText('A HUNDRED MILLION DISPUTES A YEAR', ex, by-12); ctx.textAlign='left';
-    ctx.fillStyle=SOFT; ctx.fillText('do the math.', 4, h-12);
+    ctx.textAlign='right'; ctx.fillText('INCOMING CLAIMS', ex, by-12); ctx.textAlign='left';
+    ctx.fillStyle=SOFT; ctx.fillText('claims beyond the existing capacity', 4, h-12);
   }
 
   /* ---------------- Figure 6 · it means I saw it ----------------
@@ -1142,53 +1091,92 @@ body.nomotion .ledger .now{opacity:1!important}
      turns red at the sill. Above the second a posted fee grows a notch a
      year, and the line in front of it gets shorter. The years are the
      story's. The fee has no number, by rule. */
-  function windows(ctx,w,h,t){
-    var cycle=30, ph=(t%cycle)/cycle;
-    var yr=2028+Math.min(12,Math.floor(ph*13)), step=(yr-2028)/12;
-    var gap=w*0.08, colW=(w-gap*3)/2;
-    var lx=gap, rx=gap*2+colW, winY=h*0.24, winH=h*0.26, sillY=winY+winH, floorY=h-40;
-    function counter(x,label){
-      ctx.fillStyle=PAPER; ctx.strokeStyle=INK; ctx.lineWidth=1;
-      ctx.beginPath(); ctx.rect(x,winY,colW,winH); ctx.fill(); ctx.stroke();
-      ctx.fillStyle='rgba(17,17,17,.08)'; ctx.fillRect(x+colW*0.22,winY+winH*0.2,colW*0.56,winH*0.6);
-      ctx.font='8px Menlo,monospace'; ctx.fillStyle=INK; ctx.textAlign='left'; ctx.fillText(label,x,winY-8);
+
+  /* Human review: the application and collection process run independently
+     until a court order reaches the collection schedule. */
+  function windows(ctx,w,h,time){
+    var t=Math.min(time,24),red=ACCENT,grey='#c7c7c7';
+    function clamp(x){return Math.max(0,Math.min(1,x));}
+    function ease(x){x=clamp(x);return x*x*(3-2*x);}
+    function mix(a,b,p){return a+(b-a)*p;}
+    function label(s,x,y,color,align){ctx.font='12px Menlo,Consolas,monospace';ctx.fillStyle=color||INK;ctx.textAlign=align||'center';ctx.fillText(s,x,y);}
+    function line(x1,y1,x2,y2,color,width){ctx.strokeStyle=color||INK;ctx.lineWidth=width||1;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();}
+    function bit(x,y,s,color){ctx.fillStyle=color||red;ctx.fillRect(Math.round(x-s/2),Math.round(y-s/2),s,s);}
+    function ring(x,y,r,color){ctx.fillStyle=PAPER;ctx.strokeStyle=color||INK;ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.stroke();}
+    function doc(x,y){
+      ctx.fillStyle=PAPER;ctx.strokeStyle=INK;ctx.lineWidth=1;ctx.fillRect(x-8,y-11,16,22);ctx.strokeRect(x-8,y-11,16,22);
+      for(var j=0;j<3;j++)line(x-4,y-5+j*5,x+4,y-5+j*5,INK,.8);
     }
-    counter(lx,'THE FIRST WINDOW');
-    ctx.fillStyle=ACCENT; ctx.fillRect(lx+colW/2-3,winY+winH/2-3,6,6);
-    var pitch=12, sp=pitch*2.4, off=(t*sp)%pitch, n=Math.ceil((floorY-sillY)/pitch)+3;
-    for(var i=0;i<n;i++){
-      var y=floorY-(i*pitch+off)+(hash(i*3)-0.5)*2, x=lx+colW/2-3+(hash(i*5)-0.5)*4;
-      if(y>floorY+2||y<sillY-22) continue;
-      var into=(sillY-y)/22;
-      if(into<=0){ ctx.strokeStyle=INK; ctx.lineWidth=.8; ctx.strokeRect(x+.4,y+.4,5.2,5.2); }
-      else { ctx.globalAlpha=Math.max(0,1-into); ctx.fillStyle=ACCENT; ctx.fillRect(x,y,6,6); ctx.globalAlpha=1; }
+    var left=28,right=w-28,gate=w*.5,autoY=104,reviewY=277;
+    var fee=w*.30,queue=w*.58,hearing=w*.88,delivered=t>=21;
+    label('AUTOMATED COLLECTION',12,22,red,'left');
+    label('BALANCE',left,62,INK,'left');label('SCHEDULE',gate,62,red);label('PAYMENT',right,62,INK,'right');
+    line(left,autoY,right,autoY,red,1);
+    ctx.strokeStyle=INK;ctx.strokeRect(left-12,autoY-19,24,38);
+    var collected=Math.min(7,Math.floor(t/2.7));
+    for(var r=0;r<5;r++)for(var c=0;c<2;c++)bit(left-4+c*8,autoY-12+r*6,3,r*2+c<collected?'#dedede':INK);
+    ctx.fillStyle=PAPER;ctx.fillRect(gate-26,autoY-25,52,50);ctx.strokeStyle=red;ctx.strokeRect(gate-25,autoY-25,50,50);
+    for(var r2=0;r2<5;r2++)for(var c2=0;c2<5;c2++){
+      var on=delivered?(c2===2):(r2+c2+Math.floor(Math.min(t,21)*6))%5!==0;
+      bit(gate-16+c2*8,autoY-16+r2*8,5,on?red:'#eee');
     }
-    counter(rx,'THE SECOND WINDOW');
-    ctx.strokeStyle=INK; ctx.lineWidth=1;
-    ctx.beginPath(); ctx.arc(rx+colW/2,winY+winH/2,4,0,Math.PI*2); ctx.stroke();
-    var len=Math.round(8-step*6), beat=3.2, a=(t%beat)/beat, adv=a<0.12?a/0.12:1, pitch2=15;
-    for(var j=0;j<len;j++){
-      var y2=sillY+10+j*pitch2+(1-adv)*pitch2, x2=rx+colW/2-3+(hash(j*11+yr)-0.5)*3;
-      ctx.globalAlpha = j===0 ? 1-adv*0.85 : 1;
-      ctx.strokeStyle=INK; ctx.lineWidth=.8; ctx.strokeRect(x2+.4,y2+.4,5.2,5.2);
+    // Collection continues throughout filing, waiting, and the hearing.
+    var flowT=Math.min(t,24),spacing=delivered?1.8:.65;
+    for(var k=0;k<20;k++){
+      var since=flowT-k*spacing,progress=since/2.7;
+      if(progress<0||progress>1)continue;
+      var px=mix(gate+28,right,progress);
+      for(var q=0;q<(delivered?1:4);q++)bit(px,autoY+(q-1.5)*7,4,red);
     }
-    ctx.globalAlpha=1;
-    var signY=winY-26;
-    ctx.font='8px Menlo,monospace'; ctx.fillStyle=SOFT; ctx.textAlign='left'; ctx.fillText('FEE', rx, signY);
-    ctx.fillStyle=ACCENT; ctx.fillRect(rx+26, signY-6, 4+step*(colW-30), 5);
-    ctx.fillStyle=INK; ctx.font='10px Menlo,monospace'; ctx.textAlign='center';
-    ctx.fillText(String(yr), w/2, 14); ctx.textAlign='left';
-    ctx.strokeStyle='rgba(17,17,17,.35)'; ctx.lineWidth=.5;
-    ctx.beginPath(); ctx.moveTo(0,floorY+10); ctx.lineTo(w,floorY+10); ctx.stroke();
-    ctx.font='8px Menlo,monospace'; ctx.fillStyle=SOFT;
-    ctx.fillText('free. four minutes.', lx, h-12);
-    ctx.fillText('a fee, a wait, a person.', rx, h-12);
+    // A subtle holding pattern keeps payment motion alive until the order.
+    if(t>12&&t<21){
+      for(var k2=0;k2<4;k2++){
+        var p=((t-12)*.5+k2*.25)%1;
+        for(var q2=0;q2<4;q2++)bit(mix(gate+28,right,p),autoY+(q2-1.5)*7,4,red);
+      }
+    }
+    line(right,autoY-23,right,autoY+23,red,1);
+    for(var receipt=0;receipt<collected;receipt++)bit(right+8,autoY-18+receipt*6,4,red);
+    label(delivered?'NEW TERMS':t>=3?'STILL COLLECTING':'SCHEDULE ACTIVE',gate,156,red);
+    line(12,184,w-12,184,grey,.7);
+    label('REQUEST FOR HUMAN REVIEW',12,212,INK,'left');
+    line(left,reviewY,hearing,reviewY,grey,1);
+    label('FILING FEE',fee,244,SOFT);label('WAIT',queue,244,SOFT);label('HEARING',hearing,244,INK);
+    // The fee gate opens only after filing is completed.
+    var open=ease((t-7.5)/1.0);
+    line(fee,reviewY-20,fee+open*20,reviewY+20-open*40,INK,1.4);
+    if(t>=6.7&&t<8.5){
+      var payment=ease((t-6.7)/1.8);bit(fee+9,reviewY+25+payment*24,5,red);
+    }
+    // Other applications advance; the highlighted applicant waits.
+    for(var a=0;a<2;a++){
+      var departure=12+a*1.4,advance=ease((t-departure)/1.2);
+      if(advance<1){ring(mix(queue+22+a*18,hearing,advance),reviewY,4,SOFT);}
+    }
+    ctx.strokeStyle=INK;ctx.strokeRect(hearing-15,reviewY-20,30,40);
+    ring(hearing,reviewY,5);
+    var personX=left,personY=mix(autoY+38,reviewY,ease((t-2)/1.4));
+    if(t>=3.4&&t<6)personX=mix(left,fee-12,ease((t-3.4)/2.6));
+    else if(t>=6&&t<8.5)personX=fee-12;
+    else if(t>=8.5&&t<10.5)personX=mix(fee-12,queue,ease((t-8.5)/2));
+    else if(t>=10.5&&t<15)personX=queue;
+    else if(t>=15)personX=mix(queue,hearing,ease((t-15)/2));
+    if(t>=2){ring(personX,personY,7,INK);bit(personX,personY,3,INK);}
+    // A returned order, not a filed request, reaches the collection rules.
+    var bottom=376;
+    ctx.setLineDash([3,4]);line(hearing,reviewY+25,hearing,bottom,grey,.8);line(hearing,bottom,gate,bottom,grey,.8);line(gate,bottom,gate,autoY+27,grey,.8);ctx.setLineDash([]);
+    if(t>=17.5){
+      var pOrder=clamp((t-17.5)/3.5),ox,oy;
+      if(pOrder<.28){ox=hearing;oy=mix(reviewY+25,bottom,pOrder/.28);}
+      else if(pOrder<.55){ox=mix(hearing,gate,(pOrder-.28)/.27);oy=bottom;}
+      else{ox=gate;oy=mix(bottom,autoY+27,(pOrder-.55)/.45);}
+      if(!delivered)doc(ox,oy);
+      else{line(gate-7,autoY+38,gate-2,autoY+43,INK,1.3);line(gate-2,autoY+43,gate+8,autoY+32,INK,1.3);}
+    }
+    label(t<17.5?'Filing does not change collection.':delivered?'The order changes collection.':'The order travels back to the system.',12,418,SOFT,'left');
+    if(t>=17.5)label(delivered?'ORDER RECEIVED':'COURT ORDER',w*.73,399,INK);
   }
 
-  /* ---------------- Figure 7 · the open window ----------------
-     A row of second windows. The shutters come down one at a time, not
-     left to right, each with its year. One does not come down. It has a
-     short line in front of it and a sign. */
   function shutters(ctx,w,h,t){
     var N=9, cycle=34, ph=(t%cycle)/cycle;
     var keep=6, gap=8, cw=(w-gap*(N+1))/N, top=h*0.30, ch=h*0.34, sill=top+ch;
@@ -1209,7 +1197,7 @@ body.nomotion .ledger .now{opacity:1!important}
           ctx.strokeStyle=INK; ctx.lineWidth=1;
           ctx.beginPath(); ctx.moveTo(x,top+(ch-2)*prog); ctx.lineTo(x+cw,top+(ch-2)*prog); ctx.stroke();
           if(prog>=1){ ctx.font='7px Menlo,monospace'; ctx.fillStyle=SOFT; ctx.textAlign='center';
-            ctx.fillText(String(yrs[k]), x+cw/2, sill+12); ctx.textAlign='left'; }
+            ctx.fillText('closed', x+cw/2, sill+12); ctx.textAlign='left'; }
         }
       }
       if(i===keep){
@@ -1262,110 +1250,304 @@ body.nomotion .ledger .now{opacity:1!important}
      the front, the contracts that could run (filled) reprice and hold
      their place; the ones that still needed a person (open) freeze
      mid-calc and go dark. */
-  function reprice(ctx,w,h,t){
-    var cycle=26, ph=t%cycle, cols=22, rows=12;
-    var mx=18, my=24, gw=w-mx*2, gh=h-my*2-18, sx=gw/(cols-1), sy=gh/(rows-1);
-    var waveStart=3, waveLen=13, prog=(ph-waveStart)/waveLen;   /* 0..1 across the sweep */
-    for(var r=0;r<rows;r++){
-      for(var c=0;c<cols;c++){
-        var x=mx+c*sx, y=my+r*sy;
-        var diag=(c/(cols-1)+r/(rows-1))/2;                     /* 0..1, top-left to lower-right */
-        var auto=hash(r*31+c*7)>0.32;                           /* the ones built to run */
-        if(prog<diag){ ctx.strokeStyle='rgba(17,17,17,.30)'; ctx.lineWidth=.8; ctx.strokeRect(x-2.2,y-2.2,4.4,4.4); }
-        else if(auto){ var s=(prog-diag)<0.05?3.4:2.6; ctx.fillStyle=ACCENT; ctx.fillRect(x-s,y-s,s*2,s*2); }
-        else { ctx.strokeStyle='rgba(17,17,17,.18)'; ctx.lineWidth=.7; ctx.setLineDash([1.4,1.4]); ctx.strokeRect(x-2.2,y-2.2,4.4,4.4); ctx.setLineDash([]); }
+
+  /* The Correction: one repricing event travels through contractual links.
+     Geometry, quantities and timing are illustrative, not measured. */
+  function reprice(ctx,w,h,time){
+    var t=Math.min(time,22),red=ACCENT,grey='#c8c8c8';
+    function clamp(x){return Math.max(0,Math.min(1,x));}
+    function ease(x){x=clamp(x);return x*x*(3-2*x);}
+    function mix(a,b,p){return a+(b-a)*p;}
+    function label(s,x,y,color,align){ctx.font='12px Menlo,Consolas,monospace';ctx.fillStyle=color||INK;ctx.textAlign=align||'center';ctx.fillText(s,x,y);}
+    function path(points,color,width,alpha){
+      ctx.globalAlpha=alpha===undefined?1:alpha;ctx.strokeStyle=color;ctx.lineWidth=width||1;ctx.beginPath();
+      points.forEach(function(p,i){if(i)ctx.lineTo(p.x,p.y);else ctx.moveTo(p.x,p.y);});ctx.stroke();ctx.globalAlpha=1;
+    }
+    function bit(x,y,size,color,alpha){ctx.globalAlpha=alpha===undefined?1:alpha;ctx.fillStyle=color||red;ctx.fillRect(Math.round(x-size/2),Math.round(y-size/2),size,size);ctx.globalAlpha=1;}
+    function route(a,b,q){
+      var elbow={x:b.x,y:a.y},d1=Math.abs(b.x-a.x),d2=Math.abs(b.y-a.y),d=q*(d1+d2);
+      return d<=d1?{x:mix(a.x,b.x,d1?d/d1:0),y:a.y}:{x:b.x,y:mix(a.y,b.y,d2?(d-d1)/d2:0)};
+    }
+    var nodes=[],cols=[w*.14,w*.5,w*.86],ys=[88,190,292];
+    var names=['SUPPLIER','LENDER','CARRIER','PAYMENT','CONTRACT','HEDGE','BUYER','CREDIT','STOCK'];
+    var fire=[7.2,4.8,8.3,5.3,3.0,5.9,9.3,6.5,10.4];
+    var fail={0:14.4,2:15.4,8:16.6};
+    for(var i=0;i<9;i++)nodes.push({x:cols[i%3],y:ys[Math.floor(i/3)]});
+    var links=[[4,1],[4,3],[4,5],[4,7],[1,0],[1,2],[3,6],[5,2],[5,8],[7,6],[7,8]];
+    label(t<3?'CONNECTED AGREEMENTS':t<14.4?'PROTECTION BECOMES A TRIGGER':'CONTRACTS SETTLE. CONNECTIONS FAIL.',12,20,INK,'left');
+    links.forEach(function(edge,k){
+      var a=nodes[edge[0]],b=nodes[edge[1]],active=t>fire[edge[0]],start=fire[edge[0]];
+      var brokenAt=Math.min(fail[edge[0]]||99,fail[edge[1]]||99),broken=t>=brokenAt;
+      var points=[a,{x:b.x,y:a.y},b],color=active?red:grey;
+      if(!broken)path(points,color,active?1.05:.7,active?.5:.65);
+      else{
+        ctx.setLineDash([3,7]);path(points,grey,.8,.65);ctx.setLineDash([]);
+        var fracture=route(a,b,.5);
+        path([{x:fracture.x-5,y:fracture.y-6},{x:fracture.x+5,y:fracture.y+6}],INK,1);
+        path([{x:fracture.x+5,y:fracture.y-6},{x:fracture.x-5,y:fracture.y+6}],INK,1);
       }
-    }
-    if(prog>0 && prog<1.02){                                     /* the wave front, an anti-diagonal band */
-      var u=2*prog, ax,ay,bx,by;
-      if(u<=1){ ax=mx+u*gw; ay=my; bx=mx; by=my+u*gh; }
-      else { ax=mx+gw; ay=my+(u-1)*gh; bx=mx+(u-1)*gw; by=my+gh; }
-      ctx.strokeStyle='rgba(139,0,0,.35)'; ctx.lineWidth=1.2;
-      ctx.beginPath(); ctx.moveTo(ax,ay); ctx.lineTo(bx,by); ctx.stroke();
-    }
-    var stage = ph<waveStart ? 'before' : (prog<1 ? 'the correction · minutes' : 'after');
-    ctx.fillStyle=SOFT; ctx.font='8px Menlo,monospace'; ctx.textAlign='left'; ctx.fillText(stage, 4, 14);
-    if(prog>=1){
-      ctx.fillText('the ones that could run repriced.', 4, h-10);
-      ctx.textAlign='right'; ctx.fillText('the rest froze.', w-4, h-10); ctx.textAlign='left';
-    }
-  }
-
-  /* ---------------- canvas wiring ---------------- */
-  var MAP={fourhundred:[fourhundred,9], sheet:[sheet,5], reprice:[reprice,20],
-           windows:[windows,19], saw:[saw,23.4], shutters:[shutters,26.5]};
-  Array.prototype.forEach.call(document.querySelectorAll('canvas[data-fig]'), function(c){
-    var m=MAP[c.getAttribute('data-fig')];
-    if(m) reg(c, m[0], m[1]);
-  });
-
-  /* Size and compose every canvas up front, so one that is never scrolled
-     into view still holds a still frame. Printing and full-page capture
-     otherwise get blank canvases at the default 300x150. */
-  function composeAll(){ figs.forEach(function(f){ fit(f); paint(f, f.heroT); }); }
-  composeAll();
-
-  var cio = ('IntersectionObserver' in window) ? new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      var f=figs.filter(function(x){return x.c===e.target;})[0];
-      if(f){ f.vis=e.isIntersecting; if(f.vis && still()) paint(f, f.heroT); }
-    });
-  },{rootMargin:'140px 0px'}) : null;
-  figs.forEach(function(f){ if(cio) cio.observe(f.c); else f.vis=true; });
-
-  var raf=null;
-  function loop(ms){
-    var t=ms/1000;
-    figs.forEach(function(f){ if(f.vis) paint(f,t); });
-    raf=requestAnimationFrame(loop);
-  }
-  function startCanvas(){
-    if(still()){ if(raf){ cancelAnimationFrame(raf); raf=null; } composeAll(); return; }
-    if(!raf) raf=requestAnimationFrame(loop);
-  }
-  var rt=null;
-  window.addEventListener('resize', function(){ clearTimeout(rt); rt=setTimeout(composeAll,140); });
-  if(window.matchMedia){
-    var mq=window.matchMedia('(prefers-reduced-motion: reduce)');
-    (mq.addEventListener ? mq.addEventListener.bind(mq,'change') : mq.addListener.bind(mq))(startCanvas);
-  }
-  startCanvas();
-
-  /* ---------------- SVG scroll trigger ---------------- */
-  var seen=[];
-  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting && !e.target.classList.contains('in')){
-        e.target.classList.add('in');
+      // A first burst carries the changed obligation to its neighbours.
+      for(var j=0;j<6;j++){
+        var p=(t-start-j*.12)/1.6;if(p>=0&&p<=1){
+          var point=route(a,b,p);bit(point.x,point.y+(j%2?2:-2),4,red);
+        }
+      }
+      // Further legal responses travel back along the same dependencies.
+      if(active&&t>start+2&&t<13.5){
+        for(var j2=0;j2<3;j2++){
+          var q=((t-start)*.7+j2/3+k*.13)%1,point2=route(b,a,q);
+          bit(point2.x,point2.y,3,red,.8);
+        }
+      }
+      // As a route breaks, its last packets fragment and fall away.
+      if(broken&&t<brokenAt+2){
+        var f=ease((t-brokenAt)/2),origin=route(a,b,.5);
+        for(var z=0;z<7;z++)bit(origin.x+(hash(z+k*7)-.5)*42*f,origin.y+f*(18+hash(z+7)*32),3,red,1-f);
+      }
+      if(!active&&t<3){
+        var q0=(t*.25+k*.19)%1,point0=route(a,b,q0);bit(point0.x,point0.y,3,INK,.4);
       }
     });
-  },{threshold:.18, rootMargin:'0px 0px -8% 0px'}) : null;
+    nodes.forEach(function(n,i){
+      var arrival=ease((t-fire[i])/.8),dead=fail[i]!==undefined&&t>=fail[i];
+      ctx.fillStyle=PAPER;ctx.fillRect(n.x-24,n.y-24,48,48);
+      ctx.strokeStyle=i===4?INK:(dead?grey:INK);ctx.lineWidth=i===4?1.5:1;ctx.strokeRect(n.x-22,n.y-22,44,44);
+      if(!dead){
+        // Fine contract marks resolve into a coarse, filled data matrix.
+        for(var r=0;r<5;r++)for(var c=0;c<5;c++){
+          var idx=r*5+c,settled=ease((t-fire[i]-.012*idx)/.8);
+          var x=n.x-14+c*7,y=n.y-14+r*7;
+          var scatter=(1-settled)*arrival;
+          bit(x+(hash(idx+i*31)-.5)*34*scatter,y+(hash(idx+i*13+3)-.5)*30*scatter,settled>0?4:2,settled>0?red:grey,settled>0?1:.7);
+        }
+      }else{
+        ctx.setLineDash([2,3]);ctx.strokeStyle=grey;ctx.strokeRect(n.x-15,n.y-15,30,30);ctx.setLineDash([]);
+        path([{x:n.x-9,y:n.y-9},{x:n.x+9,y:n.y+9}],SOFT,1);path([{x:n.x+9,y:n.y-9},{x:n.x-9,y:n.y+9}],SOFT,1);
+      }
+      label(i===4&&t>=12?'SETTLED':names[i],n.x,n.y+40,dead?SOFT:(arrival?red:INK));
+    });
+    path([{x:12,y:356},{x:w-12,y:356}],grey,.7);
+    label(t<3?'Ordinary obligations are connected.':t<7?'One agreement reprices.':t<14.4?'Its response changes the next agreement.':(w<440?'The business can still fail.':'A valid result cannot restore a failed supplier.'),12,381,SOFT,'left');
+  }
 
-  Array.prototype.forEach.call(document.querySelectorAll('.anim, .ledger'), function(n){
-    seen.push(n);
-    if(io) io.observe(n); else n.classList.add('in');
-  });
 
-  /* ---------------- controls ---------------- */
-  var btnM=document.getElementById('btn-motion'), btnR=document.getElementById('btn-replay');
-  btnM.addEventListener('click', function(){
-    var off = document.body.classList.toggle('nomotion');
-    btnM.textContent = off ? '◻ motion: off' : '◼ motion: on';
-    if(off){ seen.forEach(function(n){ n.classList.add('in'); }); }
-    startCanvas();
-  });
-  btnR.addEventListener('click', function(){
-    if(document.body.classList.contains('nomotion')) return;
-    seen.forEach(function(n){ n.classList.remove('in'); });
-    void document.body.offsetWidth;
-    setTimeout(function(){
-      seen.forEach(function(n){
-        var r=n.getBoundingClientRect();
-        if(r.top < window.innerHeight && r.bottom > 0){ n.classList.add('in'); }
-      });
-    }, 60);
-  });
+function records(ctx,w,h,t){
+ const red='#8b0000',ink='#111111',soft='#b7b7b7';
+ const clamp=x=>Math.min(1,Math.max(0,x)),ease=x=>{x=clamp(x);return x*x*(3-2*x)},mix=(a,b,p)=>a+(b-a)*p;
+ function line(a,b,color,alpha=1){ctx.globalAlpha=alpha;ctx.strokeStyle=color;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();ctx.globalAlpha=1;}
+ function label(s,x,y,color=ink){ctx.font='12px Menlo,Consolas,monospace';ctx.fillStyle=color;ctx.textAlign='center';ctx.fillText(s,x,y);}
+ function box(x,y,size,color,filled=false,alpha=1){ctx.globalAlpha=alpha;ctx.strokeStyle=color;ctx.fillStyle=filled?color:'#fff';ctx.lineWidth=1;ctx.fillRect(x-size/2,y-size/2,size,size);ctx.strokeRect(x-size/2,y-size/2,size,size);ctx.globalAlpha=1;}
+ label('FILES',w*.16,25);label('LINK',w*.5,25);label('REUSE',w*.83,25,red);
+ const src=[],mid=[],dst=[];
+ for(let i=0;i<9;i++){
+  let col=i%3,row=Math.floor(i/3);
+  src.push({x:w*.16+(col-1)*20,y:90+row*48+(col%2)*8});
+  mid.push({x:w*.5+(col-1)*20,y:108+row*30});
+  dst.push({x:w*.83+(col-1)*12,y:122+row*20});
+ }
+ ctx.setLineDash([2,4]);line({x:w/3,y:50},{x:w/3,y:235},'#dedede');line({x:w*2/3,y:50},{x:w*2/3,y:235},'#dedede');ctx.setLineDash([]);
+ const connect=ease((t-2)/2);
+ for(let i=0;i<8;i++)line(src[i],src[i+1],soft,connect*(1-ease((t-4)/4)));
+ for(let i=0;i<9;i++){
+  const s=src[i],m=mid[i],d=dst[i],travel=ease((t-4-i*.08)/3);
+  box(s.x,s.y,14,soft,false,1-travel*.82);
+  if(t<8){const x=mix(s.x,m.x,travel),y=mix(s.y,m.y,travel);box(x,y,14-travel*4,ink);if(travel<.65){line({x:x-4,y:y-2},{x:x+4,y:y-2},ink);line({x:x-4,y:y+2},{x:x+2,y:y+2},ink);}}
+  if(t>=7.8)box(m.x,m.y,10,red,false,ease((t-7.8)/.3));
+  if(t>=8){const q=ease((t-8-i*.1)/3);line(m,d,'#dedede',.6);if(q>0){box(mix(m.x,d.x,q),mix(m.y,d.y,q),6,red,true);}}
+ }
+ if(t>=7.5){for(let i=0;i<6;i++)line(mid[i],mid[i+3],red,.45*ease((t-7.5)/.5));}
+ label('scattered',w*.16,259,'#5a5a5a');label('related',w*.5,259,'#5a5a5a');label('portable',w*.83,259,red);
+}
+
+function sheetFig(ctx,w,h,time){ const c=ctx; let t=Math.min(time,16);
+const RED='#8b0000',INK='#111111',FAINT='#dedede',D=16;
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),ease=x=>{x=clamp(x);return x*x*(3-2*x)},lerp=(a,b,p)=>a+(b-a)*p;
+function line(x1,y1,x2,y2,color=INK,width=1){c.beginPath();c.strokeStyle=color;c.lineWidth=width;c.moveTo(x1,y1);c.lineTo(x2,y2);c.stroke();}
+function text(s,x,y,size=11,color=INK,align='left'){c.fillStyle=color;c.font=`${size}px Menlo,Consolas,monospace`;c.textAlign=align;c.fillText(s,x,y);}
+function ring(x,y,r=8,color=INK){c.beginPath();c.strokeStyle=color;c.lineWidth=1.2;c.arc(x,y,r,0,Math.PI*2);c.stroke();}
+function block(x,y,size=6,color=RED){c.fillStyle=color;c.fillRect(Math.round(x-size/2),Math.round(y-size/2),size,size);}
+function doc(x,y,color=INK,scale=1,progress=1){c.save();c.translate(Math.round(x),Math.round(y));c.scale(scale,scale);c.fillStyle='#fff';c.strokeStyle=color;c.lineWidth=1.2;c.beginPath();c.moveTo(-13,-18);c.lineTo(5,-18);c.lineTo(13,-10);c.lineTo(13,18);c.lineTo(-13,18);c.closePath();c.fill();c.stroke();line(5,-18,5,-10,color);line(5,-10,13,-10,color);for(let j=0;j<3;j++)line(-7,-5+j*6,-7+(j===2?9:15)*progress,-5+j*6,color,1);c.restore();}
+function tick(x,y,color=RED){line(x-4,y,x-1,y+3,color,1.4);line(x-1,y+3,x+5,y-4,color,1.4);}
+function reviewer(x,y,active,time){
+ ring(x,y-26,7);line(x-10,y-11,x-6,y-17);line(x-6,y-17,x+6,y-17);line(x+6,y-17,x+10,y-11);line(x-17,y-8,x+17,y-8);line(x-13,y-8,x-13,y+4);line(x+13,y-8,x+13,y+4);
+ if(active){const k=Math.floor(time*6)%4;line(x+5,y-14,x+10+k,y-8,INK,1.3);for(let j=0;j<k;j++)line(x-6+j*4,y-6,x-4+j*4,y-6,INK,1);}
+}
+function processor(x,y,active,time){
+ c.strokeStyle=active?RED:FAINT;c.lineWidth=1;c.strokeRect(x-18,y-30,36,36);
+ for(let row=0;row<4;row++)for(let col=0;col<4;col++){
+  const on=active&&((row+col+Math.floor(time*8))%5!==0);block(x-11+col*7,y-23+row*7,4,on?RED:'#ededed');
+ }
+ if(active){const scan=(time*32)%36;line(x-18,y-30+scan,x+18,y-30+scan,RED,1);}
+}
+function move(a,b,from,to){return {x:lerp(a.x,b.x,ease((t-from)/(to-from))),y:lerp(a.y,b.y,ease((t-from)/(to-from)))};}
+function packetPath(points,start,end,color=RED,count=8){
+ const duration=end-start;
+ for(let i=0;i<count;i++){
+  const q=(t-start-i*.075)/duration;if(q<0||q>1)continue;
+  const pos=q*(points.length-1),n=Math.min(points.length-2,Math.floor(pos)),f=pos-n;
+  block(lerp(points[n].x,points[n+1].x,f),lerp(points[n].y,points[n+1].y,f)+(i%2?3:-3),5,color);
+ }
+}
+function draw(){
+ c.clearRect(0,0,w,h);c.fillStyle='white';c.fillRect(0,0,w,h);
+ const mobile=w<550,fs=mobile?10:11,start=mobile?22:40,end=w-(mobile?25:45),xs=[w*.29,w*.49,w*.68];
+ const top=mobile?118:90,bottom=mobile?284:250,origin={x:start,y:(top+bottom)/2},topY=top+20,botY=bottom+20;
+ const finished=t>=10.35,selected=ease((t-12.1)/.9),rowTop=mobile?409:368;
+ // A common input branches into two routes; the red choice is made only after the comparison.
+ const fade=1-selected*.72;
+ c.globalAlpha=fade;text('OUTSIDE COUNSEL',start,top-62,fs);text('billed by the hour',end,top-62,mobile?9:10,'#777','right');
+ line(start,topY,end,topY,FAINT);line(start,origin.y,start,topY,FAINT);c.globalAlpha=1;
+ text('PLATFORM',start,bottom-62,fs,RED);text('paid by use',end,bottom-62,mobile?9:10,'#777','right');
+ line(start,botY,end,botY,t>=3.95?RED:FAINT,selected?1.7:1);line(start,origin.y,start,botY,t>=3.95?RED:FAINT,selected?1.7:1);
+ c.globalAlpha=fade;
+ const labels=['READ','REVISE','APPROVE'];
+ xs.forEach((x,i)=>{
+  const active=(i===0&&t>=1.5&&t<3.2)||(i===1&&t>=3.65&&t<5.25)||(i===0&&t>=5.8&&t<7.05)||(i===2&&t>=8&&t<9.25);
+  reviewer(x,top,active,t);text(labels[i],x,top+53,mobile?9:10,'#666','center');
+ });c.globalAlpha=1;
+ const machineLabels=['READ','CHECK','COMPLETE'];
+ xs.forEach((x,i)=>{processor(x,bottom,t>1.4&&(t-1.4)*1.2>i,t>=4.15?4.15:t);text(machineLabels[i],x,bottom+53,mobile?9:10,RED,'center');});
+ // The human document travels, waits, returns for a revision, and travels again.
+ if(t<.6){doc(origin.x,origin.y,INK,.75+ease(t/.6)*.2);}
+ let hp=null;
+ const stops=[{a:origin,b:{x:xs[0],y:topY},s:.55,e:1.5},
+ {a:{x:xs[0],y:topY},b:{x:xs[0],y:topY},s:1.5,e:3.2},
+ {a:{x:xs[0],y:topY},b:{x:xs[1],y:topY},s:3.2,e:3.65},
+ {a:{x:xs[1],y:topY},b:{x:xs[1],y:topY},s:3.65,e:5.25},
+ {a:{x:xs[1],y:topY},b:{x:xs[0],y:topY},s:5.25,e:5.8},
+ {a:{x:xs[0],y:topY},b:{x:xs[0],y:topY},s:5.8,e:7.05},
+ {a:{x:xs[0],y:topY},b:{x:xs[2],y:topY},s:7.05,e:8},
+ {a:{x:xs[2],y:topY},b:{x:xs[2],y:topY},s:8,e:9.25},
+ {a:{x:xs[2],y:topY},b:{x:end,y:topY},s:9.25,e:10.25}];
+ for(const s of stops)if(t>=s.s&&t<s.e)hp=move(s.a,s.b,s.s,s.e);
+ c.globalAlpha=fade;if(hp)doc(hp.x,hp.y,INK,mobile?.8:1.05);
+ if(t>=10.25){doc(end,topY,INK,mobile?.8:1.05);tick(end+18,topY+12,INK);}
+ // Billing marks accrue while the paper waits. They are symbolic, with no numerical scale.
+ if(t>1.5){
+ const bx=xs[0]-24,bw=xs[2]-xs[0]+48,by=top+79;
+ text(t<10.25?'the clock keeps running':'work complete',bx,by+16,9,'#888');
+ for(let i=0;i<Math.min(36,Math.floor((Math.min(t,10.25)-1.5)*4.2));i++){
+   const xx=bx+i*bw/36;line(xx,by-7,xx,by-(i%3===0?15:11),'#999',1);
+ }
+ }c.globalAlpha=1;
+ // The platform's document breaks into filled red bits that visibly travel through each check.
+ if(t>=.55&&t<1.4){const p=move(origin,{x:xs[0],y:botY},.55,1.4);doc(p.x,p.y,RED,mobile?.65:.82);}
+ packetPath([{x:xs[0],y:botY},{x:xs[1],y:botY},{x:xs[2],y:botY},{x:end,y:botY}],1.4,3.4,RED,8);
+ if(t>=3.95){doc(end,botY,RED,mobile?.8:1.05);tick(end+18,botY+12);text('work complete',xs[0]-24,bottom+87,9,RED);}
+ // A working comparison sheet assembles only after both routes have produced an answer.
+ const sheet=ease((t-9.8)/.8);c.globalAlpha=sheet;
+ const cw=(w-2*start)/3;line(start,rowTop,end,rowTop,INK);line(start,rowTop+61,end,rowTop+61,FAINT);
+ text('WORK',start+8,rowTop+19,9,'#777');text('COST',start+cw+8,rowTop+19,9,'#777');text('DECISION',start+2*cw+8,rowTop+19,9,'#777');
+ text('Comparable',start+8,rowTop+44,mobile?10:14);text(t>=11.2?(mobile?'Lower':'Lower on platform'):'Comparing…',start+cw+8,rowTop+44,mobile?10:13,t>=11.2?RED:INK);
+ text(t>=12.4?(mobile?'Platform':'Use the platform'):'Review',start+2*cw+8,rowTop+44,mobile?10:13,t>=12.4?RED:'#777');
+ if(t>=11.2)line(start+cw+8,rowTop+51,start+2*cw-10,rowTop+51,RED,2*ease((t-11.2)/.5));
+ c.globalAlpha=1;
+ // The next agreement takes the selected route. This is the consequence of the spreadsheet.
+ if(t>=13&&t<15.35){packetPath([origin,{x:start,y:botY},{x:xs[0],y:botY},{x:xs[1],y:botY},{x:xs[2],y:botY},{x:end,y:botY}],13,14.65,RED,7);}
+ if(t>=15){c.globalAlpha=ease((t-15)/.45);doc(end-7,botY-6,RED,.82);doc(end,botY,RED,.82);tick(end+18,botY+12);c.globalAlpha=1;}
+ let caption='The same agreement goes to both.',phase='01 / COMPARE';
+ if(t>=1.5){caption='One moves between people. One moves through a system.';phase='02 / PROCESS';}
+ if(t>=4){caption='The platform has finished. The clock is still running.';phase='03 / WAIT';}
+ if(t>=10.3){caption='Comparable work. A different cost.';phase='04 / COMPARE';}
+ if(t>=12.4){caption='The next agreement takes the other route.';phase='05 / CHOOSE';}
+
+}
+
+draw();
+}
+
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+let motionOn=!reduced.matches,raf=0,last=0;
+const map={records:[records,14,14],fourhundred:[fourhundred,12,9],sheet:[sheetFig,16,16],reprice:[reprice,22,22],saw:[saw,24,23.4],windows:[windows,24,24],shutters:[shutters,30,26.5]};
+const figures=Array.from(document.querySelectorAll('canvas[data-fig]')).map(c=>{
+ const conf=map[c.dataset.fig],host=c.closest('figure');
+ return {c,ctx:c.getContext('2d'),host,draw:conf[0],duration:conf[1],hero:conf[2],t:motionOn?0:conf[2],playing:motionOn,vis:false,w:0,h:0,seek:host.querySelector('input'),button:host.querySelector('[data-action="toggle"]'),status:host.querySelector('.motion-status'),output:host.querySelector('output')};
+});
+function phase(f){
+ if(f.c.dataset.fig==='reprice'){
+  if(f.t>=17)return 'The contracts have settled. Parts of the network have failed.';
+  if(f.t>=14.4)return 'Counterparties fail and the routes between them break.';
+  if(f.t>=7)return 'Each response changes the conditions for another contract.';
+  if(f.t>=3)return 'One contract reprices. Its protections trigger the next response.';
+  return 'Payments move through a connected network of agreements.';
+ }
+ if(f.c.dataset.fig==='windows'){
+  if(f.t>=21)return 'The order reaches the system. Future collections follow new terms.';
+  if(f.t>=17.5)return 'A court order travels back to the collection schedule.';
+  if(f.t>=15)return 'The applicant reaches a hearing. Collection is still running.';
+  if(f.t>=8.5)return 'The application is waiting. Payments continue to leave the account.';
+  if(f.t>=6)return 'The filing fee must be cleared before the case advances.';
+  if(f.t>=2)return 'A request for human review branches off from collection.';
+  return 'The collection schedule is already running.';
+ }
+ if(f.c.dataset.fig==='sheet'){
+  if(f.t>=12.4)return 'The next agreement takes the platform route.';
+  if(f.t>=10.3)return 'Comparable work. A different cost.';
+  if(f.t>=4)return 'The platform has finished. Billing continues.';
+  if(f.t>=1.5)return 'The agreement moves through both routes.';
+  return 'The same agreement goes to both.';
+ }
+ if(f.c.dataset.fig==='records'){
+  if(f.t>=11.8)return 'The linked record can move to another service.';
+  if(f.t>=8)return 'The connected record is exported as usable data.';
+  if(f.t>=4)return 'Documents converge into a related record.';
+  if(f.t>=2)return 'Links establish which records belong together.';
+  return 'The history is scattered across separate files.';
+ }
+ return f.t>=f.duration?'Sequence complete.':(!motionOn?'Motion off.':(!f.playing?'Paused.':'Illustrative sequence.'));
+}
+function ui(f){
+ f.seek.value=f.t.toFixed(2);f.output.textContent=f.t.toFixed(1)+' / '+f.duration+'s';
+ const playing=f.playing&&motionOn;
+ f.button.textContent=playing?'Ⅱ':'▶';
+ f.button.setAttribute('aria-label',(playing?'Pause ':'Play ')+f.host.querySelector('.fig-eyebrow b').textContent);
+ f.button.title=playing?'Pause':'Play';
+ f.status.textContent=phase(f);
+ f.c.dataset.time=f.t.toFixed(2);
+}
+function paint(f){f.ctx.clearRect(0,0,f.w,f.h);f.draw(f.ctx,f.w,f.h,f.t);ui(f);}
+function fit(f){
+ const box=f.c.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);
+ f.w=box.width;f.h=box.height;f.c.width=Math.round(box.width*d);f.c.height=Math.round(box.height*d);f.ctx.setTransform(d,0,0,d,0,0);paint(f);
+}
+const bm=document.getElementById('btn-motion'),br=document.getElementById('btn-replay');
+function globalUI(){bm.textContent=motionOn?'Ⅱ':'▶';bm.title=motionOn?'Pause all illustrations':'Enable animation';bm.setAttribute('aria-pressed',String(motionOn));document.body.classList.toggle('nomotion',!motionOn);figures.forEach(ui);}
+function tick(now){
+ raf=0;const dt=last?Math.min((now-last)/1000,.12):0;last=now;
+ figures.forEach(f=>{if(f.vis&&f.playing&&motionOn&&!document.documentElement.classList.contains('intro-active')){f.t=Math.min(f.duration,f.t+dt);if(f.t>=f.duration)f.playing=false;paint(f);}});
+ wake(false);
+}
+function wake(reset=true){
+ if(reset)last=0;
+ if(!document.hidden&&!document.documentElement.classList.contains('intro-active')&&motionOn&&figures.some(f=>f.vis&&f.playing)&&!raf)raf=requestAnimationFrame(tick);
+}
+figures.forEach(f=>{
+ fit(f);
+ f.button.addEventListener('click',()=>{
+  const wasOff=!motionOn;
+  if(wasOff){motionOn=true;globalUI();}
+  if(f.t>=f.duration){f.t=0;f.playing=true;}else f.playing=wasOff?true:!f.playing;
+  paint(f);wake();
+ });
+ f.host.querySelector('[data-action="replay"]').addEventListener('click',()=>{motionOn=true;f.t=0;f.playing=true;globalUI();paint(f);wake();});
+ f.seek.addEventListener('input',()=>{f.playing=false;f.t=Number(f.seek.value);paint(f);});
+});
+const observer=('IntersectionObserver'in window)?new IntersectionObserver(entries=>{
+ entries.forEach(e=>{const f=figures.find(f=>f.c===e.target);if(f)f.vis=e.isIntersecting;});wake();
+},{threshold:.3}):null;
+figures.forEach(f=>{if(observer)observer.observe(f.c);else f.vis=true;});
+bm.addEventListener('click',()=>{motionOn=!motionOn;globalUI();wake();});
+br.addEventListener('click',()=>{figures.filter(f=>f.vis).forEach(f=>{f.t=0;f.playing=motionOn;paint(f);});wake();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);raf=0;last=0;}else wake();});
+reduced.addEventListener('change',e=>{motionOn=!e.matches;if(e.matches)figures.forEach(f=>{f.t=f.hero;f.playing=false;paint(f);});globalUI();wake();});
+document.addEventListener('legalintro:start',()=>{cancelAnimationFrame(raf);raf=0;last=0;});
+document.addEventListener('legalintro:end',()=>wake());
+let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>figures.forEach(fit),100);});
+let printState;addEventListener('beforeprint',()=>{printState=figures.map(f=>f.t);figures.forEach(f=>{f.t=f.hero;paint(f);});});
+addEventListener('afterprint',()=>{if(printState)figures.forEach((f,i)=>{f.t=printState[i];paint(f);});});
+globalUI();wake();
 })();
+
 </script>
 <script>
 (function(){
@@ -1446,6 +1628,5 @@ body.nomotion .ledger .now{opacity:1!important}
   onScroll();
 })();
 </script>
-
 </body>
 </html>
